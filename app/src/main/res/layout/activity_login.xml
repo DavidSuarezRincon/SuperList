@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="@color/white"
+    android:backgroundTintMode="multiply"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textInicioSesion"
+        android:layout_width="409dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="multiply"
+        android:gravity="center"
+        android:text="LOGIN"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="349dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="104dp"
+        android:backgroundTint="@color/whiteBasic"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:shadowColor="@color/white"
+        android:textColor="@color/white"
+        android:textColorHint="@color/whiteBasic"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInicioSesion" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="346dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/whiteBasic"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:shadowColor="#FFFFFF"
+        android:textColor="@color/white"
+        android:textColorHint="@color/whiteBasic"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+    <Button
+        android:id="@+id/buttonLogIn"
+        android:textSize="18sp"
+        android:layout_width="154dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="148dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/black"
+        android:text="@string/textButton"
+        android:textColor="@color/whiteBasic"
+        android:outlineSpotShadowColor="@color/whiteBasic"
+        android:outlineAmbientShadowColor="@color/whiteBasic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

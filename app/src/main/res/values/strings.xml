@@ -1,0 +1,11 @@
+<resources>
+<!--    Strings sistema-->
+    <string name="app_name">SuperList</string>
+
+<!--    Strings Login-->
+    <string name="textLogin">LOGIN</string>
+    <string name="textEmail">Email</string>
+    <string name="textPassword">Password</string>
+    <string name="textButton">Sign In</string>
+
+</resources>
