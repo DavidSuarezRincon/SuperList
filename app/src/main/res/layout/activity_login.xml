@@ -56,8 +56,6 @@
         android:gravity="center"
         android:text="@string/textButton"
         android:textColor="@color/whiteBasic"
-        android:textColorHighlight="@color/black"
-        android:textColorLink="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
