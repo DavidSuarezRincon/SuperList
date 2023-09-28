@@ -8,5 +8,6 @@
     <string name="textPassword">Password</string>
     <string name="textButton">Sign In</string>
     <string name="textForgotPassword">Forgot Password?</string>
+    <string name="textRegister">Register?</string>
 
 </resources>

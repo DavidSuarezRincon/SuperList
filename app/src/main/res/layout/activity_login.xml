@@ -10,6 +10,23 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/loginForgotPassword2"
+        android:layout_width="70dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/textRegister"
+        android:textColor="@color/whiteBasic"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLogIn"
+        app:layout_constraintVertical_bias="0.588"
+        tools:ignore="TextSizeCheck" />
+
+    <TextView
         android:id="@+id/textLogin"
         android:layout_width="332dp"
         android:layout_height="70dp"
@@ -36,6 +53,7 @@
         android:layout_marginBottom="68dp"
         android:background="@color/black"
         android:backgroundTint="@color/black"
+        android:gravity="center"
         android:text="@string/textButton"
         android:textColor="@color/whiteBasic"
         android:textColorHighlight="@color/black"
@@ -46,7 +64,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginForgotPassword"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintVertical_bias="0.775" />
 
     <EditText
         android:id="@+id/userEmailData"
