@@ -7,5 +7,6 @@
     <string name="textEmail">Email</string>
     <string name="textPassword">Password</string>
     <string name="textButton">Sign In</string>
+    <string name="textForgotPassword">Forgot Password?</string>
 
 </resources>
