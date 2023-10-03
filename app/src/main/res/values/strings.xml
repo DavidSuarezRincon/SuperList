@@ -9,5 +9,6 @@
     <string name="textButton">Sign In</string>
     <string name="textForgotPassword">Forgot Password?</string>
     <string name="textRegister">Register?</string>
+    <string name="textToolBar">WELCOME</string>
 
 </resources>

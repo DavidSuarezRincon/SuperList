@@ -3,12 +3,14 @@
 
 <!--    Colores predeterminados-->
 
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
 
 <!--    Colores login-->
 
     <color name="whiteBasic">#d6d6d6</color>
+
 
 
 </resources>

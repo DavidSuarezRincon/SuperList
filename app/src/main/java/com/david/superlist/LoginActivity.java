@@ -1,12 +1,14 @@
 package com.david.superlist;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,9 +27,17 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        });
 
-        TextView texto = findViewById(R.id.loginForgotPassword);
+        TextView forgotPassword = findViewById(R.id.loginForgotPassword);
 
-        texto.setOnClickListener(view -> texto.setVisibility(View.INVISIBLE));
+        forgotPassword.setOnClickListener(view -> forgotPassword.setVisibility(View.INVISIBLE));
+
+        TextView register = findViewById(R.id.loginRegister);
+
+        register.setOnClickListener(
+            view ->
+                System.out.println("hola")
+
+        );
 
     }
 }
