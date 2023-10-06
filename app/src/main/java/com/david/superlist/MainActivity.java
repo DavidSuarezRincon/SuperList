@@ -21,7 +21,5 @@ public class MainActivity extends AppCompatActivity {
 
         boton.setOnClickListener(view -> startActivity(new Intent(this,LoginActivity.class)));
 
-
-
     }
 }
