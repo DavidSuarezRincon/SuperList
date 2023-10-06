@@ -1,0 +1,35 @@
+<resources>
+    <!--    Strings sistema-->
+    <string name="app_name">SuperList</string>
+
+    <!--    Strings Login-->
+    <string name="textLogin">LOGIN</string>
+    <string name="textEmail">Email</string>
+    <string name="textPassword">Password</string>
+    <string name="textButton">Sign In</string>
+    <string name="textForgotPassword">Forgot Password?</string>
+    <string name="textRegister">Register?</string>
+    <string name="textToolBar">WELCOME</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+<!--    Strings register -->
+
+    <string name="textTitleRegister"> Register</string>
+    <string name="textHintEmailRegister">Ejemplo@gmail.com</string>
+    <string name="textHintPassword1Register">Password</string>
+    <string name ="textHintPassword2Register">Repit Password</string>
+    <string name ="textButtonRegister">REGISTER</string>
+    <string name ="contentDescriptionPassword1Icon">Password1 Icon</string>
+    <string name ="contentDescriptionPassword2Icon">Password2 Icon</string>
+    <string name ="contentDescriptionArrowBack">ArrowBack Icon</string>
+    <string name="contentDescriptionEmailIcon">Email ICON</string>
+
+</resources>
