@@ -7,8 +7,30 @@
     android:background="@color/black"
     tools:context=".RegisterActivity">
 
+    <TextView
+        android:id="@+id/textRegister"
+        android:layout_width="332dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="124dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="multiply"
+        android:gravity="center"
+        android:text="@string/textRegister"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/RegisterInputEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="TextSizeCheck" />
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar5"
+        android:id="@+id/toolbarRegister"
         android:layout_width="410dp"
         android:layout_height="70dp"
         android:background="@color/whiteBasic"
@@ -83,10 +105,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar5" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegister" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageEmailRegister"
         android:layout_width="60dp"
         android:layout_height="54dp"
         android:layout_marginTop="152dp"
@@ -94,7 +116,7 @@
         app:layout_constraintEnd_toStartOf="@+id/RegisterInputEmail"
         app:layout_constraintHorizontal_bias="0.583"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar5"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarRegister"
         app:srcCompat="@drawable/iconemail" />
 
     <EditText
@@ -112,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/RegisterInputEmail" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/imagePassword1"
         android:layout_width="59dp"
         android:layout_height="59dp"
         android:layout_marginTop="48dp"
@@ -120,11 +142,11 @@
         app:layout_constraintEnd_toStartOf="@+id/textPassword1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageEmailRegister"
         app:srcCompat="@drawable/iconfirstpassword" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imagePassword2"
         android:layout_width="59dp"
         android:layout_height="51dp"
         android:layout_marginStart="20dp"
@@ -133,7 +155,7 @@
         app:layout_constraintEnd_toStartOf="@+id/textPassword2"
         app:layout_constraintHorizontal_bias="0.04"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imagePassword1"
         app:layout_constraintVertical_bias="0.003"
         app:srcCompat="@drawable/iconsecondpassword" />
 
