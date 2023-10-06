@@ -1,14 +1,12 @@
 package com.david.superlist;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +25,14 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        });
 
+        ImageButton goBack = findViewById(R.id.imgButtonGoBackLogin);
+
+        goBack.setOnClickListener(view -> {
+
+            finish();
+
+        });
+
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
 
         forgotPassword.setOnClickListener(view -> forgotPassword.setVisibility(View.INVISIBLE));
@@ -35,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
         register.setOnClickListener(
             view ->
-                System.out.println("hola")
+                    startActivity(new Intent(this,RegisterActivity.class))
 
         );
 
