@@ -25,13 +25,13 @@ public class LoginActivity extends AppCompatActivity {
 //
 //        });
 
-        ImageButton goBack = findViewById(R.id.imgButtonGoBackLogin);
-
-        goBack.setOnClickListener(view -> {
-
-            finish();
-
-        });
+//        ImageButton goBack = findViewById(R.id.imgButtonGoBackLogin);
+//
+//        goBack.setOnClickListener(view -> {
+//
+//            finish();
+//
+//        });
 
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
 
