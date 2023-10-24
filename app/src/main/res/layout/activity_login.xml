@@ -53,7 +53,7 @@
         android:layout_marginBottom="68dp"
         android:backgroundTint="@color/black"
         android:gravity="center"
-        android:text="@string/textButton"
+        android:text="@string/textButtonLogIn"
         android:textColor="@color/whiteBasic"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -122,7 +122,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="392dp"
+        android:layout_width="0dp"
         android:layout_height="73dp"
         android:background="@color/whiteBasic"
         android:minHeight="?attr/actionBarSize"
