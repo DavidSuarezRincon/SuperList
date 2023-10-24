@@ -17,21 +17,15 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        botonLogin = findViewById(R.id.buttonLogIn);
-//
-//        botonLogin.setOnClickListener(view -> {
-//
-//
-//
-//        });
 
-//        ImageButton goBack = findViewById(R.id.imgButtonGoBackLogin);
-//
-//        goBack.setOnClickListener(view -> {
-//
-//            finish();
-//
-//        });
+        ImageButton goBack = findViewById(R.id.imgButtonGoBackLogin);
+
+        goBack.setOnClickListener(v -> {
+
+            finish();
+
+        });
+
 
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
 
