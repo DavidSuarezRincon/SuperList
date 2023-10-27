@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
-public class AdaptadorLista
-        extends RecyclerView.Adapter<AdaptadorLista.TitularesViewHolder>
-        implements View.OnClickListener {
+public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.TitularesViewHolder> implements View.OnClickListener {
 
     private View.OnClickListener listener;
     private ArrayList<Lista> datos;
@@ -68,7 +67,7 @@ public class AdaptadorLista
 
     @Override
     public void onClick(View view) {
-        if(listener != null)
+        if (listener != null)
             listener.onClick(view);
     }
     /*@Override
