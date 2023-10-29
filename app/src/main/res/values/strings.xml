@@ -32,11 +32,18 @@
     <string name="contentDescriptionArrowBack">ArrowBack Icon</string>
     <string name="contentDescriptionEmailIcon">Email ICON</string>
 
-    <!--    String Forgot Password-->
+    <!--    Strings Forgot Password-->
     <string name="textHintEmailForgotPassword">TuEmail@gmail.com</string>
     <string name="textHintEmailForgotPassword2">RepiteTuEmail@gmail.com</string>
     <string name="textButtonForgotPassword">Send Email</string>
     <string name="textTitleForgotPassword">Type your Email</string>
 
+<!--    Strings activity_aniadirLista-->
+    <string name="textoNombreAniadirLista">Nombre: </string>
+    <string name="textoHintNombreAniadirLista">Mi Lista</string>
+    <string name="textoDescripcionAniadirLista">Descripción: </string>
+    <string name="textoHintDescripcionAniadirLista">Lista de la compra</string>
+    <string name="textoBotonAniadirLista">Añadir</string>
+    <string name="textoTituloAniadirLista">Crea tu lista</string>
 
 </resources>

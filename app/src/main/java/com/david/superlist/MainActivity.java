@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -36,29 +38,23 @@ public class MainActivity extends AppCompatActivity {
 
         iniciar();
 
-//        adaptador.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("DemoRecView", "Pulsado el elemento ");
-//            }
-//
-//        });
+        adaptador.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.i("DemoRecView", "Pulsado el elemento ");
+            }
+
+        });
 
 
-//        btnAniadirLista = findViewById(R.id.btnAniadirLista);
-//        btnAniadirLista.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//
-//                //datosLista.add(new Lista("Lista de la compra " + posicionLista, "Esto es una descripción", "27/10/2023"));
-//                adaptador.notifyItemInserted(posicionLista);
-//                posicionLista++;
-//                Log.i("Estoy Apretando", "El boton para aniadir");
-//            }
-//
-//        });
+        btnAniadirLista = findViewById(R.id.btnAniadirLista);
+        btnAniadirLista.setOnClickListener( view ->{
+
+            startActivity(new Intent(this,AniadirListaActivity.class));
+
+
+        });
 
     }
 
