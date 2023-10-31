@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".AniadirListaActivity">
 
+    <TextView
+        android:id="@+id/textoDescripcionAniadirLista"
+        android:layout_width="85dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/textoDescripcionAniadirLista"
+        app:layout_constraintBottom_toTopOf="@+id/botonAniadirListaActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textoNombreLista"
+        app:layout_constraintVertical_bias="0.0" />
+
     <EditText
         android:id="@+id/editTextDescripcionLista"
         android:layout_width="217dp"
@@ -20,53 +34,39 @@
         app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintStart_toEndOf="@+id/textoDescripcionAniadirLista"
         app:layout_constraintTop_toBottomOf="@+id/editTextNombreLista"
-        app:layout_constraintVertical_bias="0.027" />
-
-    <TextView
-        android:id="@+id/textoNombreLista"
-        android:layout_width="89dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="188dp"
-        android:gravity="center"
-        android:text="@string/textoNombreAniadirLista"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textoDescripcionAniadirLista"
-        android:layout_width="85dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="64dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/textoDescripcionAniadirLista"
-        app:layout_constraintBottom_toTopOf="@+id/botonAniadirListaActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoNombreLista"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/editTextNombreLista"
         android:layout_width="217dp"
         android:layout_height="54dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="188dp"
+        android:layout_marginTop="236dp"
         android:layout_weight="1"
         android:ems="10"
         android:hint="@string/textoHintNombreAniadirLista"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
+        app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toEndOf="@+id/textoNombreLista"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textoNombreLista"
+        android:layout_width="89dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="236dp"
+        android:gravity="center"
+        android:text="@string/textoNombreAniadirLista"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/botonAniadirListaActivity"
         android:layout_width="122dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="64dp"
         android:text="@string/textoBotonAniadirLista"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,23 +74,23 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="73dp"
+        android:layout_width="410dp"
+        android:layout_height="75dp"
         android:background="#000000"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <ImageButton
+            android:id="@+id/BotonVolverAniadirLista"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
             android:layout_weight="1"
             app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <TextView
             android:id="@+id/textoTituloAniadirLista"
-            android:layout_width="677dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
@@ -98,6 +98,7 @@
             android:text="@string/textoTituloAniadirLista"
             android:textColor="#FFFFFF"
             android:textSize="34sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

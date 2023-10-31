@@ -43,6 +43,7 @@ dependencies {
     implementation("androidx.annotation:annotation:1.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0-alpha02")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0-alpha02")
+    implementation("androidx.compose.ui:ui-graphics-android:1.5.4")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.0-alpha01")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0-alpha01")
