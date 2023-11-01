@@ -37,9 +37,9 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
         }
 
         public void bindTitular(Lista l) {
-            iconImagen.setColorFilter(l.getColor(), PorterDuff.Mode.SRC_IN);
 
             txtTitulo.setText(l.getTitulo());
+            txtTitulo.setTextColor(l.getColor());
             txtSubtitulo.setText(l.getDescripcion());
             txtFecha.setText(l.getFecha());
         }
