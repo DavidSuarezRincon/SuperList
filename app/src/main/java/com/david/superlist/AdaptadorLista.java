@@ -7,6 +7,7 @@ import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,14 +24,14 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
 
     public static class TitularesViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView iconImagen;
+        private final ImageButton iconoOpciones;
         private final TextView txtTitulo;
         private final TextView txtSubtitulo;
         private final TextView txtFecha;
 
         public TitularesViewHolder(View itemView) {
             super(itemView);
-            iconImagen =  itemView.findViewById(R.id.iconImageView);
+            iconoOpciones =  itemView.findViewById(R.id.imageButtonOpcionesLista);
             txtTitulo = itemView.findViewById(R.id.TxtVTitulo);
             txtSubtitulo = itemView.findViewById(R.id.TxtVDescripcion);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
