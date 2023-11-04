@@ -24,14 +24,14 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
 
     public static class TitularesViewHolder extends RecyclerView.ViewHolder {
 
-        private final ImageButton iconoOpciones;
+        //private final ImageButton iconoOpciones;
         private final TextView txtTitulo;
         private final TextView txtSubtitulo;
         private final TextView txtFecha;
 
         public TitularesViewHolder(View itemView) {
             super(itemView);
-            iconoOpciones =  itemView.findViewById(R.id.imageButtonOpcionesLista);
+            //iconoOpciones =  itemView.findViewById(R.id.imageButtonOpcionesLista);
             txtTitulo = itemView.findViewById(R.id.TxtVTitulo);
             txtSubtitulo = itemView.findViewById(R.id.TxtVDescripcion);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
@@ -66,6 +66,7 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
 
         viewHolder.bindTitular(item);
     }
+
 
     @Override
     public int getItemCount() {

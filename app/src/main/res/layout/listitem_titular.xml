@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="275dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="start"
@@ -52,32 +52,18 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
+            <TextView
+                android:id="@+id/TxtVFecha"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:orientation="vertical">
-
-                <ImageButton
-                    android:id="@+id/imageButtonOpcionesLista"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:src="@drawable/ic_trespuntosvertical" />
-
-                <TextView
-                    android:id="@+id/TxtVFecha"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="right"
-                    android:layout_marginEnd="6dp"
-                    android:text="27/10/2023"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginEnd="6dp"
+                android:text="27/10/2023"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
