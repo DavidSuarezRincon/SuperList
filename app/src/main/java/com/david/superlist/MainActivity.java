@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
+import android.widget.PopupMenu;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -107,7 +108,23 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     // Método que se ejecuta al hacer click largo en un item
     @Override
     public void onItemLongClick(int position) {
-        borrarLista(position);
-        adaptador.notifyItemRemoved(position);
+        // Variable no utilizada
+        int seleccion;
+
+        // Crear un nuevo menú emergente en la posición del elemento seleccionado
+        PopupMenu popup = new PopupMenu(MainActivity.this, recView.getChildAt(position));
+        // Inflar el menú con los elementos definidos en 'R.menu.activity_menulista'
+        popup.getMenuInflater().inflate(R.menu.activity_menulista, popup.getMenu());
+        // Mostrar el menú emergente
+        popup.show();
+        // Establecer un escuchador de eventos para los elementos del menú
+        popup.setOnMenuItemClickListener(item -> {
+            // Borrar el elemento de la lista en la posición seleccionada
+            borrarLista(position);
+            // Notificar al adaptador que un elemento ha sido eliminado
+            adaptador.notifyItemRemoved(position);
+            return true;
+        });
     }
+
 }

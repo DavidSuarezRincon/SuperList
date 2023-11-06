@@ -1,6 +1,7 @@
 package com.david.superlist;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 
 public class Lista {
@@ -11,6 +12,8 @@ public class Lista {
     private String fecha;
 
     public Lista(int color, String titulo, String descripcion, String fecha) {
+
+
         this.color = color;
         this.titulo = titulo;
         this.descripcion = descripcion;
