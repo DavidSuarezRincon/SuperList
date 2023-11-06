@@ -4,10 +4,10 @@
     <item
         android:id="@+id/item1"
         android:icon="@drawable/iconemail"
-        android:title="@string/app_name" />
+        android:title="@string/contentDescriptionPassword1Icon" />
     <item
-        android:id="+@id/item2"
+        android:id="@+id/item2"
         android:icon="@drawable/iconsecondpassword"
-        android:title="@string/app_name" />
+        android:title="@string/contentDescriptionEmailIcon" />
 
 </menu>

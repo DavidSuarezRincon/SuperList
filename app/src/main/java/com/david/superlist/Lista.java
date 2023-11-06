@@ -1,5 +1,8 @@
 package com.david.superlist;
 
+import android.content.Context;
+import android.widget.Button;
+
 public class Lista {
 
     public int color;

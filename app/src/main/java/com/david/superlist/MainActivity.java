@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -27,55 +28,41 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements Serializable {
+// Clase MainActivity que extiende de AppCompatActivity e implementa Serializable y RecyclerViewInterface
+public class MainActivity extends AppCompatActivity implements Serializable, RecyclerViewInterface {
 
+    // Declaración de variables
     private RecyclerView recView;
     private FloatingActionButton btnAniadirLista;
     private ArrayList<Lista> datosLista;
     private Button boton;
     private AdaptadorLista adaptador;
-
     private ActivityResultLauncher<Intent> resultLauncher;
 
-
+    // Método onCreate que se ejecuta al iniciar la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inicialización de botones y asignación de eventos onClick
         boton = findViewById(R.id.botonIr);
         boton.setOnClickListener(view -> startActivity(new Intent(this, LoginActivity.class)));
 
         btnAniadirLista = findViewById(R.id.btnAniadirLista);
         btnAniadirLista.setOnClickListener(view -> {
             Intent intent = new Intent(this, AniadirListaActivity.class);
-//            resultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//                    new ActivityResultCallback<ActivityResult>() {
-//                        @Override
-//                        public void onActivityResult(ActivityResult result) {
-//                            if (result.getResultCode() == Activity.RESULT_OK) {
-//
-//                                Intent data = result.getData();
-//                                String nombreLista = data.getStringExtra("NombreLista");
-//                                String descripcionLista = data.getStringExtra("DescripcionLista");
-//
-//                                aniadirLista(nombreLista,descripcionLista);
-//
-//                            }
-//                        }
-//                    });
             startActivity(intent);
-
-
         });
-        iniciar();
 
+        // Llamada al método iniciar
+        iniciar();
     }
 
+    // Método para inicializar la lista y el adaptador
     private void iniciar() {
-
         datosLista = new ArrayList<>();
-        adaptador = new AdaptadorLista(datosLista, this.getApplicationContext());
+        adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
         aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción");
         aniadirLista("Lista", "Lista");
@@ -85,17 +72,9 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         recView.setLayoutManager(new LinearLayoutManager(this));
         recView.setAdapter(adaptador);
         registerForContextMenu(recView);
-
-        public void onCreateContextMenu (ContextMenu menu, View v){
-            super.onCreateContextMenu(menu, v, menuInfo);
-
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.menu_ctx_etiqueta, menu);
-        }
-
-
     }
 
+    // Método para añadir una lista
     private void aniadirLista(String nombre, String Descripcion) {
         Random rand = new Random();
         Calendar calendario = Calendar.getInstance();
@@ -107,15 +86,28 @@ public class MainActivity extends AppCompatActivity implements Serializable {
         adaptador.notifyDataSetChanged();
     }
 
+    // Método para generar un color aleatorio
     public int colorRandom() {
         Random random = new Random();
         return Color.argb(255, random.nextInt(150), random.nextInt(150), random.nextInt(150));
     }
 
+    // Método para borrar una lista
     public void borrarLista(int numLista) {
-
         datosLista.remove(numLista);
         adaptador.notifyDataSetChanged();
+    }
 
+    // Método que se ejecuta al hacer click en un item
+    @Override
+    public void onItemClick(int position) {
+
+    }
+
+    // Método que se ejecuta al hacer click largo en un item
+    @Override
+    public void onItemLongClick(int position) {
+        borrarLista(position);
+        adaptador.notifyItemRemoved(position);
     }
 }

@@ -15,77 +15,100 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+// Clase AdaptadorLista que extiende de RecyclerView.Adapter
 public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.TitularesViewHolder> implements View.OnClickListener {
 
+    // Declaración de variables
     private View.OnClickListener listener;
-    private ArrayList<Lista> datos;
-    private LayoutInflater inflater;
-    private Context contexto;
+    private ArrayList<Lista> datos; // Lista de datos a mostrar en el RecyclerView
+    private LayoutInflater inflater; // Inflater para inflar la vista de cada item del RecyclerView
+    private Context contexto; // Contexto de la aplicación
+    private final RecyclerViewInterface recyclerViewInterface; // Interfaz para gestionar los clicks en los items del RecyclerView
 
+    // Constructor de la clase
+    public AdaptadorLista(ArrayList<Lista> datos, Context contexto, RecyclerViewInterface rvi) {
+        this.inflater = LayoutInflater.from(contexto);
+        this.datos = datos;
+        this.contexto = contexto;
+        this.recyclerViewInterface = rvi;
+    }
+
+    // Método para crear el ViewHolder
+    @Override
+    public TitularesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View itemView = inflater.inflate(R.layout.listitem_titular, null);
+        return new TitularesViewHolder(itemView, recyclerViewInterface);
+    }
+
+    // Método para vincular los datos con el ViewHolder
+    @Override
+    public void onBindViewHolder(TitularesViewHolder viewHolder, int pos) {
+        Lista item = datos.get(pos);
+        viewHolder.bindTitular(item);
+    }
+
+    // Método para obtener el número de elementos en los datos
+    @Override
+    public int getItemCount() {
+        return datos.size();
+    }
+
+    // Método para establecer el listener de click
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
+    }
+
+    // Método para gestionar el evento de click
+    @Override
+    public void onClick(View view) {
+        if (listener != null) listener.onClick(view);
+    }
+
+    // Método para establecer los elementos de la lista
+    public void setItems(ArrayList<Lista> items) {
+        datos = items;
+    }
+
+    // Clase TitularesViewHolder que extiende de RecyclerView.ViewHolder
     public static class TitularesViewHolder extends RecyclerView.ViewHolder {
 
-        //private final ImageButton iconoOpciones;
+        // Declaración de variables
         private final TextView txtTitulo;
         private final TextView txtSubtitulo;
         private final TextView txtFecha;
 
-        public TitularesViewHolder(View itemView) {
+        // Constructor de la clase
+        public TitularesViewHolder(View itemView, RecyclerViewInterface rvi) {
             super(itemView);
-            //iconoOpciones =  itemView.findViewById(R.id.imageButtonOpcionesLista);
+
+            // Inicialización de las vistas
             txtTitulo = itemView.findViewById(R.id.TxtVTitulo);
             txtSubtitulo = itemView.findViewById(R.id.TxtVDescripcion);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
+
+            // Establecimiento del listener de click largo
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (rvi != null) {
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION){
+                            rvi.onItemLongClick(pos);
+                        }
+                    }
+                    return true;
+                }
+            });
         }
 
+        // Método para vincular los datos con las vistas
         public void bindTitular(Lista l) {
-
             txtTitulo.setText(l.getTitulo());
             txtTitulo.setTextColor(l.getColor());
             txtSubtitulo.setText(l.getDescripcion());
             txtFecha.setText(l.getFecha());
         }
     }
-
-    public AdaptadorLista(ArrayList<Lista> datos, Context contexto) {
-        this.inflater = LayoutInflater.from(contexto);
-        this.datos = datos;
-        this.contexto = contexto;
-    }
-
-    @Override
-    public TitularesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View itemView = inflater.inflate(R.layout.listitem_titular, null);
-        //itemView.setOnClickListener(this);
-        //TitularesViewHolder tvh = new TitularesViewHolder(itemView);
-        return new TitularesViewHolder(itemView);
-    }
-
-    @Override
-    public void onBindViewHolder(TitularesViewHolder viewHolder, int pos) {
-        Lista item = datos.get(pos);
-
-        viewHolder.bindTitular(item);
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return datos.size();
-    }
-
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (listener != null) listener.onClick(view);
-    }
-
-    public void setItems(ArrayList<Lista> items) {
-
-        datos = items;
-
-    }
-
 }
+
+
