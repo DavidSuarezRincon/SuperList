@@ -108,21 +108,29 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     // Método que se ejecuta al hacer click largo en un item
     @Override
     public void onItemLongClick(int position) {
-        // Variable no utilizada
-        int seleccion;
 
         // Crear un nuevo menú emergente en la posición del elemento seleccionado
         PopupMenu popup = new PopupMenu(MainActivity.this, recView.getChildAt(position));
         // Inflar el menú con los elementos definidos en 'R.menu.activity_menulista'
         popup.getMenuInflater().inflate(R.menu.activity_menulista, popup.getMenu());
-        // Mostrar el menú emergente
         popup.show();
-        // Establecer un escuchador de eventos para los elementos del menú
+
+        // Establecer un listener de eventos para los elementos del menú
         popup.setOnMenuItemClickListener(item -> {
-            // Borrar el elemento de la lista en la posición seleccionada
-            borrarLista(position);
-            // Notificar al adaptador que un elemento ha sido eliminado
-            adaptador.notifyItemRemoved(position);
+
+            int numeroItem = item.getItemId(); // La id del item que fue clicado.
+
+            if (numeroItem == 0) {
+
+            } else if (numeroItem == 1) {
+
+                // Borrar el elemento de la lista en la posición seleccionada
+
+                borrarLista(position);
+                adaptador.notifyItemRemoved(position);
+
+            }
+
             return true;
         });
     }
