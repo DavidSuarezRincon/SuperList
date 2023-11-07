@@ -46,4 +46,11 @@
     <string name="textoBotonAniadirLista">Añadir</string>
     <string name="textoTituloAniadirLista">Crea tu lista</string>
 
+<!--    Menu lista -->
+
+    <string name="textoMenuListaSeleccion1">Abrir</string>
+    <string name="textoMenuListaSeleccion2">Borrar</string>
+
+
+
 </resources>

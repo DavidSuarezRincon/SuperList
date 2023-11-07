@@ -1,22 +1,12 @@
 package com.david.superlist;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
-
 import android.widget.PopupMenu;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
+
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,14 +37,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         setContentView(R.layout.activity_main);
 
         // Inicialización de botones y asignación de eventos onClick
-        boton = findViewById(R.id.botonIr);
-        boton.setOnClickListener(view -> startActivity(new Intent(this, LoginActivity.class)));
 
-        btnAniadirLista = findViewById(R.id.btnAniadirLista);
-        btnAniadirLista.setOnClickListener(view -> {
-            Intent intent = new Intent(this, AniadirListaActivity.class);
-            startActivity(intent);
-        });
+//        btnAniadirLista = findViewById(R.id.btnAniadirLista);
+//        btnAniadirLista.setOnClickListener(view -> {
+//            Intent intent = new Intent(this, AniadirListaActivity.class);
+//            startActivity(intent);
+//        });
 
         // Llamada al método iniciar
         iniciar();
@@ -128,10 +116,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
                 borrarLista(position);
                 adaptador.notifyItemRemoved(position);
-
             }
-
-            return true;
+            return numeroItem >= 0;
         });
     }
 
