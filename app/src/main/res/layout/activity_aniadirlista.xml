@@ -6,76 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".AniadirListaActivity">
 
-    <TextView
-        android:id="@+id/textoDescripcionAniadirLista"
-        android:layout_width="85dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="64dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/textoDescripcionAniadirLista"
-        app:layout_constraintBottom_toTopOf="@+id/botonAniadirListaActivity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textoNombreLista"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextDescripcionLista"
-        android:layout_width="217dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="68dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="@string/textoHintDescripcionAniadirLista"
-        android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/botonAniadirListaActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.315"
-        app:layout_constraintStart_toEndOf="@+id/textoDescripcionAniadirLista"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNombreLista"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextNombreLista"
-        android:layout_width="217dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="236dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:hint="@string/textoHintNombreAniadirLista"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toEndOf="@+id/textoNombreLista"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textoNombreLista"
-        android:layout_width="89dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="236dp"
-        android:gravity="center"
-        android:text="@string/textoNombreAniadirLista"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/botonAniadirListaActivity"
-        android:layout_width="122dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/textoBotonAniadirLista"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <LinearLayout
-        android:layout_width="410dp"
-        android:layout_height="75dp"
+        android:id="@+id/CabeceraLinearLayout"
+        android:layout_width="413dp"
+        android:layout_height="72dp"
         android:background="#000000"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,4 +35,92 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/NombreListaLinearLayout"
+        android:layout_width="333dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="133dp">
+
+        <TextView
+            android:id="@+id/NombreTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nombre:" />
+
+        <EditText
+            android:id="@+id/NombreEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="MiLista"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/DescripcionLayoutLinearLayout"
+        android:layout_width="333dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="209dp">
+
+        <TextView
+            android:id="@+id/DescripcionTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Descripcion:" />
+
+        <EditText
+            android:id="@+id/DescripcionEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="La lista de la compra"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/FechaLimiteLinearLayout"
+        android:layout_width="333dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="293dp">
+
+        <TextView
+            android:id="@+id/FechaLimiteTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fecha Limite:" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/TipoListaLinerLayout"
+        android:layout_width="333dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="380dp"></LinearLayout>
+
+    <Button
+        android:id="@+id/botonAniadirListaActivity"
+        android:layout_width="122dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/textoBotonAniadirLista"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+

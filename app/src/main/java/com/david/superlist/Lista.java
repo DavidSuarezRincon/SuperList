@@ -9,15 +9,19 @@ public class Lista {
     public int color;
     private String titulo;
     private String descripcion;
-    private String fecha;
+    private String fechaFin;
+    private String tipo;
+    private String fechaCreacion;
 
-    public Lista(int color, String titulo, String descripcion, String fecha) {
+    public Lista(int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion) {
 
 
         this.color = color;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.fecha = fecha;
+        this.fechaFin = fechaFin;
+        this.tipo = tipo;
+        this.fechaCreacion = fechaCreacion;
     }
 
     public int getColor() {
@@ -32,8 +36,28 @@ public class Lista {
         return descripcion;
     }
 
+    public String getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(String fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getFechaCreacion() {
+        return fechaCreacion;
+    }
+
     public String getFecha() {
-        return fecha;
+        return fechaCreacion;
     }
 
     public void setTitulo(String titulo) {
@@ -44,9 +68,10 @@ public class Lista {
         this.descripcion = descripcion;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaCreacion(String fecha) {
+        this.fechaCreacion = fecha;
     }
+
     public void setColor(int color) {
         this.color = color;
     }

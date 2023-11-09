@@ -30,8 +30,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         botonVolver.setOnClickListener(v -> {
             finish();
         });
-        nombre = findViewById(R.id.editTextNombreLista);
-        descripcion = findViewById(R.id.editTextDescripcionLista);
+        //nombre = findViewById(R.id.editTextNombreLista);
+        //descripcion = findViewById(R.id.editTextDescripcionLista);
 
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
         botonAniadir.setOnClickListener(View -> {

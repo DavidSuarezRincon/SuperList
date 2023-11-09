@@ -33,31 +33,22 @@
             android:text="Mis Listas"
             android:textColor="@color/white"
             android:textSize="25dp" />
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAniadirLista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_width="60dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="60dp"
         android:clickable="true"
+        app:fabCustomSize="66dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintHorizontal_bias="0.846"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/iconoaniadirlista" />
-
-    <Button
-        android:id="@+id/botonIr"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ir a login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:maxImageSize="35dp"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLista"

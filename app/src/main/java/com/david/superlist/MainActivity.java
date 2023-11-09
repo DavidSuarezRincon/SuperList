@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     private RecyclerView recView;
     private FloatingActionButton btnAniadirLista;
     private ArrayList<Lista> datosLista;
-    private Button boton;
+    private ImageButton botonMenuEmergente;
     private AdaptadorLista adaptador;
     private ActivityResultLauncher<Intent> resultLauncher;
 
@@ -39,23 +40,25 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
         // Inicialización de botones y asignación de eventos onClick
 
-//        btnAniadirLista = findViewById(R.id.btnAniadirLista);
-//        btnAniadirLista.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, AniadirListaActivity.class);
-//            startActivity(intent);
-//        });
+        btnAniadirLista = findViewById(R.id.btnAniadirLista);
+        btnAniadirLista.setOnClickListener(view -> {
+            Intent intent = new Intent(this, AniadirListaActivity.class);
+            startActivity(intent);
+        });
 
-        // Llamada al método iniciar
-        iniciar();
+        // Llamada a métodos iniciar
+        iniciarMenuEmergente();
+        iniciarLista();
     }
 
     // Método para inicializar la lista y el adaptador
-    private void iniciar() {
+    private void iniciarLista() {
+
         datosLista = new ArrayList<>();
         adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
-        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción");
-        aniadirLista("Lista", "Lista");
+//        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción");
+//        aniadirLista("Lista", "Lista");
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -64,15 +67,23 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         registerForContextMenu(recView);
     }
 
+    private void iniciarMenuEmergente(){
+        botonMenuEmergente = findViewById(R.id.BotonMenu);
+
+
+
+    }
+
+
     // Método para añadir una lista
-    private void aniadirLista(String nombre, String Descripcion) {
+    private void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo) {
         Random rand = new Random();
         Calendar calendario = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendario.getTime());
 
-        datosLista.add(new Lista(colorRandom(), nombre, Descripcion, currentDate));
+        datosLista.add(new Lista(colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate));
         adaptador.notifyDataSetChanged();
     }
 
