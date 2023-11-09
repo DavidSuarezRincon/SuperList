@@ -3,6 +3,7 @@ package com.david.superlist;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
@@ -82,10 +83,16 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     // Método para borrar una lista
-    public void borrarLista(int numLista) {
+    public void borrarItemLista(int numLista) {
         datosLista.remove(numLista);
-        adaptador.notifyDataSetChanged();
+        adaptador.notifyItemRemoved(numLista);
     }
+
+    public void abrirItemLista(int numLista) {
+
+
+    }
+
 
     // Método que se ejecuta al hacer click en un item
     @Override
@@ -97,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     @Override
     public void onItemLongClick(int position) {
 
+        Log.i("mainPosition", "onItemLongClick:" + position);
+
         // Crear un nuevo menú emergente en la posición del elemento seleccionado
         PopupMenu popup = new PopupMenu(MainActivity.this, recView.getChildAt(position));
         // Inflar el menú con los elementos definidos en 'R.menu.activity_menulista'
@@ -106,18 +115,17 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         // Establecer un listener de eventos para los elementos del menú
         popup.setOnMenuItemClickListener(item -> {
 
-            int numeroItem = item.getItemId(); // La id del item que fue clicado.
+            String nombreItemClicado = new String((String) item.getTitle()); // El nombre del item que fue clicado (Abrir, Borrar).
+            switch (nombreItemClicado) {
 
-            if (numeroItem == 0) {
-
-            } else if (numeroItem == 1) {
-
-                // Borrar el elemento de la lista en la posición seleccionada
-
-                borrarLista(position);
-                adaptador.notifyItemRemoved(position);
+                case "Abrir":
+                    abrirItemLista(position);
+                    break;
+                case "Borrar":
+                    borrarItemLista(position);
+                    break;
             }
-            return numeroItem >= 0;
+            return nombreItemClicado != null;
         });
     }
 
