@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@color/black"
-                                                   android:backgroundTint="@color/white"
-                                                   android:backgroundTintMode="multiply"
-                                                   tools:context=".MainActivity" tools:ignore="ExtraText">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="@color/white"
+    android:backgroundTintMode="multiply"
+    tools:context=".MainActivity"
+    tools:ignore="ExtraText">
 
     <TextView
         android:id="@+id/loginRegister"
@@ -97,28 +98,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.862"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userDataPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tilPassword"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="TextSizeCheck" />
 
-    <EditText
-        android:id="@+id/userDataPassword"
-        android:layout_width="337dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="64dp"
-        android:autofillHints="password"
-        android:backgroundTint="@color/whiteBasic"
-        android:ems="10"
-        android:hint="@string/textPassword"
-        android:inputType="textPassword"
-        android:shadowColor="#FFFFFF"
-        android:textColor="@color/white"
-        android:textColorHint="@color/whiteBasic"
-        android:textStyle="italic"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
+        app:passwordToggleTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmailData" />
+        app:layout_constraintTop_toBottomOf="@+id/userEmailData">
+
+        <EditText
+            android:id="@+id/userDataPassword"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="32dp"
+            android:autofillHints="password"
+            android:backgroundTint="@color/whiteBasic"
+            android:drawableEnd="@drawable/icon_eye"
+            android:ems="10"
+            android:hint="@string/textPassword"
+            android:inputType="textPassword"
+            android:shadowColor="#FFFFFF"
+            android:textColor="@color/white"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic"
+             />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -133,20 +146,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/imgButtonGoBackLogin"
-        android:layout_width="65dp"
-        android:layout_height="71dp"
-        android:contentDescription="@string/contentDescriptionArrowBack"
-        android:scrollbarSize="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.003"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert"
-        app:tint="@color/black"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
