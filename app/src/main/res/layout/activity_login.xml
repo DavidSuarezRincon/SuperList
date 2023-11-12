@@ -66,6 +66,15 @@
         app:strokeColor="@color/white"
         app:strokeWidth="2dp" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLogin">
+
     <EditText
         android:id="@+id/userEmailData"
         android:layout_width="334dp"
@@ -84,6 +93,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLogin" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/loginForgotPassword"
@@ -106,11 +116,13 @@
         android:id="@+id/tilPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
         app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:passwordToggleTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userEmailData">
+        app:layout_constraintTop_toBottomOf="@+id/tilEmail"
+        >
 
         <EditText
             android:id="@+id/userDataPassword"
@@ -126,8 +138,7 @@
             android:shadowColor="#FFFFFF"
             android:textColor="@color/white"
             android:textColorHint="@color/whiteBasic"
-            android:textStyle="italic"
-             />
+            android:textStyle="italic" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
