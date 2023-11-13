@@ -75,24 +75,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textLogin">
 
-    <EditText
-        android:id="@+id/userEmailData"
-        android:layout_width="334dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="80dp"
-        android:autofillHints="emailAddress"
-        android:backgroundTint="@color/whiteBasic"
-        android:ems="10"
-        android:hint="@string/textEmail"
-        android:inputType="textEmailAddress"
-        android:shadowColor="@color/white"
-        android:textColor="@color/white"
-        android:textColorHint="@color/whiteBasic"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLogin" />
+        <EditText
+            android:id="@+id/userEmailData"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="80dp"
+            android:autofillHints="emailAddress"
+            android:backgroundTint="@color/whiteBasic"
+            android:ems="10"
+            android:hint="@string/textEmail"
+            android:inputType="textEmailAddress"
+            android:shadowColor="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textLogin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
