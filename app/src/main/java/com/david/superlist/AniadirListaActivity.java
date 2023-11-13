@@ -1,19 +1,16 @@
 package com.david.superlist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AniadirListaActivity extends AppCompatActivity {
 
-    TextView nombre;
-    TextView descripcion;
+    EditText nombre, descripcion;
     Button botonAniadir;
     ImageButton botonVolver;
 
@@ -30,8 +27,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         botonVolver.setOnClickListener(v -> {
             finish();
         });
-        //nombre = findViewById(R.id.editTextNombreLista);
-        //descripcion = findViewById(R.id.editTextDescripcionLista);
+        nombre = findViewById(R.id.NombreEditText);
+        descripcion = findViewById(R.id.DescripcionEditText);
 
 
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
@@ -40,11 +37,23 @@ public class AniadirListaActivity extends AppCompatActivity {
             String elNombre = nombre.getText().toString();
             String laDescripcion = descripcion.getText().toString();
 
-            if (!TextUtils.isEmpty(elNombre.trim()) && !TextUtils.isEmpty(laDescripcion.trim())) {
-                finish();
+            if (TextUtils.isEmpty(elNombre.trim()) && !TextUtils.isEmpty(laDescripcion.trim())) {
+                ponerError(nombre);
+                ponerError(descripcion);
+                return;
+
             }
 
+            finish();
 
         });
+
+
+    }
+
+    private void ponerError(EditText et) {
+
+        et.setError("Este campo es obligatorio.");
+
     }
 }

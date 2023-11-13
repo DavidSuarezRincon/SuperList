@@ -9,9 +9,11 @@
     <LinearLayout
         android:id="@+id/CabeceraLinearLayout"
         android:layout_width="413dp"
-        android:layout_height="72dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="61dp"
         android:background="#000000"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/NombreListaLinearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,23 +39,29 @@
 
     <LinearLayout
         android:id="@+id/NombreListaLinearLayout"
-        android:layout_width="333dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="11dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="133dp">
+        app:layout_constraintBottom_toTopOf="@+id/DescripcionLayoutLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout">
 
         <TextView
             android:id="@+id/NombreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Nombre:" />
 
         <EditText
             android:id="@+id/NombreEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
             android:hint="MiLista"
@@ -62,23 +70,29 @@
 
     <LinearLayout
         android:id="@+id/DescripcionLayoutLinearLayout"
-        android:layout_width="333dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="19dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="209dp">
+        app:layout_constraintBottom_toTopOf="@+id/FechaLimiteLinearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreListaLinearLayout">
 
         <TextView
             android:id="@+id/DescripcionTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Descripcion:" />
 
         <EditText
             android:id="@+id/DescripcionEditText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:ems="10"
             android:hint="La lista de la compra"
@@ -87,28 +101,72 @@
 
     <LinearLayout
         android:id="@+id/FechaLimiteLinearLayout"
-        android:layout_width="333dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="22dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="293dp">
+        app:layout_constraintBottom_toTopOf="@+id/TipoListaLinerLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DescripcionLayoutLinearLayout">
 
         <TextView
             android:id="@+id/FechaLimiteTextView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
             android:text="Fecha Limite:" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="date" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_calendario_fecha" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/TipoListaLinerLayout"
-        android:layout_width="333dp"
-        android:layout_height="65dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="286dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="380dp"></LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FechaLimiteLinearLayout">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="Tipo:" />
+
+        <EditText
+            android:id="@+id/editTextText2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="text"
+            android:text="Name" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/botonAniadirListaActivity"
