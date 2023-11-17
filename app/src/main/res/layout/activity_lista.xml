@@ -45,7 +45,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/TxtVDescripcion"
+                    android:id="@+id/TxtVTipoLista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lista de la compra"

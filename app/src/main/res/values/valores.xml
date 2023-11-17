@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="opcionesSpinnerAddLista">
+        <item>Lista de la compra</item>
+        <item>Lista de deseos</item>
+        <item>Lista de tareas</item>
+        <item>Receta</item>
+        <item>Otro</item>
+    </string-array>
+</resources>

@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".AniadirListaActivity">
 
+
+
     <LinearLayout
         android:id="@+id/CabeceraLinearLayout"
         android:layout_width="413dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="61dp"
         android:background="#000000"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/NombreListaLinearLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -37,136 +37,71 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/NombreListaLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="11dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/DescripcionLayoutLinearLayout"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilListName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout">
 
-        <TextView
-            android:id="@+id/NombreTextView"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Nombre:" />
-
         <EditText
             android:id="@+id/NombreEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="80dp"
+            android:autofillHints="Name of the list"
+            android:backgroundTint="@color/whiteBasic"
             android:ems="10"
-            android:hint="MiLista"
-            android:inputType="text" />
-    </LinearLayout>
+            android:hint="Nombre"
+            android:inputType="textEmailAddress"
+            android:shadowColor="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textLogin" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/DescripcionLayoutLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="19dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/FechaLimiteLinearLayout"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilListDescripction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NombreListaLinearLayout">
-
-        <TextView
-            android:id="@+id/DescripcionTextView"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Descripcion:" />
+        app:layout_constraintTop_toBottomOf="@id/tilListName">
 
         <EditText
             android:id="@+id/DescripcionEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="0dp"
+            android:autofillHints="Name of the list"
+            android:backgroundTint="@color/whiteBasic"
             android:ems="10"
-            android:hint="La lista de la compra"
-            android:inputType="text" />
-    </LinearLayout>
+            android:hint="Nombre"
+            android:inputType="textEmailAddress"
+            android:shadowColor="@color/white"
+            android:textColor="@color/white"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/FechaLimiteLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="22dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/TipoListaLinerLayout"
+
+    <Spinner
+        android:id="@+id/spinnerTipoLista"
+        android:layout_width="337dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/opcionesSpinnerAddLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DescripcionLayoutLinearLayout">
-
-        <TextView
-            android:id="@+id/FechaLimiteTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Fecha Limite:" />
-
-        <EditText
-            android:id="@+id/editTextDate"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="date" />
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/ic_calendario_fecha" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/TipoListaLinerLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginBottom="286dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FechaLimiteLinearLayout">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="32dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Tipo:" />
-
-        <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Name" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@id/tilListDescripction" />
 
     <Button
         android:id="@+id/botonAniadirListaActivity"
@@ -178,6 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -2,16 +2,11 @@ package com.david.superlist;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -36,7 +31,7 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
     // Método para crear el ViewHolder
     @Override
     public TitularesViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View itemView = inflater.inflate(R.layout.listitem_titular, null);
+        View itemView = inflater.inflate(R.layout.activity_lista, null);
         return new TitularesViewHolder(itemView, recyclerViewInterface);
     }
 
@@ -83,7 +78,7 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
 
             // Inicialización de las vistas
             txtTitulo = itemView.findViewById(R.id.TxtVTitulo);
-            txtSubtitulo = itemView.findViewById(R.id.TxtVDescripcion);
+            txtSubtitulo = itemView.findViewById(R.id.TxtVTipoLista);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
 
             // Establecimiento del listener de click largo

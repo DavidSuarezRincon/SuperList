@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         datosLista = new ArrayList<>();
         adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
-//        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción");
-//        aniadirLista("Lista", "Lista");
+        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios");
+        aniadirLista("Lista", "Lista","Hola","adios");
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
