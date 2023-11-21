@@ -7,7 +7,6 @@
     tools:context=".AniadirListaActivity">
 
 
-
     <LinearLayout
         android:id="@+id/CabeceraLinearLayout"
         android:layout_width="413dp"
@@ -84,7 +83,7 @@
             android:autofillHints="Name of the list"
             android:backgroundTint="@color/whiteBasic"
             android:ems="10"
-            android:hint="Nombre"
+            android:hint="Descripción"
             android:inputType="textEmailAddress"
             android:shadowColor="@color/white"
             android:textColor="@color/white"
@@ -96,12 +95,11 @@
     <Spinner
         android:id="@+id/spinnerTipoLista"
         android:layout_width="337dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="30dp"
         android:entries="@array/opcionesSpinnerAddLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilListDescripction" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/botonAniadirListaActivity"
@@ -113,6 +111,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical"
+        android:text="Tipo:"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilListDescripction" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
