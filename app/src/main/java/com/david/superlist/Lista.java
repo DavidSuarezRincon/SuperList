@@ -15,13 +15,13 @@ public class Lista {
 
     public Lista(int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion) {
 
-
         this.color = color;
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.fechaFin = fechaFin;
         this.tipo = tipo;
         this.fechaCreacion = fechaCreacion;
+
     }
 
     public int getColor() {

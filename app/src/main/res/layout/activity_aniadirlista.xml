@@ -47,23 +47,23 @@
         app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout">
 
         <EditText
-                android:id="@+id/NombreEditText"
-                android:layout_width="337dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="80dp"
-                android:autofillHints="Name of the list"
-                android:backgroundTint="@color/whiteBasic"
-                android:ems="10"
-                android:hint="Nombre"
-                android:inputType="textEmailAddress"
-                android:shadowColor="@color/white"
-                android:textColorHint="@color/whiteBasic"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.493"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textLogin"
-                android:textColor="@color/design_default_color_on_secondary"/>
+            android:id="@+id/NombreEditText"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="80dp"
+            android:autofillHints="Name of the list"
+            android:backgroundTint="@color/whiteBasic"
+            android:ems="10"
+            android:hint="Nombre"
+            android:inputType="textEmailAddress"
+            android:shadowColor="@color/white"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.493"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textLogin" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -76,19 +76,19 @@
         app:layout_constraintTop_toBottomOf="@id/tilListName">
 
         <EditText
-                android:id="@+id/DescripcionEditText"
-                android:layout_width="337dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="0dp"
-                android:autofillHints="Name of the list"
-                android:backgroundTint="@color/whiteBasic"
-                android:ems="10"
-                android:hint="Descripción"
-                android:inputType="textEmailAddress"
-                android:shadowColor="@color/white"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textColorHint="@color/whiteBasic"
-                android:textStyle="italic"/>
+            android:id="@+id/DescripcionEditText"
+            android:layout_width="337dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="0dp"
+            android:autofillHints="Name of the list"
+            android:backgroundTint="@color/whiteBasic"
+            android:ems="10"
+            android:hint="Descripción"
+            android:inputType="textEmailAddress"
+            android:shadowColor="@color/white"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:textColorHint="@color/whiteBasic"
+            android:textStyle="italic" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -102,20 +102,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
-    <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tilListDescripction"
-            android:layout_marginTop="16dp" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-        <Spinner
-                android:id="@+id/spinnerTipoLista"
-                android:layout_width="339dp"
-                android:layout_height="35dp"
-                android:entries="@array/opcionesSpinnerAddLista"
-                android:layout_marginTop="32dp"/>
-    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinnerTipoLista"
+        android:layout_width="339dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/opcionesSpinnerAddLista"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilListDescripction" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="38dp"
+        android:gravity="center_vertical"
+        android:text="Fecha límite"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/botonAniadirFecha"
+        app:layout_constraintEnd_toStartOf="@+id/botonAniadirFecha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/botonAniadirFecha" />
+
+    <Button
+        android:id="@+id/botonAniadirFecha"
+        android:layout_width="90dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="248dp"
+        android:height="70dp"
+        app:cornerRadius="@dimen/cardview_compat_inset_shadow"
+        app:icon="@drawable/date_chooser_icon"
+        app:iconSize="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTipoLista"
+        app:strokeWidth="3dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,9 +28,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     private RecyclerView recView;
     private FloatingActionButton btnAniadirLista;
     private ArrayList<Lista> datosLista;
-    private ImageButton botonMenuEmergente;
     private AdaptadorLista adaptador;
-    private ActivityResultLauncher<Intent> resultLauncher;
+
 
     // Método onCreate que se ejecuta al iniciar la actividad
     @Override
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         });
 
         // Llamada a métodos iniciar
-        iniciarMenuEmergente();
         iniciarLista();
     }
 
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
         aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios");
-        aniadirLista("Lista", "Lista","Hola","adios");
+        aniadirLista("Lista", "Lista", "Hola", "adios");
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -66,14 +64,6 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         recView.setAdapter(adaptador);
         registerForContextMenu(recView);
     }
-
-    private void iniciarMenuEmergente(){
-        botonMenuEmergente = findViewById(R.id.BotonMenu);
-
-
-
-    }
-
 
     // Método para añadir una lista
     private void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo) {
