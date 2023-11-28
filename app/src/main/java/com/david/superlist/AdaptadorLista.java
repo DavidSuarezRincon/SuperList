@@ -87,7 +87,7 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.Titulare
                 public boolean onLongClick(View v) {
                     if (rvi != null) {
                         int pos = getAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION){
+                        if (pos != RecyclerView.NO_POSITION) {
                             rvi.onItemLongClick(pos);
                         }
                     }

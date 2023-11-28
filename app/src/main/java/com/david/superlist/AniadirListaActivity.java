@@ -1,5 +1,6 @@
 package com.david.superlist;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
