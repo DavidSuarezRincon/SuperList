@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SuperList</string>
+    <string name="textLogin">LOGIN</string>
+    <string name="textEmail">Email</string>
+    <string name="textPassword">Password</string>
+    <string name="textButtonLogIn">LogIn</string>
+    <string name="textForgotPassword">Forgot Password?</string>
+    <string name="textRegister">Register?</string>
+    <string name="textToolBar">WELCOME</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Login or register.</string>
+    <string name="action_sign_in_short">LogIn</string>
+    <string name="welcome">Welcome!</string>
+    <string name="invalid_username">Wrong user.</string>
+    <string name="invalid_password">The password must be > 5 caracters.</string>
+    <string name="login_failed">Failed on login</string>
+    <string name="textTitleRegister">Register</string>
+    <string name="textHintEmailRegister">sample@gmail.com</string>
+    <string name="textHintPassword1Register">Password</string>
+    <string name="textHintPassword2Register">Again password</string>
+    <string name="textButtonRegister">REGISTER</string>
+    <string name="contentDescriptionPassword1Icon">Password1 Icon</string>
+    <string name="contentDescriptionPassword2Icon">Password2 Icon</string>
+    <string name="contentDescriptionArrowBack">goBack Icon</string>
+    <string name="contentDescriptionEmailIcon">Emailicon</string>
+    <string name="textHintEmailForgotPassword">YourEmail@gmail.com</string>
+    <string name="textHintEmailForgotPassword2">RepitTheEmail@gmail.com</string>
+    <string name="textButtonForgotPassword">Send email</string>
+    <string name="textTitleForgotPassword">Type your email</string>
+    <string name="textoNombreAniadirLista">Name:</string>
+    <string name="textoHintNombreAniadirLista">My List</string>
+    <string name="textoDescripcionAniadirLista">Description:</string>
+    <string name="textoHintDescripcionAniadirLista">Shopping list</string>
+    <string name="textoBotonAniadirLista">Add</string>
+    <string name="textoTituloAniadirLista">Create your list</string>
+    <string name="textoMenuListaSeleccion1">Open</string>
+    <string name="textoMenuListaSeleccion2">Delete</string>
+</resources>

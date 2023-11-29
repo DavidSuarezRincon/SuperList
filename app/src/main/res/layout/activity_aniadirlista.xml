@@ -21,6 +21,7 @@
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:layout_weight="1"
+            android:background="@color/black"
             app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <TextView
@@ -114,7 +115,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tilListDescripction" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/SelectedDaytextView"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_marginStart="38dp"
@@ -128,7 +129,7 @@
 
     <Button
         android:id="@+id/botonAniadirFecha"
-        android:layout_width="90dp"
+        android:layout_width="79dp"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="36dp"
@@ -136,7 +137,7 @@
         android:height="70dp"
         app:cornerRadius="@dimen/cardview_compat_inset_shadow"
         app:icon="@drawable/date_chooser_icon"
-        app:iconSize="45dp"
+        app:iconSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerTipoLista"
