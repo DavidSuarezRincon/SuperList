@@ -1,6 +1,5 @@
 package com.david.superlist;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -49,12 +48,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         ShowDateTextView = findViewById(R.id.SelectedDaytextView);
         iniciarDatePicker();
         botonDatePicker.setOnClickListener(v -> {
-
             datePickerDialog.show();
-
-
         });
-
 
 
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
@@ -69,7 +64,10 @@ public class AniadirListaActivity extends AppCompatActivity {
                 thereIsAnError = true;
                 ponerError(descripcion);
             }
-
+            if (ShowDateTextView.getText().equals("Fecha límite")) {
+                thereIsAnError = true;
+                ShowDateTextView.setError("Elige la fecha");
+            }
             if (thereIsAnError) {
                 return;
             }
@@ -94,12 +92,10 @@ public class AniadirListaActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        int style = AlertDialog.THEME_TRADITIONAL;
+        //int style = AlertDialog.THEME_DEVICE_DEFAULT_DARK;
 
-        datePickerDialog = new DatePickerDialog(this, style, dateSetListener, day, month, year);
+        datePickerDialog = new DatePickerDialog(this, dateSetListener, day, month, year);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-
-
     }
 
     private void ponerError(EditText et) {
