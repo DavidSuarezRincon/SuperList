@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     // Declaración de variables
     private RecyclerView recView;
     private FloatingActionButton btnAniadirLista;
-    private ArrayList<Lista> datosLista;
-    private AdaptadorLista adaptador;
+    private static ArrayList<Lista> datosLista;
+    private static AdaptadorLista adaptador;
 
 
     // Método onCreate que se ejecuta al iniciar la actividad
@@ -55,8 +56,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         datosLista = new ArrayList<>();
         adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
-        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios");
-        aniadirLista("Lista", "Lista", "Hola", "adios");
+//        ArrayList<Lista> listas = Lista.getTestListas();
+
+//        for (Lista lista : listas) {
+//            aniadirLista(lista);
+//        }
+
+        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<String>());
+        aniadirLista("Lista", "Lista", "Hola", "adios", new ArrayList<String>());
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -66,19 +73,19 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     // Método para añadir una lista
-    private void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo) {
+    public static void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<String> itemsLista) {
         Random rand = new Random();
         Calendar calendario = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendario.getTime());
 
-        datosLista.add(new Lista(colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate));
+        datosLista.add(new Lista(colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate, itemsLista));
         adaptador.notifyDataSetChanged();
     }
 
     // Método para generar un color aleatorio
-    public int colorRandom() {
+    public static int colorRandom() {
         Random random = new Random();
         return Color.argb(255, random.nextInt(150), random.nextInt(150), random.nextInt(150));
     }

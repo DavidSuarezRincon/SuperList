@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class Lista {
 
     public int color;
@@ -13,7 +15,9 @@ public class Lista {
     private String tipo;
     private String fechaCreacion;
 
-    public Lista(int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion) {
+    private ArrayList<String> itemsLista;
+
+    public Lista(int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<String> itemsLista) {
 
         this.color = color;
         this.titulo = titulo;
@@ -21,6 +25,7 @@ public class Lista {
         this.fechaFin = fechaFin;
         this.tipo = tipo;
         this.fechaCreacion = fechaCreacion;
+        this.itemsLista = itemsLista;
 
     }
 
@@ -75,4 +80,11 @@ public class Lista {
     public void setColor(int color) {
         this.color = color;
     }
+
+//    public static ArrayList<Lista> getTestListas() {
+//        ArrayList<Lista> testListas = new ArrayList<>();
+//        testListas.add(new Lista(1, "Test 1", "Soy una prueba", "22-01-2024", "Lista compra", "01-12-2023"));
+//        testListas.add(new Lista(2, "Test 2", "Soy una segunda prueba", "22-01-2024", "Lista compra", "01-12-2023"));
+//        return testListas;
+//    }
 }

@@ -12,23 +12,25 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AniadirListaActivity extends AppCompatActivity {
     private ImageButton botonVolver;
-    private EditText nombre, descripcion;
-    private String elNombre, laDescripcion;
+    private EditText txtNombre, txtDescripcion;
+    private String nombre, descripcion, fechaLimite, tipoLista;
     private Spinner tipoListaSpinner;
     private Button botonDatePicker;
     private TextView ShowDateTextView;
     private DatePickerDialog datePickerDialog;
     private String fechaElegida;
     private Button botonAniadir;
+    private ArrayList<String> listaDeItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_aniadirlista);
+        setContentView(R.layout.activity_aniadirlista_descripcion);
 
 
         botonVolver = findViewById(R.id.BotonVolverAniadirLista);
@@ -36,11 +38,8 @@ public class AniadirListaActivity extends AppCompatActivity {
             finish();
         });
 
-        nombre = findViewById(R.id.NombreEditText);
-        descripcion = findViewById(R.id.DescripcionEditText);
-
-        elNombre = nombre.getText().toString();
-        laDescripcion = descripcion.getText().toString();
+        txtNombre = findViewById(R.id.NombreEditText);
+        txtDescripcion = findViewById(R.id.DescripcionEditText);
 
         tipoListaSpinner = findViewById(R.id.spinnerTipoLista);
 
@@ -54,26 +53,44 @@ public class AniadirListaActivity extends AppCompatActivity {
 
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
         botonAniadir.setOnClickListener(View -> {
-            Boolean thereIsAnError = false;
-
-            if (TextUtils.isEmpty(elNombre.trim())) {
-                thereIsAnError = true;
-                ponerError(nombre);
-            }
-            if (TextUtils.isEmpty(laDescripcion.trim())) {
-                thereIsAnError = true;
-                ponerError(descripcion);
-            }
-            if (ShowDateTextView.getText().equals("Fecha límite")) {
-                thereIsAnError = true;
-                ShowDateTextView.setError("Elige la fecha");
-            }
-            if (thereIsAnError) {
-                return;
-            }
-
-            finish();
+            checkAndSendLista();
         });
+    }
+
+    private void checkAndSendLista() {
+        Boolean thereIsAnError = false;
+        nombre = txtNombre.getText().toString();
+        descripcion = txtDescripcion.getText().toString();
+        fechaLimite = ShowDateTextView.getText().toString();
+        tipoLista = (String) tipoListaSpinner.getSelectedItem();
+        System.out.println(fechaLimite);
+        System.out.println(tipoLista);
+
+
+        if (TextUtils.isEmpty(nombre.trim())) {
+            thereIsAnError = true;
+            ponerError(txtNombre);
+        }
+        if (TextUtils.isEmpty(descripcion.trim())) {
+            thereIsAnError = true;
+            ponerError(txtDescripcion);
+        }
+        if (fechaLimite.equalsIgnoreCase("Fecha límite")) {
+            thereIsAnError = true;
+            ShowDateTextView.setError("Elige la fecha");
+        } else {
+            ShowDateTextView.setError(null);
+        }
+
+        if (thereIsAnError) {
+            return;
+        }
+
+        MainActivity.aniadirLista(nombre,descripcion,fechaLimite,tipoLista, listaDeItems);
+
+
+
+        finish();
     }
 
     private void iniciarDatePicker() {
@@ -82,7 +99,7 @@ public class AniadirListaActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                fechaElegida = dayOfMonth + "/" + month + "/" + year;
+                fechaElegida = dayOfMonth + "/" + (month + 1) + "/" + year;
                 ShowDateTextView.setText(fechaElegida);
             }
         };
@@ -92,7 +109,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
 
-        //int style = AlertDialog.THEME_DEVICE_DEFAULT_DARK;
+        //int style = AlertDialog.THEME_HOLO_DARK;
 
         datePickerDialog = new DatePickerDialog(this, dateSetListener, day, month, year);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
