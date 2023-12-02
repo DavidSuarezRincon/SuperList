@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AniadirListaActivity extends AppCompatActivity {
+public class AniadirListaActivity extends AppCompatActivity{
     private ImageButton botonVolver;
     private EditText txtNombre, txtDescripcion;
     private String nombre, descripcion, fechaLimite, tipoLista;
@@ -118,4 +118,6 @@ public class AniadirListaActivity extends AppCompatActivity {
     private void ponerError(EditText et) {
         et.setError("Este campo es obligatorio.");
     }
+
+
 }

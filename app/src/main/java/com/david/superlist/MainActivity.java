@@ -4,11 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 // Clase MainActivity que extiende de AppCompatActivity e implementa Serializable y RecyclerViewInterface
@@ -27,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
     // Declaración de variables
     private RecyclerView recView;
+    private static int numbersIds;
     private FloatingActionButton btnAniadirLista;
     private static ArrayList<Lista> datosLista;
     private static AdaptadorLista adaptador;
@@ -45,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
             Intent intent = new Intent(this, AniadirListaActivity.class);
             startActivity(intent);
         });
+
+        numbersIds = 1;
 
         // Llamada a métodos iniciar
         iniciarLista();
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendario.getTime());
 
-        datosLista.add(new Lista(colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate, itemsLista));
+        datosLista.add(new Lista(numbersIds++, colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate, itemsLista));
         adaptador.notifyDataSetChanged();
     }
 
@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         // Establecer un listener de eventos para los elementos del menú
         popup.setOnMenuItemClickListener(item -> {
 
-            String nombreItemClicado = new String((String) item.getTitle()); // El nombre del item que fue clicado (Abrir, Borrar).
-            switch (nombreItemClicado) {
+            String nombreItemClicado = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Borrar).
+            switch (Objects.requireNonNull(nombreItemClicado)) {
 
                 case "Abrir":
                     abrirItemLista(position);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
                     borrarItemLista(position);
                     break;
             }
-            return nombreItemClicado != null;
+            return true;
         });
     }
 

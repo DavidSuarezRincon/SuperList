@@ -1,14 +1,11 @@
 package com.david.superlist;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.Button;
-
 import java.util.ArrayList;
 
 public class Lista {
 
-    public int color;
+    public int id;
+    private int color;
     private String titulo;
     private String descripcion;
     private String fechaFin;
@@ -17,8 +14,9 @@ public class Lista {
 
     private ArrayList<String> itemsLista;
 
-    public Lista(int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<String> itemsLista) {
+    public Lista(int id, int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<String> itemsLista) {
 
+        this.id = id;
         this.color = color;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -29,16 +27,36 @@ public class Lista {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public int getColor() {
         return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getFechaFin() {
@@ -61,27 +79,19 @@ public class Lista {
         return fechaCreacion;
     }
 
-    public String getFecha() {
-        return fechaCreacion;
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public ArrayList<String> getItemsLista() {
+        return itemsLista;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setItemsLista(ArrayList<String> itemsLista) {
+        this.itemsLista = itemsLista;
     }
 
-    public void setFechaCreacion(String fecha) {
-        this.fechaCreacion = fecha;
-    }
-
-    public void setColor(int color) {
-        this.color = color;
-    }
-
-//    public static ArrayList<Lista> getTestListas() {
+    //    public static ArrayList<Lista> getTestListas() {
 //        ArrayList<Lista> testListas = new ArrayList<>();
 //        testListas.add(new Lista(1, "Test 1", "Soy una prueba", "22-01-2024", "Lista compra", "01-12-2023"));
 //        testListas.add(new Lista(2, "Test 2", "Soy una segunda prueba", "22-01-2024", "Lista compra", "01-12-2023"));
