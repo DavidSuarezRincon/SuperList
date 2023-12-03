@@ -58,6 +58,8 @@
     <string name="textoFechaLimiteAddLista">Fecha límite</string>
     <string name="HintNombreLista">Nombre de la lista</string>
     <string name="HintDescripcionLista">Descripcion de la lista</string>
+    <string name="errorEleccionFecha">¡Elige la fecha!</string>
+    <string name="textoCampoObligatorio">Este campo es obligatorio.</string>
 
 
 </resources>

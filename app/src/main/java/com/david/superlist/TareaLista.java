@@ -5,6 +5,8 @@ public class TareaLista {
     private String tarea;
     private String prioridad;
 
+    private int colorIconoPrioridad;
+
     public TareaLista(String tarea, String prioridad) {
         this.tarea = tarea;
         this.prioridad = prioridad;
@@ -25,5 +27,11 @@ public class TareaLista {
     public void setPrioridad(String prioridad) {
         this.prioridad = prioridad;
     }
+    public int getColorIconoPrioridad() {
+        return colorIconoPrioridad;
+    }
 
+    public void setColorIconoPrioridad(int colorIconoPrioridad) {
+        this.colorIconoPrioridad = colorIconoPrioridad;
+    }
 }

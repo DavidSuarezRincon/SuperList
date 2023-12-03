@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AniadirListaActivity extends AppCompatActivity {
@@ -27,14 +25,13 @@ public class AniadirListaActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     private String fechaElegida;
     private Button botonAniadir;
-    private ArrayList<TareaLista> listaDeItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_descripcion);
 
-        botonVolver = findViewById(R.id.BotonVolverAniadirLista);
+        botonVolver = findViewById(R.id.BotonVolverAniadirTarea);
         botonVolver.setOnClickListener(v -> {
             finish();
         });
@@ -74,9 +71,9 @@ public class AniadirListaActivity extends AppCompatActivity {
             thereIsAnError = true;
             ponerError(txtDescripcion);
         }
-        if (fechaLimite.equalsIgnoreCase("Fecha límite")) {
+        if (fechaLimite.equalsIgnoreCase(getResources().getString(R.string.textoFechaLimiteAddLista))) {
             thereIsAnError = true;
-            ShowDateTextView.setError("Elige la fecha");
+            ShowDateTextView.setError(getResources().getString(R.string.errorEleccionFecha));
         } else {
             ShowDateTextView.setError(null);
         }
@@ -84,13 +81,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         if (thereIsAnError) {
             return;
         }
-        try {
-            Intent intent = new Intent(this, AddItemsListaActivity.class);
-            startActivity(intent);
-
-        } catch (Exception e) {
-            Log.e("Exception", e.toString());
-        }
+        Intent intent = new Intent(this, AddItemsListaActivity.class);
+        startActivity(intent);
 
 
         //finish();
@@ -119,7 +111,7 @@ public class AniadirListaActivity extends AppCompatActivity {
     }
 
     private void ponerError(EditText et) {
-        et.setError("Este campo es obligatorio.");
+        et.setError(getResources().getString(R.string.textoCampoObligatorio));
     }
 
 

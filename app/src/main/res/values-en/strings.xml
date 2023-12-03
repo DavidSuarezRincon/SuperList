@@ -4,7 +4,7 @@
     <string name="textLogin">LOGIN</string>
     <string name="textEmail">Email</string>
     <string name="textPassword">Password</string>
-    <string name="textButtonLogIn">LogIn</string>
+    <string name="textButtonLogIn">Login</string>
     <string name="textForgotPassword">Forgot Password?</string>
     <string name="textRegister">Register?</string>
     <string name="textToolBar">WELCOME</string>
@@ -41,8 +41,10 @@
     <string name="botonVolverMainContext">goBackMainButton</string>
     <string name="tituloAñadirTareas">Add the tasks</string>
     <string name="textoBotonAñadirTarea">ADD</string>
-    <string name="textoBotonFinalizarListaTareas">Continue</string>
+    <string name="textoBotonFinalizarListaTareas">End</string>
     <string name="textoFechaLimiteAddLista">Deadline</string>
     <string name="HintNombreLista">Name of list</string>
     <string name="HintDescripcionLista">Descripcion of list</string>
+    <string name="errorEleccionFecha">Select the date!</string>
+    <string name="textoCampoObligatorio">This field is required.</string>
 </resources>

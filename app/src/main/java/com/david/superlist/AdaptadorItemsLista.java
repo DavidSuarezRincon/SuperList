@@ -3,9 +3,6 @@ package com.david.superlist;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.PathDashPathEffect;
-import android.graphics.text.LineBreakConfig;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +51,9 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
 
             //Cuando el usuario marque como check un checkbox de las tareas su texto será tachado.
 
-            if(holder.tarea.isChecked()){
+            if (holder.tarea.isChecked()) {
                 holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-            else{
+            } else {
                 holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             }
 
@@ -85,6 +81,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
                 break;
         }
 
+        tarea.setColorIconoPrioridad(color);
         return color;
 
     }

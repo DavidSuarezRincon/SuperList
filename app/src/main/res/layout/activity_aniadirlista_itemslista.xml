@@ -7,31 +7,34 @@
 
     <LinearLayout
         android:id="@+id/CabeceraLinearLayout"
-        android:layout_width="413dp"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
         android:background="#000000"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/botonAñadirItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBaseline="0dp"
+        app:layout_goneMarginBottom="0dp">
 
         <ImageButton
-            android:id="@+id/BotonVolverAniadirLista"
+            android:id="@+id/BotonVolverAniadirTarea"
             android:layout_width="150dp"
             android:layout_height="75dp"
             android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@android:drawable/ic_menu_revert"
-            android:contentDescription="@string/botonVolverMainContext" />
+            android:contentDescription="@string/botonVolverMainContext"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <TextView
             android:id="@+id/textoTituloAniadirLista"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:layout_marginStart="20dp"
             android:text="@string/tituloAñadirTareas"
             android:textColor="#FFFFFF"
             android:textSize="34sp" />
@@ -40,8 +43,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTareas"
-        android:layout_width="408dp"
-        android:layout_height="503dp"
+        android:layout_width="405dp"
+        android:layout_height="491dp"
         app:layout_constraintBottom_toTopOf="@+id/botonTerminarLista"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,12 +54,22 @@
         android:id="@+id/botonAñadirItem"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
+        android:clickable="true"
         android:gravity="center"
+        android:padding="0dp"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
         android:text="@string/textoBotonAñadirTarea"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewTareas"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout" />
 
@@ -64,11 +77,20 @@
         android:id="@+id/botonTerminarLista"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
-        android:layout_height="71dp"
+        android:layout_height="80dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:paddingStart="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:paddingBottom="0dp"
         android:text="@string/textoBotonFinalizarListaTareas"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
