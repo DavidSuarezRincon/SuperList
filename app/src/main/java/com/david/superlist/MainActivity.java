@@ -62,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 //            aniadirLista(lista);
 //        }
 
-        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<String>());
-        aniadirLista("Lista", "Lista", "Hola", "adios", new ArrayList<String>());
+        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>());
+        aniadirLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>());
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     // Método para añadir una lista
-    public static void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<String> itemsLista) {
+    public static void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
         Random rand = new Random();
         Calendar calendario = Calendar.getInstance();
 

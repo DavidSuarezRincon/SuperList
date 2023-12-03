@@ -25,13 +25,12 @@ public class AniadirListaActivity extends AppCompatActivity{
     private DatePickerDialog datePickerDialog;
     private String fechaElegida;
     private Button botonAniadir;
-    private ArrayList<String> listaDeItems;
+    private ArrayList<TareaLista> listaDeItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_descripcion);
-
 
         botonVolver = findViewById(R.id.BotonVolverAniadirLista);
         botonVolver.setOnClickListener(v -> {
@@ -50,7 +49,6 @@ public class AniadirListaActivity extends AppCompatActivity{
             datePickerDialog.show();
         });
 
-
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
         botonAniadir.setOnClickListener(View -> {
             checkAndSendLista();
@@ -65,7 +63,6 @@ public class AniadirListaActivity extends AppCompatActivity{
         tipoLista = (String) tipoListaSpinner.getSelectedItem();
         System.out.println(fechaLimite);
         System.out.println(tipoLista);
-
 
         if (TextUtils.isEmpty(nombre.trim())) {
             thereIsAnError = true;
@@ -87,8 +84,6 @@ public class AniadirListaActivity extends AppCompatActivity{
         }
 
         MainActivity.aniadirLista(nombre,descripcion,fechaLimite,tipoLista, listaDeItems);
-
-
 
         finish();
     }

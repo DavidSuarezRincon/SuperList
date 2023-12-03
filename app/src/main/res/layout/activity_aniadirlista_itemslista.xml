@@ -35,7 +35,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewTareas"
         android:layout_width="408dp"
         android:layout_height="503dp"
         app:layout_constraintBottom_toTopOf="@+id/button2"
@@ -50,7 +50,7 @@
         android:gravity="center"
         android:text="Añadir"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewTareas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout" />

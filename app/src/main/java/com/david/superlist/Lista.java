@@ -12,9 +12,9 @@ public class Lista {
     private String tipo;
     private String fechaCreacion;
 
-    private ArrayList<String> itemsLista;
+    private ArrayList<TareaLista> itemsLista;
 
-    public Lista(int id, int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<String> itemsLista) {
+    public Lista(int id, int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<TareaLista> itemsLista) {
 
         this.id = id;
         this.color = color;
@@ -83,11 +83,11 @@ public class Lista {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public ArrayList<String> getItemsLista() {
+    public ArrayList<TareaLista> getItemsLista() {
         return itemsLista;
     }
 
-    public void setItemsLista(ArrayList<String> itemsLista) {
+    public void setItemsLista(ArrayList<TareaLista> itemsLista) {
         this.itemsLista = itemsLista;
     }
 

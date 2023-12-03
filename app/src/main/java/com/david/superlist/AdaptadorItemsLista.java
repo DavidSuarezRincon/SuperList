@@ -1,81 +1,99 @@
 package com.david.superlist;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.CheckedTextView;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.ItemsViewHolder> implements View.OnClickListener {
+import java.util.ArrayList;
 
-    private final RecyclerViewInterface recyclerViewInterface;
+public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.MyViewHolder> {
 
+    Context context;
+    ArrayList<TareaLista> listaTareas;
 
-    public AdaptadorItemsLista(RecyclerViewInterface recyclerViewInterface) {
-        this.recyclerViewInterface = recyclerViewInterface;
+    public AdaptadorItemsLista(Context context, ArrayList<TareaLista> listaTareas) {
+        this.context = context;
+        this.listaTareas = listaTareas;
     }
 
     @NonNull
     @Override
-    public ItemsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+    public AdaptadorItemsLista.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //This is where you inflate the layout (Giving a look to our rows)
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.activity_items_lista, parent, false);
+
+        return new AdaptadorItemsLista.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdaptadorItemsLista.MyViewHolder holder, int position) {
+
+        // assigning values to the views we created in the recycler_view_row layout file
+        // based on the position of the recycler view
+
+        TareaLista newTarea = listaTareas.get(position);
+
+        holder.tarea.setText(newTarea.getTarea()); //Pone el texto al CheckedTextView del layout.
+        holder.imagen.setImageResource(R.drawable.baseline_checklist_24);
+        holder.imagen.setColorFilter(getColorInt(newTarea));//Le pone el color al icono del layout.
+    }
+
+    private int getColorInt(TareaLista tarea) {
+
+        //Method for change the color of the icon.
+
+        String prioridad = tarea.getPrioridad().toLowerCase();
+
+        int color = 0;
+
+        switch (prioridad) {
+
+            case "baja":
+                color = Color.rgb(0, 255, 0); //Color verde
+                break;
+            case "media":
+                color = Color.rgb(255, 255, 0); //Color amarillo
+                break;
+            case "alta":
+                color = Color.rgb(255, 0, 0); //Color Rojo
+                break;
+        }
+
+        return color;
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        // the recycler view just wants to know the number of items you want displayed
+
+        return listaTareas.size();
     }
 
-    @Override
-    public void onClick(View v) {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-    }
+        // grabbing the views from our recycler_view_row layout file
+        // Kinda like in the onCreate method
 
-    public static class ItemsViewHolder extends RecyclerView.ViewHolder {
+        ImageView imagen;
+        CheckedTextView tarea;
 
-        // Declaración de variables
-        private final TextView txtTitulo;
-        private final TextView txtSubtitulo;
-        private final TextView txtFecha;
 
-        // Constructor de la clase
-        public ItemsViewHolder(View itemView, RecyclerViewInterface rvi) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Inicialización de las vistas
-            txtTitulo = itemView.findViewById(R.id.TxtVTitulo);
-            txtSubtitulo = itemView.findViewById(R.id.TxtVTipoLista);
-            txtFecha = itemView.findViewById(R.id.TxtVFecha);
-
-            // Establecimiento del listener de click largo
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (rvi != null) {
-                        int pos = getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            rvi.onItemLongClick(pos);
-                        }
-                    }
-                    return true;
-                }
-            });
-        }
-
-        // Método para vincular los datos con las vistas
-        public void bindLista(Lista l) {
-            txtTitulo.setText(l.getTitulo());
-            txtTitulo.setTextColor(l.getColor());
-            txtSubtitulo.setText(l.getDescripcion());
-            txtFecha.setText(l.getFechaCreacion());
+            imagen = itemView.findViewById(R.id.imagenTarea);
+            tarea = itemView.findViewById(R.id.CheckTextViewTarea);
         }
     }
 }
-
 
