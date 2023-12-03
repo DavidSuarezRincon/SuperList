@@ -11,6 +11,9 @@
         android:layout_height="wrap_content"
         android:background="#000000"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/botonAñadirItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -19,7 +22,8 @@
             android:layout_height="75dp"
             android:layout_weight="1"
             android:background="@color/black"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            app:srcCompat="@android:drawable/ic_menu_revert"
+            android:contentDescription="@string/botonVolverMainContext" />
 
         <TextView
             android:id="@+id/textoTituloAniadirLista"
@@ -27,8 +31,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:paddingLeft="40dp"
-            android:text="Añade a la lista"
+            android:layout_marginStart="20dp"
+            android:text="@string/tituloAñadirTareas"
             android:textColor="#FFFFFF"
             android:textSize="34sp" />
 
@@ -38,17 +42,18 @@
         android:id="@+id/recyclerViewTareas"
         android:layout_width="408dp"
         android:layout_height="503dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/botonTerminarLista"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/botonAñadirItem" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/botonAñadirItem"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Añadir"
+        android:text="@string/textoBotonAñadirTarea"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewTareas"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,11 +61,11 @@
         app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/botonTerminarLista"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="0dp"
         android:layout_height="71dp"
-        android:text="Crear"
+        android:text="@string/textoBotonFinalizarListaTareas"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

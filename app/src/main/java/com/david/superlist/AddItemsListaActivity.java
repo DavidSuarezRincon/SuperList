@@ -13,9 +13,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewItems;
     AdaptadorItemsLista adaptador;
-
     ArrayList<TareaLista> tareas;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,12 +28,10 @@ public class AddItemsListaActivity extends AppCompatActivity {
         adaptador = new AdaptadorItemsLista(this, tareas);
         recyclerViewItems.setAdapter(adaptador);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
-
     }
 
     public void addTarea(String tarea, String prioridad) {
         TareaLista nuevaTarea = new TareaLista(tarea, prioridad);
         tareas.add(nuevaTarea);
     }
-
 }

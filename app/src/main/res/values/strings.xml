@@ -51,7 +51,13 @@
 
     <string name="textoMenuListaSeleccion1">Abrir</string>
     <string name="textoMenuListaSeleccion2">Borrar</string>
-
+    <string name="botonVolverMainContext">botonVolverMain</string>
+    <string name="tituloAñadirTareas">Añade las tareas</string>
+    <string name="textoBotonAñadirTarea">AÑADIR</string>
+    <string name="textoBotonFinalizarListaTareas">Finalizar</string>
+    <string name="textoFechaLimiteAddLista">Fecha límite</string>
+    <string name="HintNombreLista">Nombre de la lista</string>
+    <string name="HintDescripcionLista">Descripcion de la lista</string>
 
 
 </resources>

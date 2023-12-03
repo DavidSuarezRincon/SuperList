@@ -1,8 +1,10 @@
 package com.david.superlist;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -15,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class AniadirListaActivity extends AppCompatActivity{
+public class AniadirListaActivity extends AppCompatActivity {
     private ImageButton botonVolver;
     private EditText txtNombre, txtDescripcion;
     private String nombre, descripcion, fechaLimite, tipoLista;
@@ -51,11 +53,11 @@ public class AniadirListaActivity extends AppCompatActivity{
 
         botonAniadir = findViewById(R.id.botonAniadirListaActivity);
         botonAniadir.setOnClickListener(View -> {
-            checkAndSendLista();
+            checkAndContinueLista();
         });
     }
 
-    private void checkAndSendLista() {
+    private void checkAndContinueLista() {
         Boolean thereIsAnError = false;
         nombre = txtNombre.getText().toString();
         descripcion = txtDescripcion.getText().toString();
@@ -82,10 +84,16 @@ public class AniadirListaActivity extends AppCompatActivity{
         if (thereIsAnError) {
             return;
         }
+        try {
+            Intent intent = new Intent(this, AddItemsListaActivity.class);
+            startActivity(intent);
 
-        MainActivity.aniadirLista(nombre,descripcion,fechaLimite,tipoLista, listaDeItems);
+        } catch (Exception e) {
+            Log.e("Exception", e.toString());
+        }
 
-        finish();
+
+        //finish();
     }
 
     private void iniciarDatePicker() {

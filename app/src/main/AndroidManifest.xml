@@ -16,6 +16,9 @@
             android:name=".AniadirListaActivity"
             android:exported="false" />
         <activity
+            android:name=".AddItemsListaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity

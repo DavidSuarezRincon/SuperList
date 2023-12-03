@@ -2,10 +2,14 @@ package com.david.superlist;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PathDashPathEffect;
+import android.graphics.text.LineBreakConfig;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckedTextView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -35,7 +39,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdaptadorItemsLista.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         // assigning values to the views we created in the recycler_view_row layout file
         // based on the position of the recycler view
@@ -45,6 +49,19 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         holder.tarea.setText(newTarea.getTarea()); //Pone el texto al CheckedTextView del layout.
         holder.imagen.setImageResource(R.drawable.baseline_checklist_24);
         holder.imagen.setColorFilter(getColorInt(newTarea));//Le pone el color al icono del layout.
+
+        holder.tarea.setOnClickListener(v -> {
+
+            //Cuando el usuario marque como check un checkbox de las tareas su texto será tachado.
+
+            if(holder.tarea.isChecked()){
+                holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            else{
+                holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            }
+
+        });
     }
 
     private int getColorInt(TareaLista tarea) {
@@ -86,13 +103,13 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         // Kinda like in the onCreate method
 
         ImageView imagen;
-        CheckedTextView tarea;
+        CheckBox tarea;
 
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imagenTarea);
-            tarea = itemView.findViewById(R.id.CheckTextViewTarea);
+            tarea = itemView.findViewById(R.id.checkBoxTarea);
         }
     }
 }

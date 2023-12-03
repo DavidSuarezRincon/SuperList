@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="16dp">
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewTarea"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTintMode="add"
         app:cardBackgroundColor="#B8B8B8"
@@ -20,24 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp">
-
-            <CheckedTextView
-                android:id="@+id/CheckTextViewTarea"
-                android:layout_width="0dp"
-                android:layout_height="47dp"
-                android:layout_marginStart="18dp"
-                android:gravity="center"
-                android:paddingStart="10dp"
-                android:text="CheckedTextView"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imagenTarea"
-                app:layout_constraintHorizontal_bias="0.632"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.538" />
+            android:layout_height="69dp">
 
             <ImageView
                 android:id="@+id/imagenTarea"
@@ -48,6 +30,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_checklist_24" />
+
+            <CheckBox
+                android:id="@+id/checkBoxTarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="11dp"
+                android:text="CheckBox"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
