@@ -11,11 +11,9 @@ public class Lista {
     private String fechaFin;
     private String tipo;
     private String fechaCreacion;
-
     private ArrayList<TareaLista> itemsLista;
 
     public Lista(int id, int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<TareaLista> itemsLista) {
-
         this.id = id;
         this.color = color;
         this.titulo = titulo;
@@ -24,7 +22,6 @@ public class Lista {
         this.tipo = tipo;
         this.fechaCreacion = fechaCreacion;
         this.itemsLista = itemsLista;
-
     }
 
     public int getId() {

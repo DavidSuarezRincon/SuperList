@@ -1,6 +1,7 @@
 package com.david.superlist;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
     Button botonFinalizarAniadirTareas;
     ImageButton imageButtonVolverAtras;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +41,23 @@ public class AddItemsListaActivity extends AppCompatActivity {
         botonFinalizarAniadirTareas = findViewById(R.id.botonTerminarLista);
         botonFinalizarAniadirTareas.setOnClickListener(v -> {
 
-            MainActivity.aniadirLista("nombre", "descripcion", "fechafin", "tipo", tareas);
+            //Datos recibidos de la activity crear lista.
+            Bundle datosLista = getIntent().getExtras();
 
+            String nombreLista = datosLista.getString("nombreLista");
+            String descripcionLista = datosLista.getString("descripcionLista");
+            String fechaLimiteLista = datosLista.getString("fechaLimiteLista");
+            String tipoLista = datosLista.getString("tipoLista");
+
+            MainActivity.crearLista(nombreLista, descripcionLista, tipoLista, fechaLimiteLista, tareas);
+            Intent returnIntent = new Intent();
+            setResult(RESULT_OK, returnIntent);
+            finish();
 
         });
 
         imageButtonVolverAtras = findViewById(R.id.BotonVolverAniadirTarea);
         imageButtonVolverAtras.setOnClickListener(v -> {
-
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("¿Estás seguro de que quieres volver atrás? ¡Las tareas añadidas se borrarán!");
             builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
@@ -58,16 +69,21 @@ public class AddItemsListaActivity extends AppCompatActivity {
             builder.setNegativeButton("Cancelar", null);
             AlertDialog dialog = builder.create();
             dialog.show();
-
-
         });
 
 
         recyclerViewItems = findViewById(R.id.recyclerViewTareas);
-        tareas = new ArrayList<>();
-        addTarea("Esto es una prueba", "alta");
-        addTarea("Esto es una prueba 2", "baja");
-        addTarea("Esto es una prueba 2", "media");
+
+
+        if (getIntent().hasExtra("listaDeTareas")) {
+            tareas = (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas");
+        } else {
+            tareas = new ArrayList<>();
+        }
+
+//        addTarea("Esto es una prueba", "alta");
+//        addTarea("Esto es una prueba 2", "baja");
+//        addTarea("Esto es una prueba 2", "media");
         adaptador = new AdaptadorItemsLista(this, tareas);
         recyclerViewItems.setAdapter(adaptador);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));

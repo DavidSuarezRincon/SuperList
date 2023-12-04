@@ -80,6 +80,20 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
             txtDescripcion = itemView.findViewById(R.id.TxtVTipoLista);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (rvi != null) {
+
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            rvi.onItemClick(pos);
+                        }
+
+                    }
+                }
+            });
+
             // Establecimiento del listener de click largo
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override

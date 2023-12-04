@@ -3,7 +3,6 @@ package com.david.superlist;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.PopupMenu;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 //            aniadirLista(lista);
 //        }
 
-        aniadirLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>());
-        aniadirLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>());
+        crearLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>());
+        crearLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>());
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -73,14 +72,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     // Método para añadir una lista
-    public static void aniadirLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
+    public static void crearLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
         Random rand = new Random();
         Calendar calendario = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendario.getTime());
 
-        datosLista.add(new Lista(numbersIds++, colorRandom(), nombre, fechaFin, tipo, Descripcion, currentDate, itemsLista));
+        datosLista.add(new Lista(numbersIds++, colorRandom(), nombre, Descripcion, fechaFin, tipo, currentDate, itemsLista));
         adaptador.notifyDataSetChanged();
     }
 
@@ -97,22 +96,25 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     public void abrirItemLista(int numLista) {
+        Lista listaAbrir = datosLista.get(numLista);
+        ArrayList<TareaLista> listaDetareas = listaAbrir.getItemsLista();
 
-
+        Intent intent = new Intent(this, AddItemsListaActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("listaDeTareas", listaDetareas);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
-
 
     // Método que se ejecuta al hacer click en un item
     @Override
     public void onItemClick(int position) {
-
+        abrirItemLista(position);
     }
 
     // Método que se ejecuta al hacer click largo en un item
     @Override
     public void onItemLongClick(int position) {
-
-        Log.i("mainPosition", "onItemLongClick:" + position);
 
         // Crear un nuevo menú emergente en la posición del elemento seleccionado
         PopupMenu popup = new PopupMenu(MainActivity.this, recView.getChildAt(position));

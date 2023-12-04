@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
@@ -54,8 +55,20 @@ public class AniadirListaActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Cuando
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
+    }
+
     private void checkAndContinueLista() {
-        Boolean thereIsAnError = false;
+        boolean thereIsAnError = false;
         nombre = txtNombre.getText().toString();
         descripcion = txtDescripcion.getText().toString();
         fechaLimite = ShowDateTextView.getText().toString();
@@ -81,8 +94,18 @@ public class AniadirListaActivity extends AppCompatActivity {
         if (thereIsAnError) {
             return;
         }
+
+
         Intent intent = new Intent(this, AddItemsListaActivity.class);
-        startActivity(intent);
+
+        Bundle datosAPasar = new Bundle();
+        datosAPasar.putString("nombreLista", nombre);
+        datosAPasar.putString("descripcionLista", descripcion);
+        datosAPasar.putString("fechaLimiteLista", fechaLimite);
+        datosAPasar.putString("tipoLista", tipoLista);
+
+        intent.putExtras(datosAPasar);
+        startActivityForResult(intent, 2);
 
 
         //finish();
