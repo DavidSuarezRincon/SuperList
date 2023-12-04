@@ -6,7 +6,7 @@
                                                    android:layout_height="match_parent"
                                                    android:background="@color/black"
                                                    android:contentDescription="@string/contentDescriptionPassword1Icon"
-                                                   tools:context=".RegisterActivity">
+                                                   tools:context=".Login.RegisterActivity">
 
     <TextView
             android:id="@+id/textRegister"

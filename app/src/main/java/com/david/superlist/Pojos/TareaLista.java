@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Pojos;
 
 import android.os.Parcel;
 import android.os.Parcelable;

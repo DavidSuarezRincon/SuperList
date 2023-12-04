@@ -13,23 +13,23 @@
         android:theme="@style/Theme.SuperList"
         tools:targetApi="31">
         <activity
-            android:name=".AniadirListaActivity"
+            android:name=".Activities.AniadirListaActivity"
             android:exported="false" />
         <activity
-            android:name=".AddItemsListaActivity"
+            android:name=".Activities.AddItemsListaActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".Login.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Login.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

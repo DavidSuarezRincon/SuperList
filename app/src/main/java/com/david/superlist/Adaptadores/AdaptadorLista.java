@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Adaptadores;
 
 
 import android.content.Context;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.david.superlist.R;
+import com.david.superlist.Interfaces.RecyclerViewInterface;
+import com.david.superlist.Pojos.Lista;
 
 import java.util.ArrayList;
 

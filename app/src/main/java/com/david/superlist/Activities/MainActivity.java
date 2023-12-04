@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.david.superlist.Adaptadores.AdaptadorLista;
+import com.david.superlist.Interfaces.RecyclerViewInterface;
+import com.david.superlist.R;
+import com.david.superlist.Pojos.Lista;
+import com.david.superlist.Pojos.TareaLista;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
@@ -102,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         Intent intent = new Intent(this, AddItemsListaActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaDeTareas", listaDetareas);
+        bundle.putInt("posLista",numLista);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -137,6 +143,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
             }
             return true;
         });
+    }
+
+    public static void cambiarTareasLista(int pos, ArrayList<TareaLista> tareas){
+
+        datosLista.get(pos).setItemsLista(tareas);
+
     }
 
 }

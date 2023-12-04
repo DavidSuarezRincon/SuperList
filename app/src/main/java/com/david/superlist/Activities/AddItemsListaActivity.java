@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.david.superlist.Adaptadores.AdaptadorItemsLista;
+import com.david.superlist.R;
+import com.david.superlist.Pojos.TareaLista;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -41,15 +44,19 @@ public class AddItemsListaActivity extends AppCompatActivity {
         botonFinalizarAniadirTareas = findViewById(R.id.botonTerminarLista);
         botonFinalizarAniadirTareas.setOnClickListener(v -> {
 
-            //Datos recibidos de la activity crear lista.
-            Bundle datosLista = getIntent().getExtras();
 
-            String nombreLista = datosLista.getString("nombreLista");
-            String descripcionLista = datosLista.getString("descripcionLista");
-            String fechaLimiteLista = datosLista.getString("fechaLimiteLista");
-            String tipoLista = datosLista.getString("tipoLista");
 
-            MainActivity.crearLista(nombreLista, descripcionLista, tipoLista, fechaLimiteLista, tareas);
+            if(getIntent().hasExtra("listaDeTareas")){
+
+                int posTarea = (int) getIntent().getExtras().getInt("posLista");
+
+            MainActivity.cambiarTareasLista(posTarea,tareas );
+
+            }
+            else{
+                agregarNuevaListaAMain();
+            }
+
             Intent returnIntent = new Intent();
             setResult(RESULT_OK, returnIntent);
             finish();
@@ -87,6 +94,18 @@ public class AddItemsListaActivity extends AppCompatActivity {
         adaptador = new AdaptadorItemsLista(this, tareas);
         recyclerViewItems.setAdapter(adaptador);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private void agregarNuevaListaAMain() {
+        //Datos recibidos de la activity crear lista.
+        Bundle datosLista = getIntent().getExtras();
+
+        String nombreLista = datosLista.getString("nombreLista");
+        String descripcionLista = datosLista.getString("descripcionLista");
+        String fechaLimiteLista = datosLista.getString("fechaLimiteLista");
+        String tipoLista = datosLista.getString("tipoLista");
+
+        MainActivity.crearLista(nombreLista, descripcionLista, tipoLista, fechaLimiteLista, tareas);
     }
 
     private void createDialogAddTask() {

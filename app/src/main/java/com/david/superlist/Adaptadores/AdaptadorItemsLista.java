@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Adaptadores;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,6 +11,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.david.superlist.R;
+import com.david.superlist.Pojos.TareaLista;
 
 import java.util.ArrayList;
 

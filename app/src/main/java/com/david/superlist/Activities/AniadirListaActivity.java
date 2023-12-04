@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Activities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.david.superlist.R;
 
 import java.util.Calendar;
 

@@ -1,9 +1,11 @@
-package com.david.superlist;
+package com.david.superlist.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ImageButton;
+
+import com.david.superlist.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

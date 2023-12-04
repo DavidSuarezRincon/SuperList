@@ -1,4 +1,4 @@
-package com.david.superlist;
+package com.david.superlist.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.david.superlist.Activities.MainActivity;
+import com.david.superlist.R;
 
 public class LoginActivity extends AppCompatActivity {
 
