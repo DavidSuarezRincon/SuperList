@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.david.superlist.Adaptadores.AdaptadorLista;
 import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.R;
-import com.david.superlist.Pojos.Lista;
-import com.david.superlist.Pojos.TareaLista;
+import com.david.superlist.pojos.Lista;
+import com.david.superlist.pojos.TareaLista;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;

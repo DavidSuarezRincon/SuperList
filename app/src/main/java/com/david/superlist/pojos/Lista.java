@@ -1,4 +1,4 @@
-package com.david.superlist.Pojos;
+package com.david.superlist.pojos;
 
 import java.util.ArrayList;
 

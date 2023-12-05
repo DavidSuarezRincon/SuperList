@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.R;
-import com.david.superlist.Pojos.TareaLista;
+import com.david.superlist.pojos.TareaLista;
 
 import java.util.ArrayList;
 

@@ -47,4 +47,7 @@
     <string name="HintDescripcionLista">Descripcion of list</string>
     <string name="errorEleccionFecha">Select the date!</string>
     <string name="textoCampoObligatorio">This field is required.</string>
+    <string name="MensajeAdvertenciaVolverAtrasTareas">Are you sure you want to go back? Added tasks will be deleted!</string>
+    <string name="AceptarVolverAtrasTareas">Accept</string>
+    <string name="CancelarVolverAtrasTareas">Cancel</string>
 </resources>

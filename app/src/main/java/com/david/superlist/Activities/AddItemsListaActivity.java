@@ -3,6 +3,7 @@ package com.david.superlist.Activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -15,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Adaptadores.AdaptadorItemsLista;
+import com.david.superlist.pojos.TareaLista;
 import com.david.superlist.R;
-import com.david.superlist.Pojos.TareaLista;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -45,15 +46,13 @@ public class AddItemsListaActivity extends AppCompatActivity {
         botonFinalizarAniadirTareas.setOnClickListener(v -> {
 
 
-
-            if(getIntent().hasExtra("listaDeTareas")){
+            if (getIntent().hasExtra("listaDeTareas")) {
 
                 int posTarea = (int) getIntent().getExtras().getInt("posLista");
 
-            MainActivity.cambiarTareasLista(posTarea,tareas );
+                MainActivity.cambiarTareasLista(posTarea, tareas);
 
-            }
-            else{
+            } else {
                 agregarNuevaListaAMain();
             }
 
@@ -66,14 +65,17 @@ public class AddItemsListaActivity extends AppCompatActivity {
         imageButtonVolverAtras = findViewById(R.id.BotonVolverAniadirTarea);
         imageButtonVolverAtras.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("¿Estás seguro de que quieres volver atrás? ¡Las tareas añadidas se borrarán!");
-            builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder.setMessage(getResources().getString(R.string.MensajeAdvertenciaVolverAtrasTareas));
+            //Texto: ¿Estás seguro que quieres volver atrás? ¡Las tareas añadidas se borrarán!
+            builder.setPositiveButton(getResources().getString(R.string.AceptarVolverAtrasTareas), new DialogInterface.OnClickListener() {
+                //Texto: Aceptar o Accept
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
             });
-            builder.setNegativeButton("Cancelar", null);
+            builder.setNegativeButton(getResources().getString(R.string.CancelarVolverAtrasTareas), null);
+            //Texto: Cancelar o Cancel
             AlertDialog dialog = builder.create();
             dialog.show();
         });
@@ -132,6 +134,12 @@ public class AddItemsListaActivity extends AppCompatActivity {
         // Configura el botón "Agregar tarea" para agregar la tarea y cerrar el diálogo.
         botonAgregarTarea.setOnClickListener(v1 -> {
             String textoTarea = inputTarea.getText().toString();
+
+            if (TextUtils.isEmpty(textoTarea)) {
+                inputTarea.setError("Este campo es obligatorio");
+                return;
+            }
+
             String prioridadSeleccionada = spinnerPrioridadTarea.getSelectedItem().toString();
             addTarea(textoTarea, prioridadSeleccionada);
             adaptador.notifyDataSetChanged();

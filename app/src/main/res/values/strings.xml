@@ -60,6 +60,9 @@
     <string name="HintDescripcionLista">Descripcion de la lista</string>
     <string name="errorEleccionFecha">¡Elige la fecha!</string>
     <string name="textoCampoObligatorio">Este campo es obligatorio.</string>
+    <string name="MensajeAdvertenciaVolverAtrasTareas">¿Estás seguro que quieres volver atrás? ¡Las tareas añadidas se borrarán!</string>
+    <string name="AceptarVolverAtrasTareas">Aceptar</string>
+    <string name="CancelarVolverAtrasTareas">Cancelar</string>
 
 
 </resources>
