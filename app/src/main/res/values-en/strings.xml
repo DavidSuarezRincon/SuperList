@@ -36,8 +36,8 @@
     <string name="textoHintDescripcionAniadirLista">Shopping list</string>
     <string name="textoBotonAniadirLista">Add</string>
     <string name="textoTituloAniadirLista">Create your list</string>
-    <string name="textoMenuListaSeleccion1">Open</string>
-    <string name="textoMenuListaSeleccion2">Delete</string>
+    <string name="textoMenuListaAbrir">Open</string>
+    <string name="textoMenuListaBorrar">Delete</string>
     <string name="botonVolverMainContext">goBackMainButton</string>
     <string name="tituloAñadirTareas">Add the tasks</string>
     <string name="textoBotonAñadirTarea">ADD</string>

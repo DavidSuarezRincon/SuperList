@@ -17,19 +17,18 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:orientation="horizontal"
             android:padding="6dp">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
-                android:layout_width="286dp"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
-                android:layout_gravity="start"
-                android:layout_marginStart="4dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="10dp"
                 android:layout_marginLeft="4dp"
-                android:layout_marginTop="2dp"
                 android:layout_toEndOf="@+id/iconImageView"
                 android:layout_toRightOf="@+id/iconImageView"
                 android:orientation="vertical">
@@ -39,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:maxLength="28"
+                    android:maxLines="1"
                     android:text="Lista1"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -49,6 +48,7 @@
                     android:id="@+id/TxtVTipoLista"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
                     android:text="Lista de la compra"
                     android:textSize="16sp" />
             </LinearLayout>
