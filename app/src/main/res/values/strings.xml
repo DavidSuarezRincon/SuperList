@@ -49,8 +49,8 @@
 
 <!--    Menu lista -->
 
-    <string name="textoMenuListaSeleccion1">Abrir</string>
-    <string name="textoMenuListaSeleccion2">Borrar</string>
+    <string name="textoMenuListaAbrir">Abrir</string>
+    <string name="textoMenuListaBorrar">Borrar</string>
     <string name="botonVolverMainContext">botonVolverMain</string>
     <string name="tituloAñadirTareas">Añade las tareas</string>
     <string name="textoBotonAñadirTarea">AÑADIR</string>

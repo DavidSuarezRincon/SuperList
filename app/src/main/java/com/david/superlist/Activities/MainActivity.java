@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         Intent intent = new Intent(this, AddItemsListaActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaDeTareas", listaDetareas);
-        bundle.putInt("posLista",numLista);
+        bundle.putInt("posLista", numLista);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -132,20 +132,19 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         popup.setOnMenuItemClickListener(item -> {
 
             String nombreItemClicado = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Borrar).
-            switch (Objects.requireNonNull(nombreItemClicado)) {
+            String textAbrir = getResources().getString(R.string.textoMenuListaAbrir);
+            String textBorrar = getResources().getString(R.string.textoMenuListaBorrar);
 
-                case "Abrir":
-                    abrirItemLista(position);
-                    break;
-                case "Borrar":
-                    borrarItemLista(position);
-                    break;
+            if (nombreItemClicado.equalsIgnoreCase(textAbrir)) {
+                abrirItemLista(position);
+            } else if (nombreItemClicado.equalsIgnoreCase(textBorrar)) {
+                borrarItemLista(position);
             }
             return true;
         });
     }
 
-    public static void cambiarTareasLista(int pos, ArrayList<TareaLista> tareas){
+    public static void cambiarTareasLista(int pos, ArrayList<TareaLista> tareas) {
 
         datosLista.get(pos).setItemsLista(tareas);
 

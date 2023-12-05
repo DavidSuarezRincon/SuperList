@@ -7,7 +7,8 @@
 
     <Button
         android:id="@+id/botonAgregarTarea"
-        android:layout_width="370dp"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="270dp"
         android:layout_height="55dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -20,7 +21,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="370dp"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
@@ -38,7 +39,7 @@
 
     <Spinner
         android:id="@+id/spinnerPrioridadLista"
-        android:layout_width="370dp"
+        android:layout_width="270dp"
         android:layout_height="55dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
