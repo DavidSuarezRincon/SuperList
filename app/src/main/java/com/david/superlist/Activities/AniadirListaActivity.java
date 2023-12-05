@@ -60,7 +60,6 @@ public class AniadirListaActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         //Cuando
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
