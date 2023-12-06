@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Adaptadores.AdaptadorItemsLista;
-import com.david.superlist.pojos.TareaLista;
 import com.david.superlist.R;
+import com.david.superlist.pojos.TareaLista;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -25,11 +25,11 @@ import java.util.ArrayList;
 public class AddItemsListaActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewItems;
-    AdaptadorItemsLista adaptador;
-    ArrayList<TareaLista> tareas;
-    Button addTareaButton;
-    Button botonFinalizarAniadirTareas;
-    ImageButton imageButtonVolverAtras;
+    AdaptadorItemsLista adapter;
+    ArrayList<TareaLista> tasks;
+    Button addTaskButton;
+    Button buttonAddListWithTasksToMain;
+    ImageButton imageButtonGoBack;
 
 
     @Override
@@ -37,33 +37,32 @@ public class AddItemsListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_itemslista);
 
-        addTareaButton = findViewById(R.id.botonAñadirItem);
-        addTareaButton.setOnClickListener(v -> {
+        addTaskButton = findViewById(R.id.botonAñadirItem);
+        addTaskButton.setOnClickListener(v -> {
             createDialogAddTask();
         });
 
-        botonFinalizarAniadirTareas = findViewById(R.id.botonTerminarLista);
-        botonFinalizarAniadirTareas.setOnClickListener(v -> {
+        buttonAddListWithTasksToMain = findViewById(R.id.botonTerminarLista);
+        buttonAddListWithTasksToMain.setOnClickListener(v -> {
 
 
             if (getIntent().hasExtra("listaDeTareas")) {
 
-                int posTarea = (int) getIntent().getExtras().getInt("posLista");
+                int positionTask = (int) getIntent().getExtras().getInt("posLista");
 
-                MainActivity.cambiarTareasLista(posTarea, tareas);
+                MainActivity.cambiarTareasLista(positionTask, tasks);
 
             } else {
-                agregarNuevaListaAMain();
+                addListToMain();
             }
 
             Intent returnIntent = new Intent();
             setResult(RESULT_OK, returnIntent);
             finish();
-
         });
 
-        imageButtonVolverAtras = findViewById(R.id.BotonVolverAniadirTarea);
-        imageButtonVolverAtras.setOnClickListener(v -> {
+        imageButtonGoBack = findViewById(R.id.BotonVolverAniadirTarea);
+        imageButtonGoBack.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.MensajeAdvertenciaVolverAtrasTareas));
             //Texto: ¿Estás seguro que quieres volver atrás? ¡Las tareas añadidas se borrarán!
@@ -83,72 +82,75 @@ public class AddItemsListaActivity extends AppCompatActivity {
 
         recyclerViewItems = findViewById(R.id.recyclerViewTareas);
 
-
         if (getIntent().hasExtra("listaDeTareas")) {
-            tareas = (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas");
+            tasks = (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas");
         } else {
-            tareas = new ArrayList<>();
+            tasks = new ArrayList<>();
         }
 
 //        addTarea("Esto es una prueba", "alta");
 //        addTarea("Esto es una prueba 2", "baja");
 //        addTarea("Esto es una prueba 2", "media");
-        adaptador = new AdaptadorItemsLista(this, tareas);
-        recyclerViewItems.setAdapter(adaptador);
+        adapter = new AdaptadorItemsLista(this, tasks);
+        recyclerViewItems.setAdapter(adapter);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void agregarNuevaListaAMain() {
+    private void addListToMain() {
         //Datos recibidos de la activity crear lista.
-        Bundle datosLista = getIntent().getExtras();
+        Bundle listData = getIntent().getExtras();
 
-        String nombreLista = datosLista.getString("nombreLista");
-        String descripcionLista = datosLista.getString("descripcionLista");
-        String fechaLimiteLista = datosLista.getString("fechaLimiteLista");
-        String tipoLista = datosLista.getString("tipoLista");
+        String listName = listData.getString("nombreLista");
+        String listDescription = listData.getString("descripcionLista");
+        String listEndDate = listData.getString("fechaLimiteLista");
+        String listType = listData.getString("tipoLista");
 
-        MainActivity.crearLista(nombreLista, descripcionLista, tipoLista, fechaLimiteLista, tareas);
+        MainActivity.crearLista(listName, listDescription, listType, listEndDate, tasks);
     }
 
     private void createDialogAddTask() {
         // Abre un diálogo para crear una tarea.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Introduzca la tarea");
+
+        String introduceDataMessage = getResources().getString(R.string.textDialogoAñadirTarea);
+        builder.setMessage(introduceDataMessage);
 
         // Infla el diseño de la vista del diálogo.
         View selector = getLayoutInflater().inflate(R.layout.dialog_introducir_datos_items, null);
         builder.setView(selector);
 
         // Obtiene referencias a los elementos de la vista del diálogo.
-        TextInputEditText inputTarea = selector.findViewById(R.id.textInputTarea);
-        Spinner spinnerPrioridadTarea = selector.findViewById(R.id.spinnerPrioridadLista);
-        Button botonAgregarTarea = selector.findViewById(R.id.botonAgregarTarea);
+        TextInputEditText inputStringTask = selector.findViewById(R.id.textInputTarea);
+        Spinner spinnerTaskPriority = selector.findViewById(R.id.spinnerPrioridadLista);
+        Button addTaskButton = selector.findViewById(R.id.botonAgregarTarea);
 
         // Configura el botón "Cancelar" para cerrar el diálogo sin hacer nada.
-        builder.setNegativeButton("Cancelar", null);
+        String cancelDataMessage = getResources().getString(R.string.CancelarVolverAtrasTareas);
+        builder.setNegativeButton(cancelDataMessage, null);
 
         // Crea el diálogo y lo muestra.
         AlertDialog dialog = builder.create();
         dialog.show();
 
         // Configura el botón "Agregar tarea" para agregar la tarea y cerrar el diálogo.
-        botonAgregarTarea.setOnClickListener(v1 -> {
-            String textoTarea = inputTarea.getText().toString();
+        addTaskButton.setOnClickListener(v1 -> {
+            String tasktext = inputStringTask.getText().toString();
 
-            if (TextUtils.isEmpty(textoTarea)) {
-                inputTarea.setError("Este campo es obligatorio");
+            if (TextUtils.isEmpty(tasktext)) {
+                String errorInputStringTaskMessage = getResources().getString(R.string.textoCampoObligatorio);
+                inputStringTask.setError(errorInputStringTaskMessage);
                 return;
             }
 
-            String prioridadSeleccionada = spinnerPrioridadTarea.getSelectedItem().toString();
-            addTarea(textoTarea, prioridadSeleccionada);
-            adaptador.notifyDataSetChanged();
-            dialog.dismiss(); // Agrega esta línea para cerrar el diálogo.
+            String selectionPriority = spinnerTaskPriority.getSelectedItem().toString();
+            addTask(tasktext, selectionPriority);
+            adapter.notifyDataSetChanged();
+            dialog.dismiss(); // Cierra el dialogo.
         });
     }
 
-    public void addTarea(String tarea, String prioridad) {
-        TareaLista nuevaTarea = new TareaLista(tarea, prioridad);
-        tareas.add(nuevaTarea);
+    public void addTask(String taskText, String priority) {
+        TareaLista newTask = new TareaLista(taskText, priority);
+        tasks.add(newTask);
     }
 }

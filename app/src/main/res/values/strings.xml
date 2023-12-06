@@ -22,7 +22,7 @@
 
     <!--    Strings register -->
 
-    <string name="textTitleRegister">" Registrarse"</string>
+    <string name="textTitleRegister">" Registrate"</string>
     <string name="textHintEmailRegister">Ejemplo@gmail.com</string>
     <string name="textHintPassword1Register">Contraseña</string>
     <string name="textHintPassword2Register">Repite contraseña</string>
@@ -63,6 +63,12 @@
     <string name="MensajeAdvertenciaVolverAtrasTareas">¿Estás seguro que quieres volver atrás? ¡Las tareas añadidas se borrarán!</string>
     <string name="AceptarVolverAtrasTareas">Aceptar</string>
     <string name="CancelarVolverAtrasTareas">Cancelar</string>
+    <string name="textDialogoAñadirTarea">Introduzca los datos de la tarea.</string>
+    <string name="errorUsuarioNoExiste">No existe un usuario con este email.</string>
+    <string name="errorContraseñaNoValida">La contraseña es incorrecta.</string>
+    <string name="errorDeFormatoDeEmail">El formato del email es erroneo. \"ejemplo@gmail.com\"</string>
+    <string name="mensajeErrorContraseñasNoCoinciden">Las contraseñas no coinciden.</string>
+    <string name="textoErrorUsuarioExistente">Ya hay una cuenta registrada con este email.</string>
 
 
 </resources>

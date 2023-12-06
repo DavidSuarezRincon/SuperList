@@ -10,7 +10,7 @@
 <!--    Colores login-->
 
     <color name="whiteBasic">#d6d6d6</color>
-
+    <color name="greyForHints">#817D7D</color>
 
 
 </resources>

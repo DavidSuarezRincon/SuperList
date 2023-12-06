@@ -3,25 +3,24 @@ package com.david.superlist.pojos;
 import java.util.ArrayList;
 
 public class Lista {
-
     public int id;
     private int color;
-    private String titulo;
-    private String descripcion;
-    private String fechaFin;
-    private String tipo;
-    private String fechaCreacion;
-    private ArrayList<TareaLista> itemsLista;
+    private String title;
+    private String description;
+    private String endDate;
+    private String type;
+    private String creationDate;
+    private ArrayList<TareaLista> tasksList;
 
-    public Lista(int id, int color, String titulo, String descripcion, String fechaFin, String tipo, String fechaCreacion, ArrayList<TareaLista> itemsLista) {
+    public Lista(int id, int color, String title, String description, String endDate, String type, String creationDate, ArrayList<TareaLista> tasksList) {
         this.id = id;
         this.color = color;
-        this.titulo = titulo;
-        this.descripcion = descripcion;
-        this.fechaFin = fechaFin;
-        this.tipo = tipo;
-        this.fechaCreacion = fechaCreacion;
-        this.itemsLista = itemsLista;
+        this.title = title;
+        this.description = description;
+        this.endDate = endDate;
+        this.type = type;
+        this.creationDate = creationDate;
+        this.tasksList = tasksList;
     }
 
     public int getId() {
@@ -40,58 +39,51 @@ public class Lista {
         this.color = color;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getFechaFin() {
-        return fechaFin;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getType() {
+        return type;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getFechaCreacion() {
-        return fechaCreacion;
+    public String getCreationDate() {
+        return creationDate;
     }
 
-    public void setFechaCreacion(String fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public ArrayList<TareaLista> getItemsLista() {
-        return itemsLista;
+    public ArrayList<TareaLista> getTasksList() {
+        return tasksList;
     }
 
-    public void setItemsLista(ArrayList<TareaLista> itemsLista) {
-        this.itemsLista = itemsLista;
+    public void setTasksList(ArrayList<TareaLista> tasksList) {
+        this.tasksList = tasksList;
     }
-
-    //    public static ArrayList<Lista> getTestListas() {
-//        ArrayList<Lista> testListas = new ArrayList<>();
-//        testListas.add(new Lista(1, "Test 1", "Soy una prueba", "22-01-2024", "Lista compra", "01-12-2023"));
-//        testListas.add(new Lista(2, "Test 2", "Soy una segunda prueba", "22-01-2024", "Lista compra", "01-12-2023"));
-//        return testListas;
-//    }
 }

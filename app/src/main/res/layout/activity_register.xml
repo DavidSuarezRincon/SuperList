@@ -9,26 +9,24 @@
                                                    tools:context=".Login.RegisterActivity">
 
     <TextView
-            android:id="@+id/textRegister"
-            android:layout_width="332dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="124dp"
-            android:background="@color/black"
-            android:backgroundTint="@color/white"
-            android:backgroundTintMode="multiply"
-            android:gravity="center"
-            android:text="@string/textTitleRegister"
-            android:textColor="@color/white"
-            android:textColorHighlight="@color/design_default_color_primary"
-            android:textSize="50sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/RegisterInputEmail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.493"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="TextSizeCheck"/>
+        android:id="@+id/textRegister"
+        android:layout_width="332dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="124dp"
+        android:background="@color/black"
+        android:backgroundTint="@color/white"
+        android:backgroundTintMode="multiply"
+        android:gravity="center"
+        android:text="@string/textTitleRegister"
+        android:textColor="@color/white"
+        android:textColorHighlight="@color/design_default_color_primary"
+        android:textSize="50sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextSizeCheck" />
 
     <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarRegister"
@@ -57,63 +55,73 @@
             tools:ignore="SpeakableTextPresentCheck"/>
 
     <Button
-            android:id="@+id/buttonRegister"
-            android:layout_width="154dp"
-            android:layout_height="66dp"
-            android:layout_marginBottom="76dp"
-            android:backgroundTint="@color/black"
-            android:gravity="center"
-            android:text="@string/textButtonRegister"
-            android:textColor="@color/whiteBasic"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textRepitPassword"
-            app:layout_constraintVertical_bias="0.916"
-            app:strokeColor="@color/white"
-            app:strokeWidth="2dp"/>
+        android:id="@+id/buttonRegister"
+        android:layout_width="154dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="76dp"
+        android:backgroundTint="@color/black"
+        android:gravity="center"
+        android:text="@string/textButtonRegister"
+        android:textColor="@color/whiteBasic"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/white"
+        app:strokeWidth="2dp" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2"
+        android:layout_width="332dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textRegister">
 
-
-    <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/RegisterInputEmail"
-            android:layout_width="332dp"
-            android:layout_height="59dp"
-            android:autofillHints=""
-            android:ems="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/textHintEmailRegister"
-            android:inputType="textEmailAddress"
-            android:textColorHint="@color/whiteBasic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarRegister"
-            android:layout_marginTop="180dp"/>
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-            android:id="@+id/textRepitPassword"
-            android:layout_width="332dp"
-            android:layout_height="59dp"
-            android:ems="10"
-            android:hint="@string/textHintPassword2Register"
-            android:autofillHints="password"
-            android:inputType="textPassword"
-            android:textColorHint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/textPassword"
-            android:layout_marginTop="30dp" app:layout_constraintHorizontal_bias="0.496"/>
-    <EditText
-            android:id="@+id/textPassword"
-            android:layout_width="332dp"
-            android:layout_height="59dp"
-            android:ems="10"
-            android:autofillHints="password"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/RegisterInputFirstPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:hint="@string/textHintPassword1Register"
-            android:inputType="textPassword"
-            android:textColorHint="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/RegisterInputEmail" android:layout_marginTop="30dp"/>
+            android:password="true"
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/RegisterInputSecondPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/textHintPassword2Register"
+            android:password="true"
+            android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

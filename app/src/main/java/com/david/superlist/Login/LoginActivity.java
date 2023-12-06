@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.david.superlist.Activities.MainActivity;
 import com.david.superlist.R;
+import com.david.superlist.pojos.Usuario;
+import com.david.superlist.pojos.UsuariosRegistrados;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,20 +24,20 @@ public class LoginActivity extends AppCompatActivity {
         // Referencias a los elementos de la interfaz de usuario
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
         TextView register = findViewById(R.id.loginRegister);
-        EditText introducirEmail = findViewById(R.id.userEmailData);
-        EditText introducirPassword = findViewById(R.id.userDataPassword);
-        Button botonSignIn = findViewById(R.id.buttonLogIn);
+        EditText userEmailEditText = findViewById(R.id.userEmailData);
+        EditText userPasswordEditText = findViewById(R.id.userDataPassword);
+        Button SignInButton = findViewById(R.id.buttonLogIn);
 
         // Establece un escuchador de clics en el botón de inicio de sesión
-        botonSignIn.setOnClickListener(v -> {
+        SignInButton.setOnClickListener(v -> {
 
             // Obtiene el email y la contraseña introducidos por el usuario
-            String email = String.valueOf(introducirEmail.getText());
-            String password = String.valueOf(introducirPassword.getText());
+            String email = String.valueOf(userEmailEditText.getText());
+            String password = String.valueOf(userPasswordEditText.getText());
 
             // Comprueba si el email está vacío
             if (TextUtils.isEmpty(email)) {
-                setFalloDatos(introducirEmail);
+                setFalloDatos(userEmailEditText);
 
                 // Si la contraseña no está vacía, retorna
                 if (!TextUtils.isEmpty(password)) {
@@ -45,21 +47,28 @@ public class LoginActivity extends AppCompatActivity {
 
             // Comprueba si la contraseña está vacía
             if (TextUtils.isEmpty(password)) {
-                setFalloDatos(introducirPassword);
+                setFalloDatos(userPasswordEditText);
                 return;
             }
 
             // Si el email y la contraseña son "root", inicia la actividad principal
-            if (email.equals("root") && password.equals("root")) {
+            if (UsuariosRegistrados.existUser(email)) {
 
-                Intent claseMain = new Intent(this, MainActivity.class);
+                Usuario user = UsuariosRegistrados.getUser(email);
 
-                // Añade el nombre de usuario al intent
-                getIntent().putExtra("nombreUsuario", email.split("@")[0]);
-
-                // Inicia la actividad principal
-                startActivity(claseMain);
-
+                if (user.hasThisPassword(password)) {
+                    Intent claseMain = new Intent(this, MainActivity.class);
+                    // Añade el nombre de usuario al intent
+                    getIntent().putExtra("nombreUsuario", email.split("@")[0]);
+                    // Inicia la actividad principal
+                    startActivity(claseMain);
+                } else {
+                    String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);
+                    userPasswordEditText.setError(passwordIncorrectError);
+                }
+            } else {
+                String notUserFoundError = getResources().getString(R.string.errorUsuarioNoExiste);
+                userEmailEditText.setError(notUserFoundError);
             }
         });
 

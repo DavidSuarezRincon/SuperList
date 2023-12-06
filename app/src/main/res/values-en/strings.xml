@@ -50,4 +50,10 @@
     <string name="MensajeAdvertenciaVolverAtrasTareas">Are you sure you want to go back? Added tasks will be deleted!</string>
     <string name="AceptarVolverAtrasTareas">Accept</string>
     <string name="CancelarVolverAtrasTareas">Cancel</string>
+    <string name="textDialogoAñadirTarea">Introduce the data of the task.</string>
+    <string name="errorUsuarioNoExiste">There isn\'t user with this email.</string>
+    <string name="errorContraseñaNoValida">Password is incorrect</string>
+    <string name="errorDeFormatoDeEmail">The format of the email is wrong. \"example@gmail.com\"</string>
+    <string name="mensajeErrorContraseñasNoCoinciden">Passwords don\'t match.</string>
+    <string name="textoErrorUsuarioExistente">There is already an account registered with this email.</string>
 </resources>

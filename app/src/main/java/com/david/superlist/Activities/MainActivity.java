@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Objects;
 import java.util.Random;
 
 // Clase MainActivity que extiende de AppCompatActivity e implementa Serializable y RecyclerViewInterface
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
     public void abrirItemLista(int numLista) {
         Lista listaAbrir = datosLista.get(numLista);
-        ArrayList<TareaLista> listaDetareas = listaAbrir.getItemsLista();
+        ArrayList<TareaLista> listaDetareas = listaAbrir.getTasksList();
 
         Intent intent = new Intent(this, AddItemsListaActivity.class);
         Bundle bundle = new Bundle();
@@ -146,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
     public static void cambiarTareasLista(int pos, ArrayList<TareaLista> tareas) {
 
-        datosLista.get(pos).setItemsLista(tareas);
+        datosLista.get(pos).setTasksList(tareas);
 
     }
 

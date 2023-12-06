@@ -19,40 +19,40 @@ import com.david.superlist.R;
 import java.util.Calendar;
 
 public class AniadirListaActivity extends AppCompatActivity {
-    private ImageButton botonVolver;
-    private EditText txtNombre, txtDescripcion;
-    private String nombre, descripcion, fechaLimite, tipoLista;
-    private Spinner tipoListaSpinner;
-    private Button botonDatePicker;
+    private ImageButton buttonGoBack;
+    private EditText txtName, txtDescription;
+    private String name, description, endDate, listType;
+    private Spinner typeListSpinner;
+    private Button datePickerButton;
     private TextView ShowDateTextView;
     private DatePickerDialog datePickerDialog;
-    private String fechaElegida;
-    private Button botonAniadir;
+    private String selectedDate;
+    private Button addButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_descripcion);
 
-        botonVolver = findViewById(R.id.BotonVolverAniadirTarea);
-        botonVolver.setOnClickListener(v -> {
+        buttonGoBack = findViewById(R.id.BotonVolverAniadirTarea);
+        buttonGoBack.setOnClickListener(v -> {
             finish();
         });
 
-        txtNombre = findViewById(R.id.NombreEditText);
-        txtDescripcion = findViewById(R.id.DescripcionEditText);
+        txtName = findViewById(R.id.NombreEditText);
+        txtDescription = findViewById(R.id.DescripcionEditText);
 
-        tipoListaSpinner = findViewById(R.id.spinnerTipoLista);
+        typeListSpinner = findViewById(R.id.spinnerTipoLista);
 
-        botonDatePicker = findViewById(R.id.botonAniadirFecha);
+        datePickerButton = findViewById(R.id.botonAniadirFecha);
         ShowDateTextView = findViewById(R.id.SelectedDaytextView);
-        iniciarDatePicker();
-        botonDatePicker.setOnClickListener(v -> {
+        startDatePicker();
+        datePickerButton.setOnClickListener(v -> {
             datePickerDialog.show();
         });
 
-        botonAniadir = findViewById(R.id.botonAniadirListaActivity);
-        botonAniadir.setOnClickListener(View -> {
+        addButton = findViewById(R.id.botonAniadirListaActivity);
+        addButton.setOnClickListener(View -> {
             checkAndContinueLista();
         });
     }
@@ -60,7 +60,6 @@ public class AniadirListaActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Cuando
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 finish();
@@ -70,22 +69,22 @@ public class AniadirListaActivity extends AppCompatActivity {
 
     private void checkAndContinueLista() {
         boolean thereIsAnError = false;
-        nombre = txtNombre.getText().toString();
-        descripcion = txtDescripcion.getText().toString();
-        fechaLimite = ShowDateTextView.getText().toString();
-        tipoLista = (String) tipoListaSpinner.getSelectedItem();
-        System.out.println(fechaLimite);
-        System.out.println(tipoLista);
+        name = txtName.getText().toString();
+        description = txtDescription.getText().toString();
+        endDate = ShowDateTextView.getText().toString();
+        listType = (String) typeListSpinner.getSelectedItem();
+        System.out.println(endDate);
+        System.out.println(listType);
 
-        if (TextUtils.isEmpty(nombre.trim())) {
+        if (TextUtils.isEmpty(name.trim())) {
             thereIsAnError = true;
-            ponerError(txtNombre);
+            ponerError(txtName);
         }
-        if (TextUtils.isEmpty(descripcion.trim())) {
+        if (TextUtils.isEmpty(description.trim())) {
             thereIsAnError = true;
-            ponerError(txtDescripcion);
+            ponerError(txtDescription);
         }
-        if (fechaLimite.equalsIgnoreCase(getResources().getString(R.string.textoFechaLimiteAddLista))) {
+        if (endDate.equalsIgnoreCase(getResources().getString(R.string.textoFechaLimiteAddLista))) {
             thereIsAnError = true;
             ShowDateTextView.setError(getResources().getString(R.string.errorEleccionFecha));
         } else {
@@ -96,30 +95,26 @@ public class AniadirListaActivity extends AppCompatActivity {
             return;
         }
 
-
         Intent intent = new Intent(this, AddItemsListaActivity.class);
 
-        Bundle datosAPasar = new Bundle();
-        datosAPasar.putString("nombreLista", nombre);
-        datosAPasar.putString("descripcionLista", descripcion);
-        datosAPasar.putString("fechaLimiteLista", fechaLimite);
-        datosAPasar.putString("tipoLista", tipoLista);
+        Bundle toSendData = new Bundle();
+        toSendData.putString("nombreLista", name);
+        toSendData.putString("descripcionLista", description);
+        toSendData.putString("fechaLimiteLista", endDate);
+        toSendData.putString("tipoLista", listType);
 
-        intent.putExtras(datosAPasar);
+        intent.putExtras(toSendData);
         startActivityForResult(intent, 2);
-
-
-        //finish();
     }
 
-    private void iniciarDatePicker() {
+    private void startDatePicker() {
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                fechaElegida = dayOfMonth + "/" + (month + 1) + "/" + year;
-                ShowDateTextView.setText(fechaElegida);
+                selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
+                ShowDateTextView.setText(selectedDate);
             }
         };
 
@@ -127,8 +122,6 @@ public class AniadirListaActivity extends AppCompatActivity {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         int month = cal.get(Calendar.MONTH);
         int year = cal.get(Calendar.YEAR);
-
-        //int style = AlertDialog.THEME_HOLO_DARK;
 
         datePickerDialog = new DatePickerDialog(this, dateSetListener, day, month, year);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());

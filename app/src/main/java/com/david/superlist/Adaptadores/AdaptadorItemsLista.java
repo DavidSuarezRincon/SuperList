@@ -46,7 +46,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
 
         TareaLista newTarea = listaTareas.get(position);
 
-        holder.tarea.setText(newTarea.getTarea()); //Pone el texto al CheckedTextView del layout.
+        holder.tarea.setText(newTarea.getTask()); //Pone el texto al CheckedTextView del layout.
         holder.imagen.setImageResource(R.drawable.baseline_checklist_24);
         holder.imagen.setColorFilter(getColorInt(newTarea));//Le pone el color al icono del layout.
 
@@ -67,7 +67,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
 
         //Method for change the color of the icon.
 
-        String prioridad = tarea.getPrioridad().toLowerCase();
+        String prioridad = tarea.getPriority().toLowerCase();
 
         int color = 0;
 
@@ -84,7 +84,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
                 break;
         }
 
-        tarea.setColorIconoPrioridad(color);
+        tarea.setIconPriorityColor(color);
         return color;
 
     }

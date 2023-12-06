@@ -7,44 +7,44 @@ import androidx.annotation.NonNull;
 
 public class TareaLista implements Parcelable {
 
-    private String tarea;
-    private String prioridad;
+    private String task;
+    private String priority;
 
-    private int colorIconoPrioridad;
+    private int iconPriorityColor;
 
-    public TareaLista(String tarea, String prioridad) {
-        this.tarea = tarea;
-        this.prioridad = prioridad;
+    public TareaLista(String task, String priority) {
+        this.task = task;
+        this.priority = priority;
     }
 
     private TareaLista(Parcel in) {
-        tarea = in.readString();
-        prioridad = in.readString();
-        colorIconoPrioridad = in.readInt();
+        task = in.readString();
+        priority = in.readString();
+        iconPriorityColor = in.readInt();
     }
 
-    public String getTarea() {
-        return tarea;
+    public String getTask() {
+        return task;
     }
 
-    public void setTarea(String tarea) {
-        this.tarea = tarea;
+    public void setTask(String task) {
+        this.task = task;
     }
 
-    public String getPrioridad() {
-        return prioridad;
+    public String getPriority() {
+        return priority;
     }
 
-    public void setPrioridad(String prioridad) {
-        this.prioridad = prioridad;
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
-    public int getColorIconoPrioridad() {
-        return colorIconoPrioridad;
+    public int getIconPriorityColor() {
+        return iconPriorityColor;
     }
 
-    public void setColorIconoPrioridad(int colorIconoPrioridad) {
-        this.colorIconoPrioridad = colorIconoPrioridad;
+    public void setIconPriorityColor(int iconPriorityColor) {
+        this.iconPriorityColor = iconPriorityColor;
     }
 
     @Override
@@ -54,16 +54,15 @@ public class TareaLista implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeString(tarea);
-        dest.writeString(prioridad);
-        dest.writeInt(colorIconoPrioridad);
+        dest.writeString(task);
+        dest.writeString(priority);
+        dest.writeInt(iconPriorityColor);
     }
 
     public static final Parcelable.Creator<TareaLista> CREATOR = new Parcelable.Creator<TareaLista>() {
         @Override
         public TareaLista createFromParcel(Parcel in) {
             // Read fields from parcel and create your object
-
             return new TareaLista(in);
         }
 
