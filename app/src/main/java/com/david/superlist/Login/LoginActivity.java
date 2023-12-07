@@ -21,6 +21,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        UsuariosRegistrados.addAdminlUser("root", "root");
+
         // Referencias a los elementos de la interfaz de usuario
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
         TextView register = findViewById(R.id.loginRegister);
@@ -59,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (user.hasThisPassword(password)) {
                     Intent claseMain = new Intent(this, MainActivity.class);
                     // Añade el nombre de usuario al intent
-                    getIntent().putExtra("nombreUsuario", email.split("@")[0]);
-                    // Inicia la actividad principal
+                    claseMain.putExtra("usuarioLogeado", user);
+
                     startActivity(claseMain);
                 } else {
                     String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);

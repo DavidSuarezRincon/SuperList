@@ -11,6 +11,7 @@
 
     <color name="whiteBasic">#d6d6d6</color>
     <color name="greyForHints">#817D7D</color>
+    <color name="greyForBackground">#808080</color>
 
 
 </resources>

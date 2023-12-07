@@ -14,6 +14,7 @@ import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.TareaLista;
+import com.david.superlist.pojos.Usuario;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
@@ -26,6 +27,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements Serializable, RecyclerViewInterface {
 
     // Declaración de variables
+    private Usuario logedUser;
     private RecyclerView recView;
     private static int numbersIds;
     private FloatingActionButton btnAniadirLista;
@@ -56,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     // Método para inicializar la lista y el adaptador
     private void iniciarLista() {
 
-        datosLista = new ArrayList<>();
+        logedUser = getIntent().getExtras().getParcelable("usuarioLogeado");
+        datosLista = logedUser.getUserLists();
         adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
 
 //        ArrayList<Lista> listas = Lista.getTestListas();
@@ -65,8 +68,11 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 //            aniadirLista(lista);
 //        }
 
-        crearLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>());
-        crearLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>());
+        if(datosLista.isEmpty()){
+            addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>()));
+            addLista(createLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>()));
+        }
+
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
@@ -76,19 +82,29 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
     }
 
     // Método para añadir una lista
-    public static void crearLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
-        Random rand = new Random();
+    public static Lista createLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
         Calendar calendario = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendario.getTime());
 
-        datosLista.add(new Lista(numbersIds++, colorRandom(), nombre, Descripcion, fechaFin, tipo, currentDate, itemsLista));
+        return new Lista(numbersIds++, randomColor(), nombre, Descripcion, fechaFin, tipo, currentDate, itemsLista);
+    }
+
+    public static void addLista(Lista list) {
+        Calendar calendario = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        String currentDate = sdf.format(calendario.getTime());
+
+        list.setColor(randomColor());
+        list.setCreationDate(currentDate);
+
+        datosLista.add(list);
         adaptador.notifyDataSetChanged();
     }
 
     // Método para generar un color aleatorio
-    public static int colorRandom() {
+    public static int randomColor() {
         Random random = new Random();
         return Color.argb(255, random.nextInt(150), random.nextInt(150), random.nextInt(150));
     }

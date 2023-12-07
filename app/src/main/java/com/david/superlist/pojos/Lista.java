@@ -1,8 +1,13 @@
 package com.david.superlist.pojos;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 
-public class Lista {
+public class Lista implements Parcelable {
     public int id;
     private int color;
     private String title;
@@ -22,6 +27,29 @@ public class Lista {
         this.creationDate = creationDate;
         this.tasksList = tasksList;
     }
+
+    protected Lista(Parcel in) {
+        id = in.readInt();
+        color = in.readInt();
+        title = in.readString();
+        description = in.readString();
+        endDate = in.readString();
+        type = in.readString();
+        creationDate = in.readString();
+        tasksList = in.createTypedArrayList(TareaLista.CREATOR);
+    }
+
+    public static final Creator<Lista> CREATOR = new Creator<Lista>() {
+        @Override
+        public Lista createFromParcel(Parcel in) {
+            return new Lista(in);
+        }
+
+        @Override
+        public Lista[] newArray(int size) {
+            return new Lista[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -85,5 +113,22 @@ public class Lista {
 
     public void setTasksList(ArrayList<TareaLista> tasksList) {
         this.tasksList = tasksList;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(color);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(endDate);
+        dest.writeString(type);
+        dest.writeString(creationDate);
+        dest.writeTypedList(tasksList);
     }
 }

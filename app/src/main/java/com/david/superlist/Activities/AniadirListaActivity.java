@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.david.superlist.R;
+import com.david.superlist.pojos.Lista;
 
 import java.util.Calendar;
 
@@ -96,14 +97,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AddItemsListaActivity.class);
-
-        Bundle toSendData = new Bundle();
-        toSendData.putString("nombreLista", name);
-        toSendData.putString("descripcionLista", description);
-        toSendData.putString("fechaLimiteLista", endDate);
-        toSendData.putString("tipoLista", listType);
-
-        intent.putExtras(toSendData);
+        Lista newLista = MainActivity.createLista(name, description, endDate, listType, null);
+        intent.putExtra("newList", newLista);
         startActivityForResult(intent, 2);
     }
 

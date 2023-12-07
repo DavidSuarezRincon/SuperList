@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Adaptadores.AdaptadorItemsLista;
 import com.david.superlist.R;
+import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.TareaLista;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -100,12 +101,10 @@ public class AddItemsListaActivity extends AppCompatActivity {
         //Datos recibidos de la activity crear lista.
         Bundle listData = getIntent().getExtras();
 
-        String listName = listData.getString("nombreLista");
-        String listDescription = listData.getString("descripcionLista");
-        String listEndDate = listData.getString("fechaLimiteLista");
-        String listType = listData.getString("tipoLista");
+        Lista newList = listData.getParcelable("newList");
+        newList.setTasksList(tasks);
 
-        MainActivity.crearLista(listName, listDescription, listType, listEndDate, tasks);
+        MainActivity.addLista(newList);
     }
 
     private void createDialogAddTask() {

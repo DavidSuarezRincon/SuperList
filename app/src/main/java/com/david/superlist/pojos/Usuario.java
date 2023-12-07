@@ -1,17 +1,52 @@
 package com.david.superlist.pojos;
 
-public class Usuario {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.util.ArrayList;
+
+public class Usuario implements Parcelable {
 
     private static int id;
     private String email;
     private String password;
     private int rol; // 0 user 1 admin
+    private static ArrayList<Lista> userLists = userLists = new ArrayList<>();
 
     public Usuario(int id, String email, String password, int rol) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.rol = rol;
+    }
+
+    protected Usuario(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        rol = in.readInt();
+        userLists = in.createTypedArrayList(Lista.CREATOR);
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
+
+    public ArrayList<Lista> getUserLists() {
+        return userLists;
+    }
+
+    public void setUserLists(ArrayList<Lista> userLists) {
+        this.userLists = userLists;
     }
 
     public int getId() {
@@ -52,5 +87,18 @@ public class Usuario {
 
     public boolean hasThisPassword(String password) {
         return this.password.equals(password);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeInt(rol);
+        dest.writeTypedList(userLists);
     }
 }
