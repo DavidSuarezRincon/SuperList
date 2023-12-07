@@ -97,7 +97,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AddItemsListaActivity.class);
-        Lista newLista = MainActivity.createLista(name, description, endDate, listType, null);
+        Lista newLista = MenuListasActivity.createLista(name, description, endDate, listType, null);
         intent.putExtra("newList", newLista);
         startActivityForResult(intent, 2);
     }

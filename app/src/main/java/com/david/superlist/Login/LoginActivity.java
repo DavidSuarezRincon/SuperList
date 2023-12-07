@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.david.superlist.Activities.MainActivity;
+import com.david.superlist.Activities.MenuListasActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Usuario;
 import com.david.superlist.pojos.UsuariosRegistrados;
@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario user = UsuariosRegistrados.getUser(email);
 
                 if (user.hasThisPassword(password)) {
-                    Intent claseMain = new Intent(this, MainActivity.class);
+                    Intent claseMain = new Intent(this, MenuListasActivity.class);
                     // Añade el nombre de usuario al intent
                     claseMain.putExtra("usuarioLogeado", user);
 

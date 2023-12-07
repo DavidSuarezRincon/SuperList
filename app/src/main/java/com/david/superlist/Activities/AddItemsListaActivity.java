@@ -51,7 +51,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
 
                 int positionTask = (int) getIntent().getExtras().getInt("posLista");
 
-                MainActivity.changeTasks(positionTask, tasks);
+                MenuListasActivity.changeTasks(positionTask, tasks);
 
             } else {
                 addListToMain();
@@ -104,7 +104,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
         Lista newList = listData.getParcelable("newList");
         newList.setTasksList(tasks);
 
-        MainActivity.addLista(newList);
+        MenuListasActivity.addLista(newList);
     }
 
     private void createDialogAddTask() {

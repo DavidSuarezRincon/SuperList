@@ -31,7 +31,7 @@ public class activity_mostrarInfo_Lista extends AppCompatActivity {
         goBack = findViewById(R.id.BotonVolverMainInfo);
 
         goBack.setOnClickListener(v -> finish());
-        
+
         list = getIntent().getParcelableExtra("listaSeleccionada");
 
         initializeTextsViews();
