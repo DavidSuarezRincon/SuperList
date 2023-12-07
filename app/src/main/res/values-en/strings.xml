@@ -56,4 +56,12 @@
     <string name="errorDeFormatoDeEmail">The format of the email is wrong. \"example@gmail.com\"</string>
     <string name="mensajeErrorContraseñasNoCoinciden">Passwords don\'t match.</string>
     <string name="textoErrorUsuarioExistente">There is already an account registered with this email.</string>
+    <string name="textNameInfo">Name:</string>
+    <string name="textoTituloInformacionLista">List Information</string>
+    <string name="textDescripcionInfo">Description:</string>
+    <string name="textFechaCreacionInfo">Creation date:</string>
+    <string name="textFechaLimiteInfo">Deadline:</string>
+    <string name="textTipoListaInfo">List type:</string>
+    <string name="textNumeroTareasInfo">Tasks number:</string>
+    <string name="textDesplegableBotonInfo">Information</string>
 </resources>

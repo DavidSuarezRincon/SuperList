@@ -10,17 +10,17 @@ import java.util.ArrayList;
 public class Lista implements Parcelable {
     public int id;
     private int color;
-    private String title;
+    private String name;
     private String description;
     private String endDate;
     private String type;
     private String creationDate;
     private ArrayList<TareaLista> tasksList;
 
-    public Lista(int id, int color, String title, String description, String endDate, String type, String creationDate, ArrayList<TareaLista> tasksList) {
+    public Lista(int id, int color, String name, String description, String endDate, String type, String creationDate, ArrayList<TareaLista> tasksList) {
         this.id = id;
         this.color = color;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.endDate = endDate;
         this.type = type;
@@ -31,7 +31,7 @@ public class Lista implements Parcelable {
     protected Lista(Parcel in) {
         id = in.readInt();
         color = in.readInt();
-        title = in.readString();
+        name = in.readString();
         description = in.readString();
         endDate = in.readString();
         type = in.readString();
@@ -67,12 +67,12 @@ public class Lista implements Parcelable {
         this.color = color;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -124,7 +124,7 @@ public class Lista implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeInt(color);
-        dest.writeString(title);
+        dest.writeString(name);
         dest.writeString(description);
         dest.writeString(endDate);
         dest.writeString(type);

@@ -115,7 +115,7 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
 
         // Método para vincular los datos con las vistas
         public void bindLista(Lista l) {
-            txtTitulo.setText(l.getTitle());
+            txtTitulo.setText(l.getName());
             txtTitulo.setTextColor(l.getColor());
             txtDescripcion.setText(l.getDescription());
             txtFecha.setText(l.getCreationDate());

@@ -38,16 +38,16 @@
     <string name="textButtonForgotPassword">Enviar email</string>
     <string name="textTitleForgotPassword">Escribe tu correo electrónico</string>
 
-<!--    Strings activity_aniadirLista-->
+    <!--    Strings activity_aniadirLista-->
     <string name="textoNombreAniadirLista">Nombre: </string>
     <string name="textoHintNombreAniadirLista">Mi Lista</string>
     <string name="textoDescripcionAniadirLista">Descripción: </string>
     <string name="textoHintDescripcionAniadirLista">Lista de la compra</string>
     <string name="textoBotonAniadirLista">Añadir</string>
-<!--    <string name="textoTextViewDefaultIntroduceFecha">Pulse en el botón para introducir la fecha.</string>-->
+    <!--    <string name="textoTextViewDefaultIntroduceFecha">Pulse en el botón para introducir la fecha.</string>-->
     <string name="textoTituloAniadirLista">Crea tu lista</string>
 
-<!--    Menu lista -->
+    <!--    Menu lista -->
 
     <string name="textoMenuListaAbrir">Abrir</string>
     <string name="textoMenuListaBorrar">Borrar</string>
@@ -69,6 +69,14 @@
     <string name="errorDeFormatoDeEmail">El formato del email es erroneo. \"ejemplo@gmail.com\"</string>
     <string name="mensajeErrorContraseñasNoCoinciden">Las contraseñas no coinciden.</string>
     <string name="textoErrorUsuarioExistente">Ya hay una cuenta registrada con este email.</string>
+    <string name="textNameInfo">Nombre:</string>
+    <string name="textoTituloInformacionLista">Información Lista</string>
+    <string name="textDescripcionInfo">Descripción:</string>
+    <string name="textFechaCreacionInfo">Fecha de creación:</string>
+    <string name="textFechaLimiteInfo">Fecha límite:</string>
+    <string name="textTipoListaInfo">Tipo de lista:</string>
+    <string name="textNumeroTareasInfo">Número de tareas:</string>
+    <string name="textDesplegableBotonInfo">Información</string>
 
 
 </resources>

@@ -7,6 +7,9 @@
         android:title="@string/textoMenuListaAbrir"/>
     <item
         android:id="@+id/item2"
+        android:title="@string/textDesplegableBotonInfo" />
+    <item
+        android:id="@+id/item3"
         android:title="@string/textoMenuListaBorrar" />
 
 </menu>

@@ -51,7 +51,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
 
                 int positionTask = (int) getIntent().getExtras().getInt("posLista");
 
-                MainActivity.cambiarTareasLista(positionTask, tasks);
+                MainActivity.changeTasks(positionTask, tasks);
 
             } else {
                 addListToMain();
@@ -62,7 +62,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
             finish();
         });
 
-        imageButtonGoBack = findViewById(R.id.BotonVolverAniadirTarea);
+        imageButtonGoBack = findViewById(R.id.BotonVolverMainInfo);
         imageButtonGoBack.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(getResources().getString(R.string.MensajeAdvertenciaVolverAtrasTareas));

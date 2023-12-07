@@ -35,7 +35,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_descripcion);
 
-        buttonGoBack = findViewById(R.id.BotonVolverAniadirTarea);
+        buttonGoBack = findViewById(R.id.BotonVolverMainInfo);
         buttonGoBack.setOnClickListener(v -> {
             finish();
         });

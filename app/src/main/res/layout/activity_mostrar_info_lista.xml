@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#242525"
+    tools:context=".Activities.activity_mostrarInfo_Lista">
+
+    <LinearLayout
+        android:id="@+id/CabeceraLinearLayout"
+        android:layout_width="411dp"
+        android:layout_height="80dp"
+        android:background="#000000"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginBaseline="0dp">
+
+        <ImageButton
+            android:id="@+id/BotonVolverMainInfo"
+            android:layout_width="150dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:background="@color/black"
+            android:contentDescription="@string/botonVolverMainContext"
+            app:srcCompat="@android:drawable/ic_menu_revert" />
+
+        <TextView
+            android:id="@+id/textoTituloAniadirLista"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/textoTituloInformacionLista"
+            android:textColor="#FFFFFF"
+            android:textSize="34dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="190dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
+        android:background="#323131"
+        android:gravity="center"
+        android:text="@string/textNameInfo"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout" />
+
+    <TextView
+        android:id="@+id/textViewDescripcionInfo"
+        android:layout_width="380dp"
+        android:layout_height="33dp"
+        android:background="#323131"
+        android:gravity="center|center_vertical"
+        android:text="@string/textDescripcionInfo"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NombreListaInfoTextView" />
+
+    <TextView
+        android:id="@+id/DescripcionListaInfoTextView"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:minLines="3"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDescripcionInfo" />
+
+    <TextView
+        android:id="@+id/NombreListaInfoTextView"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:minLines="2"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="189dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="44dp"
+        android:background="#323131"
+        android:gravity="center"
+        android:text="@string/textFechaCreacionInfo"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/CabeceraLinearLayout" />
+
+    <TextView
+        android:id="@+id/FechaCreacionListaInfoTextView"
+        android:layout_width="189dp"
+        android:layout_height="0dp"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewDescripcionInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/NombreListaInfoTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="190dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:background="#323131"
+        android:gravity="center"
+        android:text="@string/textFechaLimiteInfo"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DescripcionListaInfoTextView" />
+
+    <TextView
+        android:id="@+id/FechaLimiteListaInfoTextView"
+        android:layout_width="190dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="380dp"
+        android:layout_height="34dp"
+        android:background="#323131"
+        android:gravity="center"
+        android:text="@string/textTipoListaInfo"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FechaLimiteListaInfoTextView" />
+
+    <TextView
+        android:id="@+id/TipoListaInfoTextView"
+        android:layout_width="380dp"
+        android:layout_height="34dp"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="189dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="10dp"
+        android:background="#323131"
+        android:gravity="center"
+        android:text="@string/textNumeroTareasInfo"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/DescripcionListaInfoTextView" />
+
+    <TextView
+        android:id="@+id/NumeroTareasListaInfoTextView"
+        android:layout_width="189dp"
+        android:layout_height="34dp"
+        android:background="@color/greyForBackground"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/FechaLimiteListaInfoTextView"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+</androidx.constraintlayout.widget.ConstraintLayout>

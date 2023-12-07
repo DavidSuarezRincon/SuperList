@@ -23,25 +23,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-// Clase MainActivity que extiende de AppCompatActivity e implementa Serializable y RecyclerViewInterface
 public class MainActivity extends AppCompatActivity implements Serializable, RecyclerViewInterface {
 
-    // Declaración de variables
     private Usuario logedUser;
     private RecyclerView recView;
     private static int numbersIds;
     private FloatingActionButton btnAniadirLista;
-    private static ArrayList<Lista> datosLista;
-    private static AdaptadorLista adaptador;
+    private static ArrayList<Lista> listData;
+    private static AdaptadorLista adapter;
 
-
-    // Método onCreate que se ejecuta al iniciar la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Inicialización de botones y asignación de eventos onClick
 
         btnAniadirLista = findViewById(R.id.btnAniadirLista);
         btnAniadirLista.setOnClickListener(view -> {
@@ -51,56 +45,48 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
         numbersIds = 1;
 
-        // Llamada a métodos iniciar
-        iniciarLista();
+        startLista();
     }
 
     // Método para inicializar la lista y el adaptador
-    private void iniciarLista() {
+    private void startLista() {
 
         logedUser = getIntent().getExtras().getParcelable("usuarioLogeado");
-        datosLista = logedUser.getUserLists();
-        adaptador = new AdaptadorLista(datosLista, this.getApplicationContext(), this);
+        listData = logedUser.getUserLists();
+        adapter = new AdaptadorLista(listData, this.getApplicationContext(), this);
 
-//        ArrayList<Lista> listas = Lista.getTestListas();
-
-//        for (Lista lista : listas) {
-//            aniadirLista(lista);
-//        }
-
-        if(datosLista.isEmpty()){
-            addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "Hola", "adios", new ArrayList<TareaLista>()));
-            addLista(createLista("Lista", "Lista", "Hola", "adios", new ArrayList<TareaLista>()));
+        if (listData.isEmpty()) {
+            addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "10/10/2080", "otros", new ArrayList<TareaLista>()));
+            addLista(createLista("Lista", "Lista", "20/10/2050", "Lista de la compra", new ArrayList<TareaLista>()));
         }
-
 
         recView = findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
         recView.setLayoutManager(new LinearLayoutManager(this));
-        recView.setAdapter(adaptador);
+        recView.setAdapter(adapter);
         registerForContextMenu(recView);
     }
 
     // Método para añadir una lista
     public static Lista createLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
-        Calendar calendario = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-        String currentDate = sdf.format(calendario.getTime());
+        String currentDate = sdf.format(calendar.getTime());
 
         return new Lista(numbersIds++, randomColor(), nombre, Descripcion, fechaFin, tipo, currentDate, itemsLista);
     }
 
     public static void addLista(Lista list) {
-        Calendar calendario = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-        String currentDate = sdf.format(calendario.getTime());
+        String currentDate = sdf.format(calendar.getTime());
 
         list.setColor(randomColor());
         list.setCreationDate(currentDate);
 
-        datosLista.add(list);
-        adaptador.notifyDataSetChanged();
+        listData.add(list);
+        adapter.notifyDataSetChanged();
     }
 
     // Método para generar un color aleatorio
@@ -111,12 +97,12 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
 
     // Método para borrar una lista
     public void borrarItemLista(int numLista) {
-        datosLista.remove(numLista);
-        adaptador.notifyItemRemoved(numLista);
+        listData.remove(numLista);
+        adapter.notifyItemRemoved(numLista);
     }
 
     public void abrirItemLista(int numLista) {
-        Lista listaAbrir = datosLista.get(numLista);
+        Lista listaAbrir = listData.get(numLista);
         ArrayList<TareaLista> listaDetareas = listaAbrir.getTasksList();
 
         Intent intent = new Intent(this, AddItemsListaActivity.class);
@@ -124,6 +110,14 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         bundle.putSerializable("listaDeTareas", listaDetareas);
         bundle.putInt("posLista", numLista);
         intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void mostrarInformacionlista(int numLista) {
+        Lista pickedList = listData.get(numLista);
+
+        Intent intent = new Intent(this, activity_mostrarInfo_Lista.class);
+        intent.putExtra("listaSeleccionada", pickedList);
         startActivity(intent);
     }
 
@@ -146,23 +140,24 @@ public class MainActivity extends AppCompatActivity implements Serializable, Rec
         // Establecer un listener de eventos para los elementos del menú
         popup.setOnMenuItemClickListener(item -> {
 
-            String nombreItemClicado = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Borrar).
-            String textAbrir = getResources().getString(R.string.textoMenuListaAbrir);
-            String textBorrar = getResources().getString(R.string.textoMenuListaBorrar);
+            String optionClicked = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Info, Borrar).
+            String openText = getResources().getString(R.string.textoMenuListaAbrir);
+            String infoText = getResources().getString(R.string.textDesplegableBotonInfo);
+            String deleteText = getResources().getString(R.string.textoMenuListaBorrar);
 
-            if (nombreItemClicado.equalsIgnoreCase(textAbrir)) {
+            if (optionClicked.equalsIgnoreCase(openText)) {
                 abrirItemLista(position);
-            } else if (nombreItemClicado.equalsIgnoreCase(textBorrar)) {
+            } else if (optionClicked.equalsIgnoreCase(deleteText)) {
                 borrarItemLista(position);
+            } else if (optionClicked.equalsIgnoreCase(infoText)) {
+                mostrarInformacionlista(position);
             }
             return true;
         });
     }
 
-    public static void cambiarTareasLista(int pos, ArrayList<TareaLista> tareas) {
-
-        datosLista.get(pos).setTasksList(tareas);
-
+    public static void changeTasks(int pos, ArrayList<TareaLista> tasks) {
+        listData.get(pos).setTasksList(tasks);
     }
 
 }
