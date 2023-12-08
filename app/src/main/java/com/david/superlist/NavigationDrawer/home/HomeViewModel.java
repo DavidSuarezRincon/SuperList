@@ -10,14 +10,14 @@ public class HomeViewModel extends ViewModel {
 
     public HomeViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("Pepito, welcome to SuperList!");
+        mText.setValue("Welcome to our app!");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
 
-    public void setTextUserName(String userName){
+    public void setTextUserName(String userName) {
         mText.setValue(userName + ", welcome to SuperList!");
     }
 }

@@ -1,6 +1,10 @@
 package com.david.superlist.NavigationDrawer;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -30,14 +34,29 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
 
+        View headerView = navigationView.getHeaderView(0);
+
+        SharedPreferences preferenciasDeUsuario = getSharedPreferences("PreferenciasUsuario"
+                , Context.MODE_PRIVATE);
+        String userEmail = preferenciasDeUsuario.getString("emailUsuarioLogueado"
+                , "default");
+
+        TextView nombreUsuarioHeader = headerView.findViewById(R.id.TextViewNombreUsuarioHeader);
+        nombreUsuarioHeader.setText(userEmail.split("@")[0]);
+
+        TextView emailUsuarioheader = headerView.findViewById(R.id.TextViewEmailUsuarioHeader);
+        emailUsuarioheader.setText(userEmail);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_MenuListas, R.id.nav_Logout)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavController navController = Navigation.findNavController(this,
+                R.id.nav_host_fragment_content_main);
+        NavigationUI.setupActionBarWithNavController(this, navController,
+                mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.setNavigationItemSelectedListener(item -> {

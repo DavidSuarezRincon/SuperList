@@ -1,6 +1,8 @@
 package com.david.superlist.Login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -59,6 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario user = UsuariosRegistrados.getUser(email);
 
                 if (user.hasThisPassword(password)) {
+
+                    addPreferenciaString("emailUsuarioLogueado", user.getEmail());
+                    addPreferenciaInt("rolUsuarioLogueado", user.getRol());
                     Intent claseMain = new Intent(this, MainActivity.class);//todo
                     // Añade el nombre de usuario al intent
                     claseMain.putExtra("usuarioLogeado", user);
@@ -91,5 +96,19 @@ public class LoginActivity extends AppCompatActivity {
     private void setFalloDatos(EditText introdTexto) {
         // Muestra un mensaje de error en el campo de texto
         introdTexto.setError("Este campo es obligatorio.");
+    }
+
+    private void addPreferenciaString(String key, String data) {
+        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = datosCompartidos.edit();
+        editor.putString(key, data);
+        editor.apply();
+    }
+
+    private void addPreferenciaInt(String key, int number) {
+        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = datosCompartidos.edit();
+        editor.putInt(key, number);
+        editor.apply();
     }
 }

@@ -1,5 +1,7 @@
 package com.david.superlist.NavigationDrawer.home;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,14 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.setTextUserName("Pepito");
+
+        SharedPreferences preferenciasCompartidas = getActivity()
+                .getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+
+        String username= preferenciasCompartidas.getString("emailUsuarioLogueado",
+                "default");
+
+        homeViewModel.setTextUserName(username.split("@")[0]);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -29,6 +38,7 @@ public class HomeFragment extends Fragment {
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
+
 
     @Override
     public void onDestroyView() {
