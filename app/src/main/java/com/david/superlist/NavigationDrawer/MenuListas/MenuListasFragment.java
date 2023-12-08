@@ -1,14 +1,22 @@
-package com.david.superlist.Activities;
+package com.david.superlist.NavigationDrawer.MenuListas;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.david.superlist.Activities.AddItemsListaActivity;
+import com.david.superlist.Activities.AniadirListaActivity;
+import com.david.superlist.Activities.activity_mostrarInfo_Lista;
 import com.david.superlist.Adaptadores.AdaptadorLista;
 import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.R;
@@ -23,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
 
-public class MenuListasActivity extends AppCompatActivity implements Serializable, RecyclerViewInterface {
+public class MenuListasFragment extends Fragment implements Serializable, RecyclerViewInterface {
 
     private Usuario logedUser;
     private RecyclerView recView;
@@ -31,38 +39,41 @@ public class MenuListasActivity extends AppCompatActivity implements Serializabl
     private FloatingActionButton btnAniadirLista;
     private static ArrayList<Lista> listData;
     private static AdaptadorLista adapter;
+    private View view;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_gallery);
+        view = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        btnAniadirLista = findViewById(R.id.btnAniadirLista);
-        btnAniadirLista.setOnClickListener(view -> {
-            Intent intent = new Intent(this, AniadirListaActivity.class);
+        btnAniadirLista = view.findViewById(R.id.btnAniadirLista);
+        btnAniadirLista.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AniadirListaActivity.class);
             startActivity(intent);
         });
 
         numbersIds = 1;
 
         startLista();
+
+        return view;
     }
 
     // Método para inicializar la lista y el adaptador
     private void startLista() {
 
-        logedUser = getIntent().getExtras().getParcelable("usuarioLogeado");
+        logedUser = getActivity().getIntent().getExtras().getParcelable("usuarioLogeado");
         listData = logedUser.getUserLists();
-        adapter = new AdaptadorLista(listData, this.getApplicationContext(), this);
+        adapter = new AdaptadorLista(listData, getActivity(), this);
 
         if (listData.isEmpty()) {
             addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "10/10/2080", "otros", new ArrayList<TareaLista>()));
             addLista(createLista("Lista", "Lista", "20/10/2050", "Lista de la compra", new ArrayList<TareaLista>()));
         }
 
-        recView = findViewById(R.id.rvLista);
+        recView = view.findViewById(R.id.rvLista);
         recView.setHasFixedSize(true);
-        recView.setLayoutManager(new LinearLayoutManager(this));
+        recView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recView.setAdapter(adapter);
         registerForContextMenu(recView);
     }
@@ -105,7 +116,7 @@ public class MenuListasActivity extends AppCompatActivity implements Serializabl
         Lista listaAbrir = listData.get(numLista);
         ArrayList<TareaLista> listaDetareas = listaAbrir.getTasksList();
 
-        Intent intent = new Intent(this, AddItemsListaActivity.class);
+        Intent intent = new Intent(getActivity(), AddItemsListaActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaDeTareas", listaDetareas);
         bundle.putInt("posLista", numLista);
@@ -116,7 +127,7 @@ public class MenuListasActivity extends AppCompatActivity implements Serializabl
     public void mostrarInformacionlista(int numLista) {
         Lista pickedList = listData.get(numLista);
 
-        Intent intent = new Intent(this, activity_mostrarInfo_Lista.class);
+        Intent intent = new Intent(getActivity(), activity_mostrarInfo_Lista.class);
         intent.putExtra("listaSeleccionada", pickedList);
         startActivity(intent);
     }
@@ -132,7 +143,7 @@ public class MenuListasActivity extends AppCompatActivity implements Serializabl
     public void onItemLongClick(int position) {
 
         // Crear un nuevo menú emergente en la posición del elemento seleccionado
-        PopupMenu popup = new PopupMenu(MenuListasActivity.this, recView.getChildAt(position));
+        PopupMenu popup = new PopupMenu(getActivity(), recView.getChildAt(position));
         // Inflar el menú con los elementos definidos en 'R.menu.activity_menulista'
         popup.getMenuInflater().inflate(R.menu.activity_menulista, popup.getMenu());
         popup.show();

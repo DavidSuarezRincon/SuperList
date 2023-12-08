@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Adaptadores.AdaptadorItemsLista;
+import com.david.superlist.NavigationDrawer.MenuListas.MenuListasFragment;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.TareaLista;
@@ -51,7 +52,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
 
                 int positionTask = (int) getIntent().getExtras().getInt("posLista");
 
-                MenuListasActivity.changeTasks(positionTask, tasks);
+                MenuListasFragment.changeTasks(positionTask, tasks);
 
             } else {
                 addListToMain();
@@ -104,7 +105,7 @@ public class AddItemsListaActivity extends AppCompatActivity {
         Lista newList = listData.getParcelable("newList");
         newList.setTasksList(tasks);
 
-        MenuListasActivity.addLista(newList);
+        MenuListasFragment.addLista(newList);
     }
 
     private void createDialogAddTask() {
