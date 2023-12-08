@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     claseMain.putExtra("usuarioLogeado", user);
 
                     startActivity(claseMain);
+                    finish();
                 } else {
                     String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);
                     userPasswordEditText.setError(passwordIncorrectError);

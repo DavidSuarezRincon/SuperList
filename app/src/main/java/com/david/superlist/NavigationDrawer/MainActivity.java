@@ -1,6 +1,7 @@
 package com.david.superlist.NavigationDrawer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.david.superlist.Login.LoginActivity;
 import com.david.superlist.R;
 import com.david.superlist.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
@@ -62,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             //Cuando clice en logout cierra sesión.
             if (item.getItemId() == R.id.nav_Logout) {
+
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 finish();
                 return true;
             }
@@ -71,13 +76,6 @@ public class MainActivity extends AppCompatActivity {
                     || super.onOptionsItemSelected(item);
         });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return true;
-//    }
 
     @Override
     public boolean onSupportNavigateUp() {
