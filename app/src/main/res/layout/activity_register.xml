@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@color/black"
-                                                   android:contentDescription="@string/contentDescriptionPassword1Icon"
-                                                   tools:context=".Login.RegisterActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ContainerRegisterActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:contentDescription="@string/contentDescriptionPassword1Icon"
+    tools:context=".Login.RegisterActivity">
 
     <TextView
         android:id="@+id/textRegister"
@@ -29,30 +30,30 @@
         tools:ignore="TextSizeCheck" />
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbarRegister"
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:background="@color/whiteBasic"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+        android:id="@+id/toolbarRegister"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:background="@color/whiteBasic"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-            android:id="@+id/imgButtonGoBackRegister"
-            android:layout_width="65dp"
-            android:layout_height="71dp"
-            android:contentDescription="@string/contentDescriptionArrowBack"
-            android:scrollbarSize="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.046"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_revert"
-            app:tint="@color/black"
-            tools:ignore="SpeakableTextPresentCheck"/>
+        android:id="@+id/imgButtonGoBackRegister"
+        android:layout_width="65dp"
+        android:layout_height="71dp"
+        android:contentDescription="@string/contentDescriptionArrowBack"
+        android:scrollbarSize="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_revert"
+        app:tint="@color/black"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/buttonRegister"

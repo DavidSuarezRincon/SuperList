@@ -2,11 +2,15 @@ package com.david.superlist.Login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import androidx.annotation.AnimRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.david.superlist.R;
 import com.david.superlist.pojos.UsuariosRegistrados;
@@ -20,6 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     ImageButton goBack;
     TextInputEditText registerEmailEditText, firstPasswordEditText, secondPasswordEditText;
     Button buttonRegister;
+    ConstraintLayout parentLayout;
 
 
     @Override
@@ -32,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         secondPasswordEditText = findViewById(R.id.RegisterInputSecondPassword);
         goBack = findViewById(R.id.imgButtonGoBackRegister);
         buttonRegister = findViewById(R.id.buttonRegister);
+        parentLayout = findViewById(R.id.ContainerRegisterActivity);
 
         buttonRegister.setOnClickListener(v -> {
             String email = registerEmailEditText.getText().toString();
@@ -46,8 +52,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         goBack.setOnClickListener(view -> {
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
+
 
     private boolean checkRegisterErrors(String email, String firstPasswordInput, String secondPasswordInput) {
         boolean thereIsAnError = false;

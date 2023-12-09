@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -75,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+
+                String sucefullLogOutText = getResources().getString(R.string.mensajeLogoutExitoso);
+                Toast.makeText(this, sucefullLogOutText, Toast.LENGTH_SHORT).show();
+
                 finish();
                 return true;
             }

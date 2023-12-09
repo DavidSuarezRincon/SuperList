@@ -85,9 +85,12 @@
     <string name="nav_header_desc">Cabecera de la navegación</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_home">Inicio</string>
     <string name="menu_Listas">Mis Listas</string>
     <string name="menu_cerrarSesion">Cerrar sesión</string>
+    <string name="mensajeLoginExitosoToast">Inicio de sesión correcta.</string>
+    <string name="mensajeLoginFallidoToast">Los credenciales pasados no son válidos.</string>
+    <string name="mensajeLogoutExitoso">Ha cerrado sesión correctamente.</string>
 
 
 </resources>

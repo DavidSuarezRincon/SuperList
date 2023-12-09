@@ -117,12 +117,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
-        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:passwordToggleTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tilEmail"
-        >
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/white">
 
         <EditText
             android:id="@+id/userDataPassword"
@@ -135,6 +134,7 @@
             android:ems="10"
             android:hint="@string/textPassword"
             android:inputType="textPassword"
+            android:paddingEnd="40dp"
             android:shadowColor="#FFFFFF"
             android:textColor="@color/white"
             android:textColorHint="@color/whiteBasic"

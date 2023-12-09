@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
+
+    TextView forgotPassword;
+    TextView register;
+    EditText userEmailEditText;
+    EditText userPasswordEditText;
+    Button SignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +65,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("LoginActivity", "No es la primera vez");
         }
 
-
         // Referencias a los elementos de la interfaz de usuario
-        TextView forgotPassword = findViewById(R.id.loginForgotPassword);
-        TextView register = findViewById(R.id.loginRegister);
-        EditText userEmailEditText = findViewById(R.id.userEmailData);
-        EditText userPasswordEditText = findViewById(R.id.userDataPassword);
-        Button SignInButton = findViewById(R.id.buttonLogIn);
+        forgotPassword = findViewById(R.id.loginForgotPassword);
+        register = findViewById(R.id.loginRegister);
+        userEmailEditText = findViewById(R.id.userEmailData);
+        userPasswordEditText = findViewById(R.id.userDataPassword);
+        SignInButton = findViewById(R.id.buttonLogIn);
 
         // Establece un escuchador de clics en el botón de inicio de sesión
         SignInButton.setOnClickListener(v -> {
@@ -98,19 +104,29 @@ public class LoginActivity extends AppCompatActivity {
 
                     addPreferenciaString("emailUsuarioLogueado", user.getEmail());
                     addPreferenciaInt("rolUsuarioLogueado", user.getRol());
-                    Intent claseMain = new Intent(this, MainActivity.class);//todo
+                    Intent claseMain = new Intent(this, MainActivity.class);
                     // Añade el nombre de usuario al intent
                     claseMain.putExtra("usuarioLogeado", user);
-
                     startActivity(claseMain);
+
+                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+
+                    String textToastSucefullLogIn = getResources().getString(R.string.mensajeLoginExitosoToast);
+                    Toast.makeText(this, textToastSucefullLogIn, Toast.LENGTH_SHORT).show();
+
+
                     finish();
                 } else {
                     String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);
+                    String textToastWrongLogIn = getResources().getString(R.string.mensajeLoginFallidoToast);
                     userPasswordEditText.setError(passwordIncorrectError);
+                    Toast.makeText(this, textToastWrongLogIn, Toast.LENGTH_SHORT).show();
                 }
             } else {
                 String notUserFoundError = getResources().getString(R.string.errorUsuarioNoExiste);
+                String textToastWrongLogIn = getResources().getString(R.string.mensajeLoginFallidoToast);
                 userEmailEditText.setError(notUserFoundError);
+                Toast.makeText(this, textToastWrongLogIn, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -121,10 +137,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // Establece un escuchador de clics en el texto de "registrarse"
-        register.setOnClickListener(view ->
-                // Inicia la actividad de registro
-                startActivity(new Intent(this, RegisterActivity.class))
-        );
+        register.setOnClickListener(view -> {
+            // Inicia la actividad de registro
+            startActivity(new Intent(this, RegisterActivity.class));
+            overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        });
     }
 
     // Método para mostrar un error cuando un campo está vacío

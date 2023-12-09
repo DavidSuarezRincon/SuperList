@@ -55,9 +55,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         });
 
         numbersIds = 1;
-
         startLista();
-
         return view;
     }
 
