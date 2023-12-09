@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Usuario implements Parcelable {
@@ -13,7 +14,8 @@ public class Usuario implements Parcelable {
     private String email;
     private String password;
     private int rol; // 0 user 1 admin
-    private static ArrayList<Lista> userLists = userLists = new ArrayList<>();
+    private ArrayList<Lista> userLists = new ArrayList<>();
+    private File saveData;
 
     public Usuario(int id, String email, String password, int rol) {
         this.id = id;

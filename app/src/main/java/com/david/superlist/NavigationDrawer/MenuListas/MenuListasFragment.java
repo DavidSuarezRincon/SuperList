@@ -3,6 +3,7 @@ package com.david.superlist.NavigationDrawer.MenuListas;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.TareaLista;
 import com.david.superlist.pojos.Usuario;
+import com.david.superlist.pojos.UsuariosRegistrados;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.Serializable;
@@ -63,7 +65,9 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     private void startLista() {
 
         logedUser = getActivity().getIntent().getExtras().getParcelable("usuarioLogeado");
+        Log.i("usuario logueado", logedUser.getEmail());
         listData = logedUser.getUserLists();
+        Log.i("usuario logueado", logedUser.getUserLists().size() + "");
         adapter = new AdaptadorLista(listData, getActivity(), this);
 
         if (listData.isEmpty()) {
@@ -149,6 +153,10 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         popup.show();
 
         // Establecer un listener de eventos para los elementos del menú
+        inicialiceOnClickListenerPopUp(position, popup);
+    }
+
+    private void inicialiceOnClickListenerPopUp(int position, PopupMenu popup) {
         popup.setOnMenuItemClickListener(item -> {
 
             String optionClicked = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Info, Borrar).
@@ -171,4 +179,18 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         listData.get(pos).setTasksList(tasks);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        //Antes de que se cierre el Fragment actualiza los datos.
+
+        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
+    }
 }

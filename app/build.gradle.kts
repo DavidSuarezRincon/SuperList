@@ -47,6 +47,7 @@ dependencies {
     implementation("androidx.mediarouter:mediarouter:1.6.0")
     implementation("androidx.navigation:navigation-fragment:2.6.0")
     implementation("androidx.navigation:navigation-ui:2.6.0")
+    implementation ("com.google.code.gson:gson:2.8.9")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.0-alpha02")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.0-alpha02")

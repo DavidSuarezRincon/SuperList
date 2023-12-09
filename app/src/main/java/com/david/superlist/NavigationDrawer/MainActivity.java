@@ -17,12 +17,16 @@ import androidx.navigation.ui.NavigationUI;
 import com.david.superlist.Login.LoginActivity;
 import com.david.superlist.R;
 import com.david.superlist.databinding.ActivityMainBinding;
+import com.david.superlist.pojos.UsuariosRegistrados;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private SharedPreferences preferenciasDeUsuario;
+    SharedPreferences.Editor editorDePreferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
         View headerView = navigationView.getHeaderView(0);
 
-        SharedPreferences preferenciasDeUsuario = getSharedPreferences("PreferenciasUsuario"
-                , Context.MODE_PRIVATE);
-        String userEmail = preferenciasDeUsuario.getString("emailUsuarioLogueado"
-                , "default");
+        preferenciasDeUsuario = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        editorDePreferencias = preferenciasDeUsuario.edit();
+
+        String userEmail = preferenciasDeUsuario.getString("emailUsuarioLogueado", "default");
 
         TextView nombreUsuarioHeader = headerView.findViewById(R.id.TextViewNombreUsuarioHeader);
         nombreUsuarioHeader.setText(userEmail.split("@")[0]);
@@ -65,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
             //Cuando clice en logout cierra sesión.
             if (item.getItemId() == R.id.nav_Logout) {
 
+                //Cuando se cierra sesión se borran los datos guardados en preferences.
+//                editorDePreferencias.clear();
+//                editorDePreferencias.apply();
+
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -75,6 +83,34 @@ public class MainActivity extends AppCompatActivity {
             return NavigationUI.onNavDestinationSelected(item, navController)
                     || super.onOptionsItemSelected(item);
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+
+        Gson gson = new Gson();
+        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
+
+        editor.putString("usuariosRegistrados", usuarios);
+        editor.apply();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = datosCompartidos.edit();
+
+        Gson gson = new Gson();
+        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
+
+        editor.putString("usuariosRegistrados", usuarios);
+        editor.apply();
     }
 
     @Override

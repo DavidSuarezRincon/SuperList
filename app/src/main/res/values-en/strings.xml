@@ -64,4 +64,11 @@
     <string name="textTipoListaInfo">List type:</string>
     <string name="textNumeroTareasInfo">Tasks number:</string>
     <string name="textDesplegableBotonInfo">Information</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="navigation_drawer_open">Navigation drawer oppened</string>
+    <string name="navigation_drawer_close">Navigation drawer closed</string>
+    <string name="nav_header_title">yes</string>
+    <string name="nav_header_subtitle">yes</string>
+    <string name="nav_header_desc">Header navigation</string>
+    <string name="action_settings">Settings</string>
 </resources>

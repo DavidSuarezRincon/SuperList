@@ -3,12 +3,19 @@ package com.david.superlist.pojos;
 import java.util.ArrayList;
 
 public class UsuariosRegistrados {
-
     private static ArrayList<Usuario> users = new ArrayList<>();
     private static int usersIds = 1;
 
     public static Usuario getUser(int index) {
         return users.get(index);
+    }
+
+    public static ArrayList<Usuario> getUsers() {
+        return users;
+    }
+
+    public static void setUsers(ArrayList<Usuario> newUsers) {
+        users = newUsers;
     }
 
     public static void addNormalUser(String email, String password) {
@@ -52,6 +59,7 @@ public class UsuariosRegistrados {
         for (Usuario user : users) {
             if (user.hasThisUser(email) && user.hasThisPassword(oldPassword)) {
                 user.setPassword(newPassword);
+                return true;
             }
         }
         return false;
@@ -75,7 +83,7 @@ public class UsuariosRegistrados {
                 return true;
             }
         }
-
         return false;
     }
+
 }

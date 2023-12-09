@@ -1,9 +1,9 @@
 package com.david.superlist.Login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ImageButton;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.david.superlist.R;
 
@@ -17,14 +17,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         ImageButton botonBack = findViewById(R.id.imgButtonGoBackForgotPassword);
 
-
         botonBack.setOnClickListener(view -> {
-
             finish();
-
         });
-
-
-
     }
 }

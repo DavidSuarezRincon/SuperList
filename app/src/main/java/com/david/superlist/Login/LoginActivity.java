@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,11 @@ import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Usuario;
 import com.david.superlist.pojos.UsuariosRegistrados;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,7 +29,35 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        UsuariosRegistrados.addAdminlUser("root", "root");
+        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
+
+        if (esPrimeraVez) {
+            // Se ejecuta solo la primera vez
+            UsuariosRegistrados.addAdminlUser("root", "root");
+
+            // Establece la bandera a falso para las próximas veces
+            SharedPreferences.Editor editor = datosCompartidos.edit();
+            editor.putBoolean("esPrimeraVez", false);
+            editor.apply();
+
+            Log.d("LoginActivity", "Se ha ejecutado la lógica de la primera vez");
+        } else {
+            // No es la primera vez, carga los usuarios guardados
+            String usuariosJson = datosCompartidos.getString("usuariosRegistrados", null);
+            Type type = new TypeToken<ArrayList<Usuario>>() {
+            }.getType();
+
+            ArrayList<Usuario> usuariosGuardados = gson.fromJson(usuariosJson, type);
+
+            if (usuariosGuardados != null) {
+                UsuariosRegistrados.setUsers(usuariosGuardados);
+            }
+
+            Log.d("LoginActivity", "No es la primera vez");
+        }
+
 
         // Referencias a los elementos de la interfaz de usuario
         TextView forgotPassword = findViewById(R.id.loginForgotPassword);
