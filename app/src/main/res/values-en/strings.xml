@@ -77,4 +77,6 @@
     <string name="mensajeLoginExitosoToast">Successful login.</string>
     <string name="mensajeLoginFallidoToast">Past credentials are invalid.</string>
     <string name="mensajeLogoutExitoso">You\'ve successfully logged out.</string>
+    <string name="mensajeTareaAñadidaExito">Task added successfully.</string>
+    <string name="mensajeTareaAñadidaError">Introduce the text of the task.</string>
 </resources>

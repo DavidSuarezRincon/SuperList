@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -135,12 +136,16 @@ public class AddItemsListaActivity extends AppCompatActivity {
             if (TextUtils.isEmpty(tasktext)) {
                 String errorInputStringTaskMessage = getResources().getString(R.string.textoCampoObligatorio);
                 inputStringTask.setError(errorInputStringTaskMessage);
+                String addTaskToastTextError = getResources().getString(R.string.mensajeTareaAñadidaError);
+                Toast.makeText(this, addTaskToastTextError, Toast.LENGTH_LONG).show();
                 return;
             }
 
             String selectionPriority = spinnerTaskPriority.getSelectedItem().toString();
             addTask(tasktext, selectionPriority);
             adapter.notifyDataSetChanged();
+            String addTaskToastTextSucefull = getResources().getString(R.string.mensajeTareaAñadidaExito);
+            Toast.makeText(this, addTaskToastTextSucefull, Toast.LENGTH_LONG).show();
             dialog.dismiss(); // Cierra el dialogo.
         });
     }

@@ -91,6 +91,8 @@
     <string name="mensajeLoginExitosoToast">Inicio de sesión correcta.</string>
     <string name="mensajeLoginFallidoToast">Los credenciales pasados no son válidos.</string>
     <string name="mensajeLogoutExitoso">Ha cerrado sesión correctamente.</string>
+    <string name="mensajeTareaAñadidaExito">Tarea añadida correctamente.</string>
+    <string name="mensajeTareaAñadidaError">Introduzca el texto de la tarea.</string>
 
 
 </resources>
