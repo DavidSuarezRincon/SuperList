@@ -70,31 +70,35 @@ public class MainActivity extends AppCompatActivity {
             //Cuando clice en logout cierra sesión.
             if (item.getItemId() == R.id.nav_Logout) {
 
-                //Cuando se cierra sesión se borran los datos guardados en preferences.
-//                editorDePreferencias.clear();
-//                editorDePreferencias.apply();
-
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
-
-                String sucefullLogOutText = getResources().getString(R.string.mensajeLogoutExitoso);
-                Toast.makeText(this, sucefullLogOutText, Toast.LENGTH_SHORT).show();
-
-                SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferencias.edit();
-
-                editor.remove("estadoLogUsuario");
-                editor.apply();
-
-                finish();
-                return true;
+                return logOut();
             }
 
             // Delega el manejo de los clics de los demás elementos del menú a NavigationUI
             return NavigationUI.onNavDestinationSelected(item, navController)
                     || super.onOptionsItemSelected(item);
         });
+    }
+
+    private boolean logOut() {
+        //Cuando se cierra sesión se borran los datos guardados en preferences.
+//                editorDePreferencias.clear();
+//                editorDePreferencias.apply();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_top, R.anim.slide_out_bottom);
+
+        String sucefullLogOutText = getResources().getString(R.string.mensajeLogoutExitoso);
+        Toast.makeText(this, sucefullLogOutText, Toast.LENGTH_SHORT).show();
+
+        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+
+        editor.remove("estadoLogUsuario");
+        editor.apply();
+
+        finish();
+        return true;
     }
 
     @Override

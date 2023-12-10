@@ -107,21 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                 Usuario user = UsuariosRegistrados.getUser(email);
 
                 if (user.hasThisPassword(password)) {
-
-                    addPreferenciaString("emailUsuarioLogueado", user.getEmail());
-                    addPreferenciaInt("rolUsuarioLogueado", user.getRol());
-                    addPreferenciaBoolean("estadoLogUsuario", true);
-                    Intent claseMain = new Intent(this, MainActivity.class);
-                    // Añade el nombre de usuario al intent
-                    claseMain.putExtra("usuarioLogeado", user);
-                    startActivity(claseMain);
-                    overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-
-                    String textToastSucefullLogIn = getResources().getString(R.string.mensajeLoginExitosoToast);
-                    Toast.makeText(this, textToastSucefullLogIn, Toast.LENGTH_SHORT).show();
-
-
-                    finish();
+                    logUser(user);
                 } else {
                     String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);
                     String textToastWrongLogIn = getResources().getString(R.string.mensajeLoginFallidoToast);
@@ -148,6 +134,22 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, RegisterActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
+    }
+
+    private void logUser(Usuario user) {
+        addPreferenciaString("emailUsuarioLogueado", user.getEmail());
+        addPreferenciaInt("rolUsuarioLogueado", user.getRol());
+        addPreferenciaBoolean("estadoLogUsuario", true);
+        Intent claseMain = new Intent(this, MainActivity.class);
+        // Añade el nombre de usuario al intent
+        claseMain.putExtra("usuarioLogeado", user);
+        startActivity(claseMain);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+
+        String textToastSucefullLogIn = getResources().getString(R.string.mensajeLoginExitosoToast);
+        Toast.makeText(this, textToastSucefullLogIn, Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 
     // Método para mostrar un error cuando un campo está vacío
