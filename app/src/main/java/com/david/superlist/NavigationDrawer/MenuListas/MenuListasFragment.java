@@ -37,8 +37,8 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
 
     private Usuario logedUser;
     private RecyclerView recView;
-    private static int numbersIds;
     private FloatingActionButton btnAniadirLista;
+    private static int numbersIds;
     private static ArrayList<Lista> listData;
     private static AdaptadorLista adapter;
     private View view;
@@ -48,29 +48,30 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        btnAniadirLista = view.findViewById(R.id.btnAniadirLista);
-        btnAniadirLista.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), AniadirListaActivity.class);
-            startActivity(intent);
-        });
+        initializeViews();
+        setClickListeners();
 
         numbersIds = 1;
         startLista();
         return view;
     }
 
-    // Método para inicializar la lista y el adaptador
-    private void startLista() {
+    private void initializeViews() {
+        btnAniadirLista = view.findViewById(R.id.btnAniadirLista);
+    }
 
+    private void setClickListeners() {
+        btnAniadirLista.setOnClickListener(v -> startAniadirListaActivity());
+    }
+
+    private void startLista() {
         logedUser = getActivity().getIntent().getExtras().getParcelable("usuarioLogeado");
-        Log.i("usuario logueado", logedUser.getEmail());
         listData = logedUser.getUserLists();
-        Log.i("usuario logueado", logedUser.getUserLists().size() + "");
         adapter = new AdaptadorLista(listData, getActivity(), this);
 
         if (listData.isEmpty()) {
-            addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "10/10/2080", "otros", new ArrayList<TareaLista>()));
-            addLista(createLista("Lista", "Lista", "20/10/2050", "Lista de la compra", new ArrayList<TareaLista>()));
+            addLista(createLista("Lista de la compra 1", "Esto es una prueba de descripción", "10/10/2080", "otros", new ArrayList<>()));
+            addLista(createLista("Lista", "Lista", "20/10/2050", "Lista de la compra", new ArrayList<>()));
         }
 
         recView = view.findViewById(R.id.rvLista);
@@ -80,14 +81,12 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         registerForContextMenu(recView);
     }
 
-    // Método para añadir una lista
-    public static Lista createLista(String nombre, String Descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
+    public static Lista createLista(String nombre, String descripcion, String fechaFin, String tipo, ArrayList<TareaLista> itemsLista) {
         Calendar calendar = Calendar.getInstance();
-
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         String currentDate = sdf.format(calendar.getTime());
 
-        return new Lista(numbersIds++, randomColor(), nombre, Descripcion, fechaFin, tipo, currentDate, itemsLista);
+        return new Lista(numbersIds++, randomColor(), nombre, descripcion, fechaFin, tipo, currentDate, itemsLista);
     }
 
     public static void addLista(Lista list) {
@@ -102,13 +101,11 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         adapter.notifyDataSetChanged();
     }
 
-    // Método para generar un color aleatorio
     public static int randomColor() {
         Random random = new Random();
         return Color.argb(255, random.nextInt(150), random.nextInt(150), random.nextInt(150));
     }
 
-    // Método para borrar una lista
     public void borrarItemLista(int numLista) {
         listData.remove(numLista);
         adapter.notifyItemRemoved(numLista);
@@ -134,30 +131,22 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         startActivity(intent);
     }
 
-    // Método que se ejecuta al hacer click en un item
     @Override
     public void onItemClick(int position) {
         abrirItemLista(position);
     }
 
-    // Método que se ejecuta al hacer click largo en un item
     @Override
     public void onItemLongClick(int position) {
-
-        // Crear un nuevo menú emergente en la posición del elemento seleccionado
         PopupMenu popup = new PopupMenu(getActivity(), recView.getChildAt(position));
-        // Inflar el menú con los elementos definidos en 'R.menu.activity_menulista'
         popup.getMenuInflater().inflate(R.menu.activity_menulista, popup.getMenu());
         popup.show();
-
-        // Establecer un listener de eventos para los elementos del menú
-        inicialiceOnClickListenerPopUp(position, popup);
+        initializeOnClickListenerPopUp(position, popup);
     }
 
-    private void inicialiceOnClickListenerPopUp(int position, PopupMenu popup) {
+    private void initializeOnClickListenerPopUp(int position, PopupMenu popup) {
         popup.setOnMenuItemClickListener(item -> {
-
-            String optionClicked = (String) item.getTitle(); // El nombre del item que fue clicado (Abrir, Info, Borrar).
+            String optionClicked = item.getTitle().toString();
             String openText = getResources().getString(R.string.textoMenuListaAbrir);
             String infoText = getResources().getString(R.string.textDesplegableBotonInfo);
             String deleteText = getResources().getString(R.string.textoMenuListaBorrar);
@@ -180,15 +169,17 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     @Override
     public void onStop() {
         super.onStop();
-        //Antes de que se cierre el Fragment actualiza los datos.
-
         UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
+    }
+
+    private void startAniadirListaActivity() {
+        Intent intent = new Intent(getActivity(), AniadirListaActivity.class);
+        startActivity(intent);
     }
 }

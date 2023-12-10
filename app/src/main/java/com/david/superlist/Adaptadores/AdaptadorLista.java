@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.david.superlist.R;
 import com.david.superlist.Interfaces.RecyclerViewInterface;
+import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 
 import java.util.ArrayList;
