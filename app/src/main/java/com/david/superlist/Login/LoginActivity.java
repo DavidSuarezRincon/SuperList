@@ -40,6 +40,12 @@ public class LoginActivity extends AppCompatActivity {
         Gson gson = new Gson();
         boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
 
+        if (userAlreadyLoggedIn()) {
+            redirectToHomeActivity();
+            finish();
+            return;
+        }
+
         if (esPrimeraVez) {
             // Se ejecuta solo la primera vez
             UsuariosRegistrados.addAdminlUser("root", "root");
@@ -104,11 +110,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     addPreferenciaString("emailUsuarioLogueado", user.getEmail());
                     addPreferenciaInt("rolUsuarioLogueado", user.getRol());
+                    addPreferenciaBoolean("estadoLogUsuario", true);
                     Intent claseMain = new Intent(this, MainActivity.class);
                     // Añade el nombre de usuario al intent
                     claseMain.putExtra("usuarioLogeado", user);
                     startActivity(claseMain);
-
                     overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
 
                     String textToastSucefullLogIn = getResources().getString(R.string.mensajeLoginExitosoToast);
@@ -163,4 +169,23 @@ public class LoginActivity extends AppCompatActivity {
         editor.putInt(key, number);
         editor.apply();
     }
+
+    private void addPreferenciaBoolean(String key, boolean condicion) {
+        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = datosCompartidos.edit();
+        editor.putBoolean(key, condicion);
+        editor.apply();
+    }
+
+    public boolean userAlreadyLoggedIn() {
+        SharedPreferences shaderedPreferences = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
+        return shaderedPreferences.getBoolean("estadoLogUsuario", false);
+    }
+
+    private void redirectToHomeActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
 }

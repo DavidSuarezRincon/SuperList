@@ -41,7 +41,7 @@
     <string name="botonVolverMainContext">goBackMainButton</string>
     <string name="tituloAñadirTareas">Add the tasks</string>
     <string name="textoBotonAñadirTarea">ADD</string>
-    <string name="textoBotonFinalizarListaTareas">End</string>
+    <string name="textoBotonFinalizarListaTareas">END</string>
     <string name="textoFechaLimiteAddLista">Deadline</string>
     <string name="HintNombreLista">Name of list</string>
     <string name="HintDescripcionLista">Descripcion of list</string>

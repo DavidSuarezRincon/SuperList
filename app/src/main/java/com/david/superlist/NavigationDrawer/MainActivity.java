@@ -81,6 +81,12 @@ public class MainActivity extends AppCompatActivity {
                 String sucefullLogOutText = getResources().getString(R.string.mensajeLogoutExitoso);
                 Toast.makeText(this, sucefullLogOutText, Toast.LENGTH_SHORT).show();
 
+                SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferencias.edit();
+
+                editor.remove("estadoLogUsuario");
+                editor.apply();
+
                 finish();
                 return true;
             }
