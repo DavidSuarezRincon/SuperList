@@ -123,6 +123,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
     }
 
+
     private void ponerError(EditText et) {
         et.setError(getResources().getString(R.string.textoCampoObligatorio));
     }

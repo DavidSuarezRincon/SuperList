@@ -1,12 +1,12 @@
 package com.david.superlist.Activities;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Adaptadores.AdaptadorItemsLista;
+import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.NavigationDrawer.MenuListas.MenuListasFragment;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
@@ -25,111 +26,90 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
-public class AddItemsListaActivity extends AppCompatActivity {
+public class AddItemsListaActivity extends AppCompatActivity implements RecyclerViewInterface {
 
-    RecyclerView recyclerViewItems;
-    AdaptadorItemsLista adapter;
-    ArrayList<TareaLista> tasks;
-    Button addTaskButton;
-    Button buttonAddListWithTasksToMain;
-    ImageButton imageButtonGoBack;
-
+    private RecyclerView recyclerViewItems;
+    private AdaptadorItemsLista adapter;
+    private ArrayList<TareaLista> tasks;
+    private Button addTaskButton;
+    private Button buttonAddListWithTasksToMain;
+    private ImageButton imageButtonGoBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_itemslista);
 
+        initializeViews();
+        setClickListeners();
+        setupRecyclerView();
+    }
+
+    private void initializeViews() {
         addTaskButton = findViewById(R.id.botonAñadirItem);
-        addTaskButton.setOnClickListener(v -> {
-            createDialogAddTask();
-        });
-
         buttonAddListWithTasksToMain = findViewById(R.id.botonTerminarLista);
-        buttonAddListWithTasksToMain.setOnClickListener(v -> {
-
-
-            if (getIntent().hasExtra("listaDeTareas")) {
-
-                int positionTask = (int) getIntent().getExtras().getInt("posLista");
-
-                MenuListasFragment.changeTasks(positionTask, tasks);
-
-            } else {
-                addListToMain();
-            }
-
-            Intent returnIntent = new Intent();
-            setResult(RESULT_OK, returnIntent);
-            finish();
-        });
-
         imageButtonGoBack = findViewById(R.id.BotonVolverMainInfo);
-        imageButtonGoBack.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(getResources().getString(R.string.MensajeAdvertenciaVolverAtrasTareas));
-            //Texto: ¿Estás seguro que quieres volver atrás? ¡Las tareas añadidas se borrarán!
-            builder.setPositiveButton(getResources().getString(R.string.AceptarVolverAtrasTareas), new DialogInterface.OnClickListener() {
-                //Texto: Aceptar o Accept
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setNegativeButton(getResources().getString(R.string.CancelarVolverAtrasTareas), null);
-            //Texto: Cancelar o Cancel
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
-
         recyclerViewItems = findViewById(R.id.recyclerViewTareas);
+    }
 
-        if (getIntent().hasExtra("listaDeTareas")) {
-            tasks = (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas");
-        } else {
-            tasks = new ArrayList<>();
-        }
+    private void setClickListeners() {
+        addTaskButton.setOnClickListener(v -> createDialogAddTask());
+        buttonAddListWithTasksToMain.setOnClickListener(v -> handleAddListToMain());
+        imageButtonGoBack.setOnClickListener(v -> showWarningDialog());
+    }
 
-        adapter = new AdaptadorItemsLista(this, tasks);
+    private void setupRecyclerView() {
+        tasks = getIntent().hasExtra("listaDeTareas") ? (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas") : new ArrayList<>();
+        adapter = new AdaptadorItemsLista(this, tasks, this);
         recyclerViewItems.setAdapter(adapter);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    private void addListToMain() {
-        //Datos recibidos de la activity crear lista.
-        Bundle listData = getIntent().getExtras();
+    private void handleAddListToMain() {
+        if (getIntent().hasExtra("listaDeTareas")) {
+            int positionTask = getIntent().getExtras().getInt("posLista");
+            MenuListasFragment.changeTasks(positionTask, tasks);
+        } else {
+            addListToMain();
+        }
 
+        Intent returnIntent = new Intent();
+        setResult(RESULT_OK, returnIntent);
+        finish();
+    }
+
+    private void addListToMain() {
+        Bundle listData = getIntent().getExtras();
         Lista newList = listData.getParcelable("newList");
         newList.setTasksList(tasks);
-
         MenuListasFragment.addLista(newList);
     }
 
-    private void createDialogAddTask() {
-        // Abre un diálogo para crear una tarea.
+    private void showWarningDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getResources().getString(R.string.MensajeAdvertenciaVolverAtrasTareas));
+        builder.setPositiveButton(getResources().getString(R.string.AceptarVolverAtrasTareas), (dialog, which) -> finish());
+        builder.setNegativeButton(getResources().getString(R.string.CancelarVolverAtrasTareas), null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 
+    private void createDialogAddTask() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String introduceDataMessage = getResources().getString(R.string.textDialogoAñadirTarea);
         builder.setMessage(introduceDataMessage);
 
-        // Infla el diseño de la vista del diálogo.
         View selector = getLayoutInflater().inflate(R.layout.dialog_introducir_datos_items, null);
         builder.setView(selector);
 
-        // Obtiene referencias a los elementos de la vista del diálogo.
         TextInputEditText inputStringTask = selector.findViewById(R.id.textInputTarea);
         Spinner spinnerTaskPriority = selector.findViewById(R.id.spinnerPrioridadLista);
         Button addTaskButton = selector.findViewById(R.id.botonAgregarTarea);
 
-        // Configura el botón "Cancelar" para cerrar el diálogo sin hacer nada.
-        String cancelDataMessage = getResources().getString(R.string.CancelarVolverAtrasTareas);
-        builder.setNegativeButton(cancelDataMessage, null);
-
-        // Crea el diálogo y lo muestra.
+        builder.setNegativeButton(getResources().getString(R.string.CancelarVolverAtrasTareas), null);
         AlertDialog dialog = builder.create();
         dialog.show();
 
-        // Configura el botón "Agregar tarea" para agregar la tarea y cerrar el diálogo.
         addTaskButton.setOnClickListener(v1 -> {
             String tasktext = inputStringTask.getText().toString();
 
@@ -146,12 +126,37 @@ public class AddItemsListaActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
             String addTaskToastTextSucefull = getResources().getString(R.string.mensajeTareaAñadidaExito);
             Toast.makeText(this, addTaskToastTextSucefull, Toast.LENGTH_LONG).show();
-            dialog.dismiss(); // Cierra el dialogo.
+            dialog.dismiss();
         });
     }
 
-    public void addTask(String taskText, String priority) {
+    private void addTask(String taskText, String priority) {
         TareaLista newTask = new TareaLista(taskText, priority);
         tasks.add(newTask);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        // TODO: Implementar lógica de clic en el elemento (si es necesario).
+    }
+
+    @Override
+    public void onItemLongClick(int position) {
+        PopupMenu popup = new PopupMenu(this, recyclerViewItems.getChildAt(position));
+        popup.getMenuInflater().inflate(R.menu.activity_menu_tarea, popup.getMenu());
+        popup.show();
+        initializeOnClickListenerPopUp(position, popup);
+    }
+
+    private void initializeOnClickListenerPopUp(int position, PopupMenu popup) {
+        popup.setOnMenuItemClickListener(item -> {
+            deleteTask(position);
+            return true;
+        });
+    }
+
+    private void deleteTask(int numTask) {
+        tasks.remove(numTask);
+        adapter.notifyItemRemoved(numTask);
     }
 }

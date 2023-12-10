@@ -13,19 +13,22 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.R;
 import com.david.superlist.pojos.TareaLista;
 
 import java.util.ArrayList;
 
-public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.MyViewHolder> {
+public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.MyViewHolder> implements View.OnClickListener {
 
-    Context context;
-    ArrayList<TareaLista> listaTareas;
+    private Context context;
+    private ArrayList<TareaLista> listaTareas;
+    private final RecyclerViewInterface recyclerViewInterface;
 
-    public AdaptadorItemsLista(Context context, ArrayList<TareaLista> listaTareas) {
+    public AdaptadorItemsLista(Context context, ArrayList<TareaLista> listaTareas, RecyclerViewInterface rvi) {
         this.context = context;
         this.listaTareas = listaTareas;
+        this.recyclerViewInterface = rvi;
     }
 
     @NonNull
@@ -36,7 +39,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.activity_items_lista, parent, false);
 
-        return new AdaptadorItemsLista.MyViewHolder(view);
+        return new AdaptadorItemsLista.MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -101,6 +104,11 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         return listaTareas.size();
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         // grabbing the views from our recycler_view_row layout file
@@ -110,10 +118,23 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         CheckBox tarea;
 
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface rvi) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imagenTarea);
             tarea = itemView.findViewById(R.id.checkBoxTarea);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (rvi != null) {
+                        int pos = getAdapterPosition();
+                        if (pos != RecyclerView.NO_POSITION) {
+                            rvi.onItemLongClick(pos);
+                        }
+                    }
+                    return true;
+                }
+            });
 
         }
 
