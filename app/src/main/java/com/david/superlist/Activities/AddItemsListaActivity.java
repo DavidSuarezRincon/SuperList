@@ -81,7 +81,6 @@ public class AddItemsListaActivity extends AppCompatActivity {
             dialog.show();
         });
 
-
         recyclerViewItems = findViewById(R.id.recyclerViewTareas);
 
         if (getIntent().hasExtra("listaDeTareas")) {
@@ -90,9 +89,6 @@ public class AddItemsListaActivity extends AppCompatActivity {
             tasks = new ArrayList<>();
         }
 
-//        addTarea("Esto es una prueba", "alta");
-//        addTarea("Esto es una prueba 2", "baja");
-//        addTarea("Esto es una prueba 2", "media");
         adapter = new AdaptadorItemsLista(this, tasks);
         recyclerViewItems.setAdapter(adapter);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));

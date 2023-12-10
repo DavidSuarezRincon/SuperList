@@ -1,6 +1,7 @@
 package com.david.superlist.Adaptadores;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -41,26 +42,29 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        // assigning values to the views we created in the recycler_view_row layout file
-        // based on the position of the recycler view
+        SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
 
         TareaLista newTarea = listaTareas.get(position);
+        String hashCodeNewTarea = String.valueOf(newTarea.hashCode());
 
         holder.tarea.setText(newTarea.getTask()); //Pone el texto al CheckedTextView del layout.
-        holder.imagen.setImageResource(R.drawable.baseline_checklist_24);
-        holder.imagen.setColorFilter(getColorInt(newTarea));//Le pone el color al icono del layout.
-
-        holder.tarea.setOnClickListener(v -> {
-
-            //Cuando el usuario marque como check un checkbox de las tareas su texto será tachado.
+        holder.tarea.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            preferencesEditor.putBoolean(hashCodeNewTarea, isChecked);
+            preferencesEditor.apply();
 
             if (holder.tarea.isChecked()) {
                 holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
                 holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             }
-
         });
+        boolean tareaIsChecked = preferences.getBoolean(hashCodeNewTarea, false);
+        holder.tarea.setChecked(tareaIsChecked);
+
+        holder.imagen.setImageResource(R.drawable.baseline_checklist_24);
+        holder.imagen.setColorFilter(getColorInt(newTarea));//Le pone el color al icono del layout.
+
     }
 
     private int getColorInt(TareaLista tarea) {
@@ -110,7 +114,10 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
             super(itemView);
             imagen = itemView.findViewById(R.id.imagenTarea);
             tarea = itemView.findViewById(R.id.checkBoxTarea);
+
         }
+
+
     }
 }
 

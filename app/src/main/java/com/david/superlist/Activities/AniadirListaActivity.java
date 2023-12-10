@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.david.superlist.NavigationDrawer.MenuListas.MenuListasFragment;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 
@@ -97,7 +98,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, AddItemsListaActivity.class);
-        Lista newLista = MenuListasActivity.createLista(name, description, endDate, listType, null);
+        Lista newLista = MenuListasFragment.createLista(name, description, endDate, listType, null);
         intent.putExtra("newList", newLista);
         startActivityForResult(intent, 2);
     }
