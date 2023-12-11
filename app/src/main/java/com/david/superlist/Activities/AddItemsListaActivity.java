@@ -136,9 +136,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     }
 
     @Override
-    public void onItemClick(int position) {
-        // TODO: Implementar lógica de clic en el elemento (si es necesario).
-    }
+    public void onItemClick(int position) {}
 
     @Override
     public void onItemLongClick(int position) {

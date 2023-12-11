@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
             preferencesEditor.putBoolean(hashCodeNewTarea, isChecked);
             preferencesEditor.apply();
 
-            int paintFlags = isChecked ? Paint.STRIKE_THRU_TEXT_FLAG : 0;
+            int paintFlags = isChecked ? Paint.STRIKE_THRU_TEXT_FLAG : Typeface.NORMAL;
             holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() | paintFlags);
         });
     }
