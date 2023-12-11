@@ -60,7 +60,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
             preferencesEditor.apply();
 
             int paintFlags = isChecked ? Paint.STRIKE_THRU_TEXT_FLAG : 0;
-            holder.tarea.setPaintFlags(holder.tarea.getPaintFlags() | paintFlags);
+            holder.tarea.setPaintFlags(paintFlags);
         });
     }
 

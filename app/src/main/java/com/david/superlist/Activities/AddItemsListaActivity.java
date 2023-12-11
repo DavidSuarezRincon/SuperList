@@ -59,7 +59,10 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     }
 
     private void setupRecyclerView() {
-        tasks = getIntent().hasExtra("listaDeTareas") ? (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas") : new ArrayList<>();
+        tasks = getIntent().hasExtra("listaDeTareas")
+                ? (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas")
+                : new ArrayList<>();
+
         adapter = new AdaptadorItemsLista(this, tasks, this);
         recyclerViewItems.setAdapter(adapter);
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
