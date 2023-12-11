@@ -11,13 +11,11 @@ public class TareaLista implements Parcelable {
 
     private String task;
     private String priority;
-    private boolean isChecked;
     private int iconPriorityColor;
 
     public TareaLista(String task, String priority) {
         this.task = task;
         this.priority = priority;
-        isChecked = false;
     }
 
     private TareaLista(Parcel in) {
@@ -38,13 +36,6 @@ public class TareaLista implements Parcelable {
         return priority;
     }
 
-    public boolean isChecked() {
-        return isChecked;
-    }
-
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
 
     public void setPriority(String priority) {
         this.priority = priority;
@@ -88,11 +79,11 @@ public class TareaLista implements Parcelable {
         if (this == o) return true;
         if (!(o instanceof TareaLista)) return false;
         TareaLista that = (TareaLista) o;
-        return isChecked() == that.isChecked() && getIconPriorityColor() == that.getIconPriorityColor() && Objects.equals(getTask(), that.getTask()) && Objects.equals(getPriority(), that.getPriority());
+        return getIconPriorityColor() == that.getIconPriorityColor() && Objects.equals(getTask(), that.getTask()) && Objects.equals(getPriority(), that.getPriority());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getTask(), getPriority(), isChecked(), getIconPriorityColor());
+        return Objects.hash(getTask(), getPriority());
     }
 }
