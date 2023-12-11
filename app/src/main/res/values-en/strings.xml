@@ -34,7 +34,7 @@
     <string name="textoHintNombreAniadirLista">My List</string>
     <string name="textoDescripcionAniadirLista">Description:</string>
     <string name="textoHintDescripcionAniadirLista">Shopping list</string>
-    <string name="textoBotonAniadirLista">Add</string>
+    <string name="textoBotonAniadirLista">NEXT</string>
     <string name="textoTituloAniadirLista">Create your list</string>
     <string name="textoMenuListaAbrir">Open</string>
     <string name="textoMenuListaBorrar">Delete</string>

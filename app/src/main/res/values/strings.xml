@@ -43,7 +43,7 @@
     <string name="textoHintNombreAniadirLista">Mi Lista</string>
     <string name="textoDescripcionAniadirLista">Descripción: </string>
     <string name="textoHintDescripcionAniadirLista">Lista de la compra</string>
-    <string name="textoBotonAniadirLista">Añadir</string>
+    <string name="textoBotonAniadirLista">SIGUIENTE</string>
     <!--    <string name="textoTextViewDefaultIntroduceFecha">Pulse en el botón para introducir la fecha.</string>-->
     <string name="textoTituloAniadirLista">Crea tu lista</string>
 

@@ -2,22 +2,16 @@ package com.david.superlist.Login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import androidx.annotation.AnimRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.david.superlist.R;
 import com.david.superlist.pojos.UsuariosRegistrados;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -96,11 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean checkEmail(String email) {
-        String regex = "^[A-Za-z0-9+_.-]+@(.+)$";
-
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void setWrongEmailFormatError(EditText et) {
