@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 return logOut();
             }
 
+            drawer.closeDrawers();
+
             // Delega el manejo de los clics de los demás elementos del menú a NavigationUI
             return NavigationUI.onNavDestinationSelected(item, navController)
                     || super.onOptionsItemSelected(item);
