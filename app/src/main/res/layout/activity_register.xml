@@ -83,6 +83,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/RegisterInputEmail"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/textHintEmailRegister"
@@ -103,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/textHintPassword1Register"
+            android:inputType="textPassword"
             android:password="true"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -120,6 +122,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/textHintPassword2Register"
+            android:inputType="textPassword"
             android:password="true"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
