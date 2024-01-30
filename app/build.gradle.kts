@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -37,6 +38,8 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-analytics")
+    implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("androidx.appcompat:appcompat:1.7.0-alpha03")
     implementation("com.google.android.material:material:1.12.0-alpha01")
     implementation("androidx.constraintlayout:constraintlayout:2.2.0-alpha13")
