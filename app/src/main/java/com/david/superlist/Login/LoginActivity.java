@@ -17,6 +17,8 @@ import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Usuario;
 import com.david.superlist.pojos.UsuariosRegistrados;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -25,51 +27,57 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView forgotPassword;
-    TextView register;
-    EditText userEmailEditText;
-    EditText userPasswordEditText;
-    Button SignInButton;
+    private TextView forgotPassword;
+    private TextView register;
+    private EditText userEmailEditText;
+    private EditText userPasswordEditText;
+    private Button SignInButton;
+
+    //Firebase
+    public static FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Inicializa Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
         SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
 
-        if (userAlreadyLoggedIn()) {
-            redirectToHomeActivity();
-            finish();
-            return;
-        }
+//        if (userAlreadyLoggedIn()) {
+//            redirectToHomeActivity();
+//            finish();
+//            return;
+//        }
 
-        if (esPrimeraVez) {
-            // Se ejecuta solo la primera vez
-            UsuariosRegistrados.addAdminlUser("root", "root");
-
-            // Establece la bandera a falso para las próximas veces
-            SharedPreferences.Editor editor = datosCompartidos.edit();
-            editor.putBoolean("esPrimeraVez", false);
-            editor.apply();
-
-            Log.d("LoginActivity", "Se ha ejecutado la lógica de la primera vez");
-        } else {
-            // No es la primera vez, carga los usuarios guardados
-            String usuariosJson = datosCompartidos.getString("usuariosRegistrados", null);
-            Type type = new TypeToken<ArrayList<Usuario>>() {
-            }.getType();
-
-            ArrayList<Usuario> usuariosGuardados = gson.fromJson(usuariosJson, type);
-
-            if (usuariosGuardados != null) {
-                UsuariosRegistrados.setUsers(usuariosGuardados);
-            }
-
-            Log.d("LoginActivity", "No es la primera vez");
-        }
+//        if (esPrimeraVez) {
+//            // Se ejecuta solo la primera vez
+//            UsuariosRegistrados.addAdminlUser("root", "root");
+//
+//            // Establece la bandera a falso para las próximas veces
+//            SharedPreferences.Editor editor = datosCompartidos.edit();
+//            editor.putBoolean("esPrimeraVez", false);
+//            editor.apply();
+//
+//            Log.d("LoginActivity", "Se ha ejecutado la lógica de la primera vez");
+//        } else {
+//            // No es la primera vez, carga los usuarios guardados
+//            String usuariosJson = datosCompartidos.getString("usuariosRegistrados", null);
+//            Type type = new TypeToken<ArrayList<Usuario>>() {
+//            }.getType();
+//
+//            ArrayList<Usuario> usuariosGuardados = gson.fromJson(usuariosJson, type);
+//
+//            if (usuariosGuardados != null) {
+//                UsuariosRegistrados.setUsers(usuariosGuardados);
+//            }
+//
+//            Log.d("LoginActivity", "No es la primera vez");
+//        }
 
         // Referencias a los elementos de la interfaz de usuario
         forgotPassword = findViewById(R.id.loginForgotPassword);
@@ -134,6 +142,16 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, RegisterActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            currentUser.reload();
+        }
     }
 
     private void logUser(Usuario user) {

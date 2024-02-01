@@ -1,17 +1,27 @@
 package com.david.superlist.Login;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.david.superlist.R;
 import com.david.superlist.pojos.UsuariosRegistrados;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -39,7 +49,8 @@ public class RegisterActivity extends AppCompatActivity {
             String secondPasswordInput = secondPasswordEditText.getText().toString();
 
             if (!checkRegisterErrors(email, firstPasswordInput, secondPasswordInput)) {
-                UsuariosRegistrados.addNormalUser(email, firstPasswordInput);
+
+
                 finish();
             }
         });
@@ -106,5 +117,40 @@ public class RegisterActivity extends AppCompatActivity {
     private void setUserAlreadyExistsError(EditText et) {
         String userAlreadyExistsError = getResources().getString(R.string.textoErrorUsuarioExistente);
         et.setError(userAlreadyExistsError);
+    }
+
+    private void crearUsuarioFirebase(String email, String password) {
+        FirebaseAuth registermAuth = LoginActivity.mAuth;
+
+        registermAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            Toast.makeText(RegisterActivity.this, "Se registró correctamente..",
+                                    Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = registermAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+
+        } else {
+            registerEmailEditText.setText("");
+            firstPasswordEditText.setText("");
+            secondPasswordEditText.setText("");
+        }
     }
 }
