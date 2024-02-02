@@ -166,17 +166,17 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         listData.get(pos).setTasksList(tasks);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
-    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
+//    }
+//
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
+//    }
 
     private void startAniadirListaActivity() {
         Intent intent = new Intent(getActivity(), AniadirListaActivity.class);

@@ -17,13 +17,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
-import com.david.superlist.pojos.UsuariosRegistrados;
+import com.david.superlist.pojos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -31,12 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText registerEmailEditText, firstPasswordEditText, secondPasswordEditText;
     Button buttonRegister;
     ConstraintLayout parentLayout;
-
+    FirebaseAuth registermAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        registermAuth = LoginActivity.mAuth;
 
         registerEmailEditText = findViewById(R.id.RegisterInputEmail);
         firstPasswordEditText = findViewById(R.id.RegisterInputFirstPassword);
@@ -73,10 +81,10 @@ public class RegisterActivity extends AppCompatActivity {
             thereIsAnError = true;
         }
 
-        if (UsuariosRegistrados.existUser(email)) {
-            setUserAlreadyExistsError(registerEmailEditText);
-            thereIsAnError = true;
-        }
+//        if (UsuariosRegistrados.existUser(email)) {
+//            setUserAlreadyExistsError(registerEmailEditText);
+//            thereIsAnError = true;
+//        }
 
         if (TextUtils.isEmpty(firstPasswordInput)) {
             setEmptyFieldError(firstPasswordEditText);
@@ -89,6 +97,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (!firstPasswordInput.equals(secondPasswordInput)) {
             setNotMatchingPasswordsError(secondPasswordEditText);
+            thereIsAnError = true;
+        }
+
+        if (firstPasswordInput.length() < 6) {
+            setPasswordSoShotError(firstPasswordEditText);
             thereIsAnError = true;
         }
 
@@ -114,14 +127,17 @@ public class RegisterActivity extends AppCompatActivity {
         et.setError(notMatchingPasswordsErrorMessage);
     }
 
+    private void setPasswordSoShotError(EditText et) {
+        String notMatchingPasswordsErrorMessage = "La contraseña debe contener al menos 6 caracteres";
+        et.setError(notMatchingPasswordsErrorMessage);
+    }
+
     private void setUserAlreadyExistsError(EditText et) {
         String userAlreadyExistsError = getResources().getString(R.string.textoErrorUsuarioExistente);
         et.setError(userAlreadyExistsError);
     }
 
     private void crearUsuarioFirebase(String email, String password) {
-        FirebaseAuth registermAuth = LoginActivity.mAuth;
-
         registermAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -132,12 +148,20 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "Se registró correctamente..",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = registermAuth.getCurrentUser();
+
+                            // Crear un nuevo registro en la base de datos
+                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                            Usuario nuevoUsuario = new Usuario(0, new ArrayList<>()); // 0 para rol de usuario, ArrayList vacío para las listas
+                            database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);
+
                             updateUI(user);
                         } else {
+
+
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
+                                    Toast.LENGTH_LONG ).show();
                             updateUI(null);
                         }
                     }
