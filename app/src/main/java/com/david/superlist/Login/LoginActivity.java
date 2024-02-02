@@ -2,9 +2,7 @@ package com.david.superlist.Login;
 
 import static android.content.ContentValues.TAG;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -159,23 +157,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-
-        Intent claseMain = new Intent(this, MainActivity.class);
         // Añade el nombre de usuario al intent
 //        claseMain.putExtra("usuarioLogeado", user);
-        startActivity(claseMain);
-        overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-
-        String textToastSucefullLogIn = getResources().getString(R.string.mensajeLoginExitosoToast);
-        Toast.makeText(this, textToastSucefullLogIn, Toast.LENGTH_SHORT).show();
-
-        finish();
     }
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Intent claseMain = new Intent(this, MainActivity.class);
+            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
             startActivity(claseMain);
+            finish();
         } else {
             Toast.makeText(this, "El usuario no existe.", Toast.LENGTH_SHORT).show();
         }
