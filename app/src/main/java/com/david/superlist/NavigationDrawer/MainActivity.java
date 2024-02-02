@@ -1,6 +1,5 @@
 package com.david.superlist.NavigationDrawer;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,9 +17,9 @@ import androidx.navigation.ui.NavigationUI;
 import com.david.superlist.Login.LoginActivity;
 import com.david.superlist.R;
 import com.david.superlist.databinding.ActivityMainBinding;
-import com.david.superlist.pojos.UsuariosRegistrados;
 import com.google.android.material.navigation.NavigationView;
-import com.google.gson.Gson;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,14 +42,21 @@ public class MainActivity extends AppCompatActivity {
 
         View headerView = navigationView.getHeaderView(0);
 
-        preferenciasDeUsuario = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        editorDePreferencias = preferenciasDeUsuario.edit();
+//        preferenciasDeUsuario = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+//        editorDePreferencias = preferenciasDeUsuario.edit();
 
-        String userEmail = preferenciasDeUsuario.getString("emailUsuarioLogueado", "default");
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        if (currentUser == null) {
+            // No hay un usuario autenticado, redirige al usuario a la pantalla de inicio de sesión
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        String userEmail = currentUser.getEmail();
         TextView nombreUsuarioHeader = headerView.findViewById(R.id.TextViewNombreUsuarioHeader);
         nombreUsuarioHeader.setText(userEmail.split("@")[0]);
-
         TextView emailUsuarioheader = headerView.findViewById(R.id.TextViewEmailUsuarioHeader);
         emailUsuarioheader.setText(userEmail);
 
@@ -69,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(item -> {
             //Cuando clice en logout cierra sesión.
             if (item.getItemId() == R.id.nav_Logout) {
-
                 return logOut();
             }
 
@@ -93,43 +98,43 @@ public class MainActivity extends AppCompatActivity {
         String sucefullLogOutText = getResources().getString(R.string.mensajeLogoutExitoso);
         Toast.makeText(this, sucefullLogOutText, Toast.LENGTH_SHORT).show();
 
-        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencias.edit();
-
-        editor.remove("estadoLogUsuario");
-        editor.apply();
-
+//        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferencias.edit();
+//
+//        editor.remove("estadoLogUsuario");
+//        editor.apply();
+        FirebaseAuth.getInstance().signOut();
         finish();
         return true;
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencias.edit();
-
-        Gson gson = new Gson();
-        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
-
-        editor.putString("usuariosRegistrados", usuarios);
-        editor.apply();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = datosCompartidos.edit();
-
-        Gson gson = new Gson();
-        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
-
-        editor.putString("usuariosRegistrados", usuarios);
-        editor.apply();
-    }
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//
+//        SharedPreferences preferencias = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = preferencias.edit();
+//
+//        Gson gson = new Gson();
+//        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
+//
+//        editor.putString("usuariosRegistrados", usuarios);
+//        editor.apply();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//
+//        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = datosCompartidos.edit();
+//
+//        Gson gson = new Gson();
+//        String usuarios = gson.toJson(UsuariosRegistrados.getUsers());
+//
+//        editor.putString("usuariosRegistrados", usuarios);
+//        editor.apply();
+//    }
 
     @Override
     public boolean onSupportNavigateUp() {

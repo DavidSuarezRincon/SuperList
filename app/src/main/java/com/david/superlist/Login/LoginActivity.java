@@ -1,5 +1,7 @@
 package com.david.superlist.Login;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,19 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
-import com.david.superlist.pojos.Usuario;
-import com.david.superlist.pojos.UsuariosRegistrados;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,9 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         // Inicializa Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
+//        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
 
 //        if (userAlreadyLoggedIn()) {
 //            redirectToHomeActivity();
@@ -109,25 +108,8 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            // Si el email y la contraseña son "root", inicia la actividad principal
-            if (UsuariosRegistrados.existUser(email)) {
+            logUser(email, password);
 
-                Usuario user = UsuariosRegistrados.getUser(email);
-
-                if (user.hasThisPassword(password)) {
-                    logUser(user);
-                } else {
-                    String passwordIncorrectError = getResources().getString(R.string.errorContraseñaNoValida);
-                    String textToastWrongLogIn = getResources().getString(R.string.mensajeLoginFallidoToast);
-                    userPasswordEditText.setError(passwordIncorrectError);
-                    Toast.makeText(this, textToastWrongLogIn, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                String notUserFoundError = getResources().getString(R.string.errorUsuarioNoExiste);
-                String textToastWrongLogIn = getResources().getString(R.string.mensajeLoginFallidoToast);
-                userEmailEditText.setError(notUserFoundError);
-                Toast.makeText(this, textToastWrongLogIn, Toast.LENGTH_SHORT).show();
-            }
         });
 
         // Establece un escuchador de clics en el texto de "olvidé mi contraseña"
@@ -149,18 +131,38 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
+        if (currentUser != null) {
             currentUser.reload();
         }
     }
 
-    private void logUser(Usuario user) {
-        addPreferenciaString("emailUsuarioLogueado", user.getEmail());
-        addPreferenciaInt("rolUsuarioLogueado", user.getRol());
-        addPreferenciaBoolean("estadoLogUsuario", true);
+    private void logUser(String email, String password) {
+//        addPreferenciaString("emailUsuarioLogueado", user.getEmail());
+//        addPreferenciaInt("rolUsuarioLogueado", user.getRol());
+//        addPreferenciaBoolean("estadoLogUsuario", true);
+
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+
         Intent claseMain = new Intent(this, MainActivity.class);
         // Añade el nombre de usuario al intent
-        claseMain.putExtra("usuarioLogeado", user);
+//        claseMain.putExtra("usuarioLogeado", user);
         startActivity(claseMain);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
 
@@ -170,42 +172,18 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
 
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Intent claseMain = new Intent(this, MainActivity.class);
+            startActivity(claseMain);
+        } else {
+            Toast.makeText(this, "El usuario no existe.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     // Método para mostrar un error cuando un campo está vacío
     private void setFalloDatos(EditText introdTexto) {
         // Muestra un mensaje de error en el campo de texto
         introdTexto.setError("Este campo es obligatorio.");
     }
-
-    private void addPreferenciaString(String key, String data) {
-        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = datosCompartidos.edit();
-        editor.putString(key, data);
-        editor.apply();
-    }
-
-    private void addPreferenciaInt(String key, int number) {
-        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = datosCompartidos.edit();
-        editor.putInt(key, number);
-        editor.apply();
-    }
-
-    private void addPreferenciaBoolean(String key, boolean condicion) {
-        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = datosCompartidos.edit();
-        editor.putBoolean(key, condicion);
-        editor.apply();
-    }
-
-    public boolean userAlreadyLoggedIn() {
-        SharedPreferences shaderedPreferences = getSharedPreferences("PreferenciasUsuario", MODE_PRIVATE);
-        return shaderedPreferences.getBoolean("estadoLogUsuario", false);
-    }
-
-    private void redirectToHomeActivity(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
-
-
 }

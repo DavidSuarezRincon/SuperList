@@ -2,6 +2,7 @@ package com.david.superlist.Login;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.UsuariosRegistrados;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,9 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
             String secondPasswordInput = secondPasswordEditText.getText().toString();
 
             if (!checkRegisterErrors(email, firstPasswordInput, secondPasswordInput)) {
-
-
-                finish();
+                crearUsuarioFirebase(email, firstPasswordInput);
             }
         });
 
@@ -146,7 +146,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
+            // User is signed in, redirect to the main activity
+            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // This closes the RegisterActivity
         } else {
             registerEmailEditText.setText("");
             firstPasswordEditText.setText("");
