@@ -22,9 +22,13 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
     private View.OnClickListener listener;
     private ArrayList<Lista> datos; // Lista de datos a mostrar en el RecyclerView
     private LayoutInflater inflater; // Inflater para inflar la vista de cada item del RecyclerView
-    private final RecyclerViewInterface recyclerViewInterface; // Interfaz para gestionar los clicks en los items del RecyclerView
+    private RecyclerViewInterface recyclerViewInterface; // Interfaz para gestionar los clicks en los items del RecyclerView
 
     // Constructor de la clase
+
+    public AdaptadorLista(){
+
+    }
     public AdaptadorLista(ArrayList<Lista> datos, Context contexto, RecyclerViewInterface rvi) {
         this.inflater = LayoutInflater.from(contexto);
         this.datos = datos;

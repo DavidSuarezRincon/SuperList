@@ -1,10 +1,12 @@
 package com.david.superlist.pojos;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Lista implements Parcelable {
@@ -17,6 +19,10 @@ public class Lista implements Parcelable {
     private String creationDate;
     private ArrayList<TareaLista> tasksList;
 
+    public Lista(){
+
+    }
+
     public Lista(int id, int color, String name, String description, String endDate, String type, String creationDate, ArrayList<TareaLista> tasksList) {
         this.id = id;
         this.color = color;
@@ -27,6 +33,29 @@ public class Lista implements Parcelable {
         this.creationDate = creationDate;
         this.tasksList = tasksList;
     }
+
+    public static Lista nuevaListaDefault() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDate fechaActual = LocalDate.now();
+            Lista lista = new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
+                    fechaActual.plusDays(1).toString(), "Lista de la Compra", fechaActual.toString(), null);
+
+            return lista;
+        }
+
+        return null;
+
+    }
+
+    public static int generarColor() {
+        int rojoRandom = (int) (Math.random() * 256);
+        int verdeRandom = (int) (Math.random() * 256);
+        int azulRandom = (int) (Math.random() * 256);
+
+        return Color.argb(255, rojoRandom, verdeRandom, azulRandom);
+    }
+
 
     protected Lista(Parcel in) {
         id = in.readInt();

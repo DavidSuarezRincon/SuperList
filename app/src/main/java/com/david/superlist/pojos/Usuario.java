@@ -14,6 +14,9 @@ public class Usuario implements Parcelable {
     private int rol; // 0 user 1 admin
     private ArrayList<Lista> userLists = new ArrayList<>();
 
+    public Usuario(){
+
+    }
     public Usuario( int rol, ArrayList<Lista> listas) {
         this.rol = rol;
         this.userLists = listas;

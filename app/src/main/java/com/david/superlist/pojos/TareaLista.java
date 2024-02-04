@@ -13,6 +13,10 @@ public class TareaLista implements Parcelable {
     private String priority;
     private int iconPriorityColor;
 
+    public TareaLista() {
+
+    }
+
     public TareaLista(String task, String priority) {
         this.task = task;
         this.priority = priority;

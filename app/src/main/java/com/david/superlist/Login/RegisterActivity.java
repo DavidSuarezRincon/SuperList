@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
+import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,12 +25,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -151,17 +150,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                             // Crear un nuevo registro en la base de datos
                             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                            Usuario nuevoUsuario = new Usuario(0, new ArrayList<>()); // 0 para rol de usuario, ArrayList vacío para las listas
+                            ArrayList<Lista> listas = new ArrayList<>();
+                            listas.add(Lista.nuevaListaDefault());
+
+                            Usuario nuevoUsuario = new Usuario(0, listas); // 0 para rol de usuario, ArrayList vacío para las listas
                             database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);
 
                             updateUI(user);
                         } else {
-
-
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_LONG ).show();
+                                    Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
                     }
