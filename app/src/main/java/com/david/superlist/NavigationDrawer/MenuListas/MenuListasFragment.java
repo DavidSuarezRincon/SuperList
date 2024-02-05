@@ -73,20 +73,18 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference ref = database.getReference("SuperList").child(user.getUid());
+        DatabaseReference ref = database.getReference("SuperList").child(user.getUid()).child("userLists");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listData = (ArrayList<Lista>) snapshot.child("userLists").getValue();
                 // Este método se llamará cuando se realice un cambio en los datos en esta ruta
                 // Puedes manejar los datos en dataSnapshot
-
-//                listData = new ArrayList<>();
-//                for (DataSnapshot listaSnapshot : dataSnapshot.getChildren()) {
-//                    Lista lista = listaSnapshot.getValue(Lista.class);
-//                    listData.add(lista);
-//                }
+                listData = new ArrayList<>();
+                for (DataSnapshot children : snapshot.getChildren()) {
+                    Lista l = children.getValue(Lista.class);
+                    listData.add(l);
+                }
 
                 adapter = new AdaptadorLista(listData, getActivity(), MenuListasFragment.this);
 
