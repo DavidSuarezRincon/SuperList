@@ -46,6 +46,8 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     private static ArrayList<Lista> listData;
     private static AdaptadorLista adapter;
     private View view;
+    private static FirebaseUser currentUser;
+    private static FirebaseDatabase database;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,11 +71,10 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     }
 
     private void startLista() {
+        database = FirebaseDatabase.getInstance();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-        DatabaseReference ref = database.getReference("SuperList").child(user.getUid()).child("userLists");
+        DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
@@ -102,7 +103,6 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
 
             }
         };
-
         ref.addValueEventListener(eventListener);
     }
 
@@ -122,7 +122,9 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         list.setColor(randomColor());
         list.setCreationDate(currentDate);
 
+        DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
         listData.add(list);
+        ref.setValue(listData);
         adapter.notifyDataSetChanged();
     }
 
@@ -132,7 +134,11 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     }
 
     public void borrarItemLista(int numLista) {
+        DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
+
         listData.remove(numLista);
+        ref.setValue(listData);
+
         adapter.notifyItemRemoved(numLista);
     }
 
@@ -188,20 +194,10 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     }
 
     public static void changeTasks(int pos, ArrayList<TareaLista> tasks) {
+        DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
         listData.get(pos).setTasksList(tasks);
+        ref.setValue(listData);
     }
-
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        UsuariosRegistrados.getUser(logedUser.getEmail()).setUserLists(listData);
-//    }
 
     private void startAniadirListaActivity() {
         Intent intent = new Intent(getActivity(), AniadirListaActivity.class);
