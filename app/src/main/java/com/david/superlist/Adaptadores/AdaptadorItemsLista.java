@@ -27,7 +27,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
 
     public AdaptadorItemsLista(Context context, ArrayList<TareaLista> listaTareas, RecyclerViewInterface rvi) {
         this.context = context;
-        this.listaTareas = listaTareas;
+        this.listaTareas = (listaTareas == null) ? new ArrayList<>() : listaTareas;
         this.recyclerViewInterface = rvi;
     }
 

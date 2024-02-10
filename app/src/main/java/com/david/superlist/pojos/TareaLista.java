@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class TareaLista implements Parcelable {
@@ -26,6 +27,10 @@ public class TareaLista implements Parcelable {
         task = in.readString();
         priority = in.readString();
         iconPriorityColor = in.readInt();
+    }
+
+    public static TareaLista nuevaTareaDefault() {
+        return new TareaLista("Es una tarea de prueba.", "Alta");
     }
 
     public String getTask() {

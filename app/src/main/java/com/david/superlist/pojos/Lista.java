@@ -19,7 +19,7 @@ public class Lista implements Parcelable {
     private String creationDate;
     private ArrayList<TareaLista> tasksList;
 
-    public Lista(){
+    public Lista() {
 
     }
 
@@ -38,14 +38,14 @@ public class Lista implements Parcelable {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDate fechaActual = LocalDate.now();
+            ArrayList<TareaLista> listaTareasDefault = new ArrayList<>();
+            listaTareasDefault.add(TareaLista.nuevaTareaDefault());
             Lista lista = new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
-                    fechaActual.plusDays(1).toString(), "Lista de la Compra", fechaActual.toString(), null);
-
+                    fechaActual.plusDays(1).toString(), "Lista de la Compra", fechaActual.toString(), listaTareasDefault);
             return lista;
         }
 
         return null;
-
     }
 
     public static int generarColor() {

@@ -1,7 +1,5 @@
 package com.david.superlist.NavigationDrawer.home;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.david.superlist.databinding.FragmentHomeBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeFragment extends Fragment {
 
@@ -23,12 +23,9 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
-        SharedPreferences preferenciasCompartidas = getActivity()
-                .getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        String username= preferenciasCompartidas.getString("emailUsuarioLogueado",
-                "default");
-
+        String username = currentUser.getEmail();
         homeViewModel.setTextUserName(username.split("@")[0]);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
