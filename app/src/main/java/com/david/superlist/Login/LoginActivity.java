@@ -135,9 +135,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void logUser(String email, String password) {
-//        addPreferenciaString("emailUsuarioLogueado", user.getEmail());
-//        addPreferenciaInt("rolUsuarioLogueado", user.getRol());
-//        addPreferenciaBoolean("estadoLogUsuario", true);
 
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -157,8 +154,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-        // Añade el nombre de usuario al intent
-//        claseMain.putExtra("usuarioLogeado", user);
     }
 
     private void updateUI(FirebaseUser user) {

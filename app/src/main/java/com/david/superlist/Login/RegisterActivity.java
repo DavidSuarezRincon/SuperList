@@ -30,8 +30,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
+// Esta actividad permite al usuario registrarse en la aplicación
 public class RegisterActivity extends AppCompatActivity {
 
+    // Declaración de variables de instancia
     ImageButton goBack;
     TextInputEditText registerEmailEditText, firstPasswordEditText, secondPasswordEditText;
     Button buttonRegister;
@@ -43,8 +45,10 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Inicialización de FirebaseAuth
         registermAuth = LoginActivity.mAuth;
 
+        // Inicialización de las vistas
         registerEmailEditText = findViewById(R.id.RegisterInputEmail);
         firstPasswordEditText = findViewById(R.id.RegisterInputFirstPassword);
         secondPasswordEditText = findViewById(R.id.RegisterInputSecondPassword);
@@ -52,26 +56,31 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister = findViewById(R.id.buttonRegister);
         parentLayout = findViewById(R.id.ContainerRegisterActivity);
 
+        // Establecimiento de los listeners de los clics
         buttonRegister.setOnClickListener(v -> {
             String email = registerEmailEditText.getText().toString();
             String firstPasswordInput = firstPasswordEditText.getText().toString();
             String secondPasswordInput = secondPasswordEditText.getText().toString();
 
+            // Verificación de los errores de registro
             if (!checkRegisterErrors(email, firstPasswordInput, secondPasswordInput)) {
+                // Creación del usuario en Firebase
                 crearUsuarioFirebase(email, firstPasswordInput);
             }
         });
 
         goBack.setOnClickListener(view -> {
+            // Finalización de la actividad y transición de animación
             finish();
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
 
-
+    // Método para verificar los errores de registro
     private boolean checkRegisterErrors(String email, String firstPasswordInput, String secondPasswordInput) {
         boolean thereIsAnError = false;
 
+        // Verificación de los campos de entrada
         if (TextUtils.isEmpty(email)) {
             setEmptyFieldError(registerEmailEditText);
             thereIsAnError = true;
@@ -79,11 +88,6 @@ public class RegisterActivity extends AppCompatActivity {
             setWrongEmailFormatError(registerEmailEditText);
             thereIsAnError = true;
         }
-
-//        if (UsuariosRegistrados.existUser(email)) {
-//            setUserAlreadyExistsError(registerEmailEditText);
-//            thereIsAnError = true;
-//        }
 
         if (TextUtils.isEmpty(firstPasswordInput)) {
             setEmptyFieldError(firstPasswordEditText);
@@ -107,42 +111,49 @@ public class RegisterActivity extends AppCompatActivity {
         return thereIsAnError;
     }
 
+    // Método para mostrar un error cuando un campo está vacío
     private void setEmptyFieldError(EditText et) {
         String EmptyFieldErrorMessage = getResources().getString(R.string.textoCampoObligatorio);
         et.setError(EmptyFieldErrorMessage);
     }
 
+    // Método para verificar el formato del email
     private boolean checkEmail(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+    // Método para mostrar un error cuando el formato del email es incorrecto
     private void setWrongEmailFormatError(EditText et) {
         String wrongEmailFormatMessage = getResources().getString(R.string.errorDeFormatoDeEmail);
         et.setError(wrongEmailFormatMessage);
     }
 
+    // Método para mostrar un error cuando las contraseñas no coinciden
     private void setNotMatchingPasswordsError(EditText et) {
         String notMatchingPasswordsErrorMessage = getResources().getString(R.string.mensajeErrorContraseñasNoCoinciden);
         et.setError(notMatchingPasswordsErrorMessage);
     }
 
+    // Método para mostrar un error cuando la contraseña es demasiado corta
     private void setPasswordSoShotError(EditText et) {
         String notMatchingPasswordsErrorMessage = "La contraseña debe contener al menos 6 caracteres";
         et.setError(notMatchingPasswordsErrorMessage);
     }
 
+    // Método para mostrar un error cuando el usuario ya existe
     private void setUserAlreadyExistsError(EditText et) {
         String userAlreadyExistsError = getResources().getString(R.string.textoErrorUsuarioExistente);
         et.setError(userAlreadyExistsError);
     }
 
+    // Método para crear un usuario en Firebase
     private void crearUsuarioFirebase(String email, String password) {
         registermAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // Si el registro es exitoso, actualiza la interfaz de usuario con la información del usuario
                             Log.d(TAG, "createUserWithEmail:success");
                             Toast.makeText(RegisterActivity.this, "Se registró correctamente..",
                                     Toast.LENGTH_SHORT).show();
@@ -158,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // Si el registro falla, muestra un mensaje al usuario
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
@@ -168,13 +179,15 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    // Método para actualizar la interfaz de usuario
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            // User is signed in, redirect to the main activity
+            // Si el usuario está registrado, redirige a la actividad principal
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);
-            finish(); // This closes the RegisterActivity
+            finish(); // Esto cierra la RegisterActivity
         } else {
+            // Si el registro falla, limpia los campos de texto
             registerEmailEditText.setText("");
             firstPasswordEditText.setText("");
             secondPasswordEditText.setText("");

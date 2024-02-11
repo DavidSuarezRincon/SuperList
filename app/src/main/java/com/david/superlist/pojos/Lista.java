@@ -7,9 +7,12 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+// Esta clase representa una Lista en la aplicación
 public class Lista implements Parcelable {
+    // Declaración de variables de instancia
     public int id;
     private int color;
     private String name;
@@ -19,10 +22,12 @@ public class Lista implements Parcelable {
     private String creationDate;
     private ArrayList<TareaLista> tasksList;
 
+    // Constructor vacío
     public Lista() {
 
     }
 
+    // Constructor con todos los atributos
     public Lista(int id, int color, String name, String description, String endDate, String type, String creationDate, ArrayList<TareaLista> tasksList) {
         this.id = id;
         this.color = color;
@@ -34,20 +39,25 @@ public class Lista implements Parcelable {
         this.tasksList = tasksList;
     }
 
+    // Método para crear una lista por defecto
     public static Lista nuevaListaDefault() {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDate fechaActual = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+
             ArrayList<TareaLista> listaTareasDefault = new ArrayList<>();
             listaTareasDefault.add(TareaLista.nuevaTareaDefault());
             Lista lista = new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
-                    fechaActual.plusDays(1).toString(), "Lista de la Compra", fechaActual.toString(), listaTareasDefault);
+                    fechaActual.plusDays(1).format(formatter),
+                    "Lista de la Compra", fechaActual.format(formatter), listaTareasDefault);
             return lista;
         }
 
         return null;
     }
 
+    // Método para generar un color aleatorio
     public static int generarColor() {
         int rojoRandom = (int) (Math.random() * 256);
         int verdeRandom = (int) (Math.random() * 256);
@@ -56,7 +66,7 @@ public class Lista implements Parcelable {
         return Color.argb(255, rojoRandom, verdeRandom, azulRandom);
     }
 
-
+    // Constructor para crear una lista a partir de un Parcel
     protected Lista(Parcel in) {
         id = in.readInt();
         color = in.readInt();
@@ -68,6 +78,7 @@ public class Lista implements Parcelable {
         tasksList = in.createTypedArrayList(TareaLista.CREATOR);
     }
 
+    // Creador para crear una lista a partir de un Parcel
     public static final Creator<Lista> CREATOR = new Creator<Lista>() {
         @Override
         public Lista createFromParcel(Parcel in) {
@@ -80,6 +91,7 @@ public class Lista implements Parcelable {
         }
     };
 
+    // Getters y setters
     public int getId() {
         return id;
     }
@@ -144,6 +156,7 @@ public class Lista implements Parcelable {
         this.tasksList = tasksList;
     }
 
+    // Métodos requeridos por la interfaz Parcelable
     @Override
     public int describeContents() {
         return 0;

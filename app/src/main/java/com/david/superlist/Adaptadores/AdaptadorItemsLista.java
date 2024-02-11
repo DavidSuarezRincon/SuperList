@@ -19,18 +19,22 @@ import com.david.superlist.pojos.TareaLista;
 
 import java.util.ArrayList;
 
+// Adaptador para el RecyclerView que muestra la lista de tareas
 public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.MyViewHolder> {
 
+    // Declaración de variables de instancia
     private Context context;
     private ArrayList<TareaLista> listaTareas;
     private final RecyclerViewInterface recyclerViewInterface;
 
+    // Constructor de la clase
     public AdaptadorItemsLista(Context context, ArrayList<TareaLista> listaTareas, RecyclerViewInterface rvi) {
         this.context = context;
         this.listaTareas = (listaTareas == null) ? new ArrayList<>() : listaTareas;
         this.recyclerViewInterface = rvi;
     }
 
+    // Método para crear el ViewHolder
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +42,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         return new MyViewHolder(view, recyclerViewInterface);
     }
 
+    // Método para vincular los datos con el ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TareaLista newTarea = listaTareas.get(position);
@@ -51,9 +56,10 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         setupImagenIcon(holder, newTarea);
     }
 
+    // Método para configurar el CheckBox de la tarea
     private void setupTareaCheckBox(MyViewHolder holder, String hashCodeNewTarea) {
         SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE);
-        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        SharedPreferences.Editor preferencesEditor = preferences.edit(); //ToDo
 
         holder.tarea.setOnCheckedChangeListener((buttonView, isChecked) -> {
             preferencesEditor.putBoolean(hashCodeNewTarea, isChecked);
@@ -65,11 +71,13 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         });
     }
 
+    // Método para obtener si la tarea está marcada
     private boolean getTareaIsChecked(String hashCodeNewTarea) {
-        SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE); //ToDo
         return preferences.getBoolean(hashCodeNewTarea, false);
     }
 
+    // Método para configurar el icono de la tarea
     private void setupImagenIcon(MyViewHolder holder, TareaLista tarea) {
         int color = getColorInt(tarea);
         tarea.setIconPriorityColor(color);
@@ -78,6 +86,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         holder.imagen.setColorFilter(color);
     }
 
+    // Método para obtener el color correspondiente a la prioridad de la tarea
     private int getColorInt(TareaLista tarea) {
         String prioridad = tarea.getPriority().toLowerCase();
 
@@ -93,21 +102,26 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         }
     }
 
+    // Método para obtener el número de elementos en la lista de tareas
     @Override
     public int getItemCount() {
         return listaTareas.size();
     }
 
+    // Clase ViewHolder para el RecyclerView
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
+        // Declaración de variables de instancia
         ImageView imagen;
         CheckBox tarea;
 
+        // Constructor de la clase
         public MyViewHolder(@NonNull View itemView, RecyclerViewInterface rvi) {
             super(itemView);
             imagen = itemView.findViewById(R.id.imagenTarea);
             tarea = itemView.findViewById(R.id.checkBoxTarea);
 
+            // Establecimiento del listener de clic largo
             itemView.setOnLongClickListener(v -> {
                 if (rvi != null) {
                     int pos = getAdapterPosition();

@@ -5,28 +5,34 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.io.File;
 import java.util.ArrayList;
 
+// Esta clase representa un Usuario en la aplicación
 public class Usuario implements Parcelable {
 
-
-    private int rol; // 0 user 1 admin
+    // Declaración de variables de instancia
+    // rol: 0 para usuario, 1 para administrador
+    private int rol;
     private ArrayList<Lista> userLists = new ArrayList<>();
 
-    public Usuario(){
+    // Constructor vacío
+    public Usuario() {
 
     }
-    public Usuario( int rol, ArrayList<Lista> listas) {
+
+    // Constructor con los atributos rol y listas
+    public Usuario(int rol, ArrayList<Lista> listas) {
         this.rol = rol;
         this.userLists = listas;
     }
 
+    // Constructor para crear un Usuario a partir de un Parcel
     protected Usuario(Parcel in) {
         rol = in.readInt();
         userLists = in.createTypedArrayList(Lista.CREATOR);
     }
 
+    // Creador para crear un Usuario a partir de un Parcel
     public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
         @Override
         public Usuario createFromParcel(Parcel in) {
@@ -39,6 +45,7 @@ public class Usuario implements Parcelable {
         }
     };
 
+    // Getters y setters
     public ArrayList<Lista> getUserLists() {
         return userLists;
     }
@@ -55,7 +62,7 @@ public class Usuario implements Parcelable {
         this.rol = rol;
     }
 
-
+    // Métodos requeridos por la interfaz Parcelable
     @Override
     public int describeContents() {
         return 0;
