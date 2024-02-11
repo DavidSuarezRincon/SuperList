@@ -47,7 +47,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     private RecyclerView recView;
     private FloatingActionButton btnAniadirLista;
     private static int numbersIds;
-    private static ArrayList<Lista> listData;
+    private static ArrayList<Lista> lists;
     private static AdaptadorLista adapter;
     private View view;
     private static FirebaseUser currentUser;
@@ -100,30 +100,23 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Este método se llamará cuando se realice un cambio en los datos en esta ruta
-                // Puedes manejar los datos en dataSnapshot
-                listData = new ArrayList<>();
+                lists = new ArrayList<>();
                 for (DataSnapshot children : snapshot.getChildren()) {
                     Lista l = children.getValue(Lista.class);
-                    listData.add(l);
+                    lists.add(l);
                 }
-                // Configuración del adaptador y el RecyclerView
-                adapter = new AdaptadorLista(listData, getActivity(), MenuListasFragment.this);
+                adapter = new AdaptadorLista(lists, getActivity(), MenuListasFragment.this);
                 recView = view.findViewById(R.id.rvLista);
-                recView.setHasFixedSize(true);
-                recView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recView.setAdapter(adapter);
-                registerForContextMenu(recView);
-
+                recView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                adapter.notifyDataSetChanged(); // Notifica al adaptador que los datos han cambiado
                 progressDialog.dismiss();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Manejo de errores
                 Log.e("onCancelledError", "Error!", error.toException());
                 Toast.makeText(getActivity(), "Error al cargar los datos", Toast.LENGTH_SHORT).show();
-
                 progressDialog.dismiss();
             }
         };
@@ -149,8 +142,8 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         list.setCreationDate(currentDate);
 
         DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
-        listData.add(list);
-        ref.setValue(listData);
+        lists.add(list);
+        ref.setValue(lists);
         adapter.notifyDataSetChanged();
     }
 
@@ -164,28 +157,30 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     public void borrarItemLista(int numLista) {
         DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
 
-        listData.remove(numLista);
-        ref.setValue(listData);
+        lists.remove(numLista);
+        ref.setValue(lists);
 
         adapter.notifyItemRemoved(numLista);
     }
 
     // Método para abrir un elemento de la lista
     public void abrirItemLista(int numLista) {
-        Lista listaAbrir = listData.get(numLista);
+        Lista listaAbrir = lists.get(numLista);
         ArrayList<TareaLista> listaDetareas = listaAbrir.getTasksList();
 
         Intent intent = new Intent(getActivity(), AddItemsListaActivity.class);
+
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaDeTareas", listaDetareas);
         bundle.putInt("posLista", numLista);
         intent.putExtras(bundle);
+
         startActivity(intent);
     }
 
     // Método para mostrar la información de la lista
     public void mostrarInformacionlista(int numLista) {
-        Lista pickedList = listData.get(numLista);
+        Lista pickedList = lists.get(numLista);
 
         Intent intent = new Intent(getActivity(), activity_mostrarInfo_Lista.class);
         intent.putExtra("listaSeleccionada", pickedList);
@@ -234,8 +229,8 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     // Método para cambiar las tareas
     public static void changeTasks(int pos, ArrayList<TareaLista> tasks) {
         DatabaseReference ref = database.getReference("SuperList").child(currentUser.getUid()).child("userLists");
-        listData.get(pos).setTasksList(tasks);
-        ref.setValue(listData);
+        lists.get(pos).setTasksList(tasks);
+        ref.setValue(lists);
     }
 
     // Método para iniciar la actividad de añadir lista

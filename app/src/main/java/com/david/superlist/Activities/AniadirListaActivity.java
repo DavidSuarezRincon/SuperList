@@ -20,7 +20,9 @@ import com.david.superlist.pojos.Lista;
 
 import java.util.Calendar;
 
+// Clase para la actividad de añadir una lista
 public class AniadirListaActivity extends AppCompatActivity {
+    // Declaración de variables de instancia
     private ImageButton buttonGoBack;
     private EditText txtName, txtDescription;
     private String name, description, endDate, listType;
@@ -31,11 +33,13 @@ public class AniadirListaActivity extends AppCompatActivity {
     private String selectedDate;
     private Button addButton;
 
+    // Método onCreate que se llama al crear la actividad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniadirlista_descripcion);
 
+        // Inicialización de las vistas
         buttonGoBack = findViewById(R.id.BotonVolverMainInfo);
         buttonGoBack.setOnClickListener(v -> {
             finish();
@@ -59,6 +63,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         });
     }
 
+    // Método que se llama cuando se devuelve un resultado de una actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -69,6 +74,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         }
     }
 
+    // Método para verificar y continuar con la lista
     private void checkAndContinueLista() {
         boolean thereIsAnError = false;
         name = txtName.getText().toString();
@@ -78,6 +84,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         System.out.println(endDate);
         System.out.println(listType);
 
+        // Verificación de los campos de entrada
         if (TextUtils.isEmpty(name.trim())) {
             thereIsAnError = true;
             ponerError(txtName);
@@ -97,12 +104,14 @@ public class AniadirListaActivity extends AppCompatActivity {
             return;
         }
 
+        // Creación de la intención para la actividad AddItemsListaActivity
         Intent intent = new Intent(this, AddItemsListaActivity.class);
         Lista newLista = MenuListasFragment.createLista(name, description, endDate, listType, null);
         intent.putExtra("newList", newLista);
         startActivityForResult(intent, 2);
     }
 
+    // Método para iniciar el selector de fecha
     private void startDatePicker() {
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -123,10 +132,8 @@ public class AniadirListaActivity extends AppCompatActivity {
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
     }
 
-
+    // Método para establecer un error en un EditText
     private void ponerError(EditText et) {
         et.setError(getResources().getString(R.string.textoCampoObligatorio));
     }
-
-
 }

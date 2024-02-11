@@ -83,10 +83,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/RegisterInputEmail"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/textHintEmailRegister"
+            android:inputType="textEmailAddress"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,6 +95,8 @@
         android:layout_width="332dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
@@ -105,7 +107,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/textHintPassword1Register"
             android:inputType="textPassword"
-            android:password="true"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +114,8 @@
         android:layout_width="332dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
@@ -123,9 +126,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/textHintPassword2Register"
             android:inputType="textPassword"
-            android:password="true"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

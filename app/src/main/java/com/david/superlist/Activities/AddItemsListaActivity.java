@@ -66,9 +66,17 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
 
     // Método para configurar el RecyclerView
     private void setupRecyclerView() {
-        tasks = getIntent().hasExtra("listaDeTareas")
+        tasks = (getIntent().hasExtra("listaDeTareas"))
                 ? (ArrayList<TareaLista>) getIntent().getSerializableExtra("listaDeTareas")
                 : new ArrayList<>();
+
+        if (tasks == null) {
+            //tasks será nullo cuando no hayan tareas porque firebase borra el nodo padre
+            // cuando no hay nada dentro de él. Pero si llega un intent pero es nullo.
+            //Por ello se pregunta si es nulo para instanciarlo.
+
+            tasks = new ArrayList<>();
+        }
 
         adapter = new AdaptadorItemsLista(this, tasks, this);
         recyclerViewItems.setAdapter(adapter);
@@ -93,8 +101,10 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     private void addListToMain() {
         Bundle listData = getIntent().getExtras();
         Lista newList = listData.getParcelable("newList");
+
         newList.setTasksList(tasks);
         MenuListasFragment.addLista(newList);
+
     }
 
     // Método para mostrar un diálogo de advertencia
@@ -152,8 +162,6 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
             String selectionPriority = spinnerTaskPriority.getSelectedItem().toString();
             // Añadir la tarea
             addTask(tasktext, selectionPriority);
-            // Notificar al adaptador que los datos han cambiado
-            adapter.notifyDataSetChanged();
             // Mostrar un mensaje de éxito
             String addTaskToastTextSucefull = getResources().getString(R.string.mensajeTareaAñadidaExito);
             Toast.makeText(this, addTaskToastTextSucefull, Toast.LENGTH_LONG).show();
@@ -165,11 +173,6 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     // Método para añadir una nueva tarea a la lista de tareas
     private void addTask(String taskText, String priority) {
         TareaLista newTask = new TareaLista(taskText, priority);
-
-        if (tasks == null) {
-            tasks = new ArrayList<>();
-        }
-
         tasks.add(newTask);
         adapter.notifyDataSetChanged();
     }
