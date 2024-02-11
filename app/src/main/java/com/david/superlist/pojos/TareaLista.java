@@ -1,5 +1,6 @@
 package com.david.superlist.pojos;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,6 +15,7 @@ public class TareaLista implements Parcelable {
     private String task;
     private String priority;
     private int iconPriorityColor;
+    private boolean isChecked;
 
     // Constructor vacío
     public TareaLista() {
@@ -24,6 +26,7 @@ public class TareaLista implements Parcelable {
     public TareaLista(String task, String priority) {
         this.task = task;
         this.priority = priority;
+        this.isChecked = false;
     }
 
     // Constructor para crear una TareaLista a partir de un Parcel
@@ -31,6 +34,7 @@ public class TareaLista implements Parcelable {
         task = in.readString();
         priority = in.readString();
         iconPriorityColor = in.readInt();
+        isChecked = in.readInt() != 0;
     }
 
     // Método para crear una TareaLista por defecto
@@ -41,6 +45,15 @@ public class TareaLista implements Parcelable {
     // Getters y setters
     public String getTask() {
         return task;
+    }
+
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 
     public void setTask(String task) {
@@ -74,6 +87,7 @@ public class TareaLista implements Parcelable {
         dest.writeString(task);
         dest.writeString(priority);
         dest.writeInt(iconPriorityColor);
+        dest.writeInt(isChecked ? 1 : 0); // Write isChecked as an integer
     }
 
     // Creador para crear una TareaLista a partir de un Parcel

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,35 +47,25 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TareaLista newTarea = listaTareas.get(position);
-        String hashCodeNewTarea = String.valueOf(newTarea.hashCode());
+        Log.i("posicion", position+"");
 
         holder.tarea.setText(newTarea.getTask());
-        setupTareaCheckBox(holder, hashCodeNewTarea);
-        boolean tareaIsChecked = getTareaIsChecked(hashCodeNewTarea);
-        holder.tarea.setChecked(tareaIsChecked);
+        holder.tarea.setChecked(newTarea.isChecked()); // Usa el nuevo campo
 
-        setupImagenIcon(holder, newTarea);
-    }
+        Log.i("estaChekeado", newTarea.isChecked() + "");
 
-    // Método para configurar el CheckBox de la tarea
-    private void setupTareaCheckBox(MyViewHolder holder, String hashCodeNewTarea) {
-        SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE);
-        SharedPreferences.Editor preferencesEditor = preferences.edit(); //ToDo
+        if (newTarea.isChecked()){
+            holder.tarea.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
 
         holder.tarea.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            preferencesEditor.putBoolean(hashCodeNewTarea, isChecked);
-            preferencesEditor.apply();
+            newTarea.setChecked(isChecked); // Actualiza el estado de la tarea
 
-            int paintFlags = isChecked ? Paint.STRIKE_THRU_TEXT_FLAG : 0;
-            holder.tarea.setPaintFlags(paintFlags);
-
+            int flag = isChecked ? Paint.STRIKE_THRU_TEXT_FLAG : 0;
+            holder.tarea.setPaintFlags(flag);
         });
-    }
 
-    // Método para obtener si la tarea está marcada
-    private boolean getTareaIsChecked(String hashCodeNewTarea) {
-        SharedPreferences preferences = context.getSharedPreferences("userTasksCheck", Context.MODE_PRIVATE); //ToDo
-        return preferences.getBoolean(hashCodeNewTarea, false);
+        setupImagenIcon(holder, newTarea);
     }
 
     // Método para configurar el icono de la tarea
