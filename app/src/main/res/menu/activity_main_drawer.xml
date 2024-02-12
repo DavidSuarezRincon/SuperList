@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    android:id="@+id/menuOpcionesDrawer"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -12,6 +14,11 @@
             android:id="@+id/nav_MenuListas"
             android:icon="@drawable/list_alt_24px"
             android:title="@string/menu_Listas" />
+        <item
+            android:id="@+id/nav_grafico"
+            android:icon="@drawable/graphic_icon"
+            android:title="Gráfico de listas" />
+
         <item
             android:id="@+id/nav_Logout"
             android:icon="@drawable/logout_24px"

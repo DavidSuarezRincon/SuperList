@@ -17,6 +17,12 @@
         android:label="@string/menu_Listas"
         tools:layout="@layout/fragment_gallery" />
 
+    <fragment
+        android:id="@+id/nav_grafico"
+        android:name="com.david.superlist.NavigationDrawer.grafico.GraficoFragment"
+        android:label="Gráfico de listas"
+        tools:layout="@layout/activity_grafico" />
+
     <action
         android:id="@+id/action_logout"
         app:destination="@+id/nav_home"

@@ -1,13 +1,18 @@
-package com.david.superlist.Activities;
+package com.david.superlist.NavigationDrawer.grafico;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.david.superlist.R;
+import com.david.superlist.pojos.Lista;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -19,29 +24,117 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class graficoActivity extends AppCompatActivity {
+public class GraficoFragment extends Fragment {
 
     private PieChart pieChart;
     private TextView textViewTotal;
     private TextView textoNoHayListas;
     private String[] tiposDeListas = {"Lista de la compra", "Lista de deseos", "Lista de tareas", "Receta", "Otro"};
-    private int[] cantidadesTiposDeListas = {0, 0, 1, 0, 0};
-    private int[] coloresTiposDeListas = {Color.RED, Color.YELLOW, Color.BLUE, Color.GREEN, Color.MAGENTA};
+    private int[] cantidadesTiposDeListas;
+    int naranja = Color.parseColor("#FFA500");
+    private int[] coloresTiposDeListas = {Color.RED, naranja, Color.BLUE, Color.GREEN, Color.MAGENTA};
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_grafico, container, false);
 
         // Inicializa el gráfico de pastel
-        pieChart = (PieChart) findViewById(R.id.pieChart);
-        textViewTotal = findViewById(R.id.textoTotalListas);
-        textoNoHayListas = findViewById(R.id.textoNoHayListas);
-        createChart();
-        setTextTotalListas();
+        pieChart = view.findViewById(R.id.pieChart);
+        textViewTotal = view.findViewById(R.id.textoTotalListas);
+        textoNoHayListas = view.findViewById(R.id.textoNoHayListas);
+        inicializarCantidadListas();
+
+        return view;
+    }
+
+    private void inicializarCantidadListas() {
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String userId = currentUser.getUid();
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("SuperList").child(userId).child("userLists");
+
+            // Crea y muestra el ProgressDialog
+            ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Cargando datos...");
+            progressDialog.show();
+
+            ref.addValueEventListener(new ValueEventListener() {
+
+                int listaCompra = 0;
+                int listaDeseos = 0;
+                int listaDeTareas = 0;
+                int receta = 0;
+                int otro = 0;
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        Lista lista = snapshot.getValue(Lista.class);
+                        if (lista != null) {
+                            Log.i("tipoLista", "entro");
+                            String tipo = lista.getType();
+                            switch (tipo) {
+                                case "Lista de la compra":
+                                    listaCompra++;
+                                    Log.i("tipoLista", "listaCompra");
+                                    break;
+                                case "Lista de deseos":
+                                    listaDeseos++;
+                                    Log.i("tipoLista", "listaDeseos");
+                                    break;
+                                case "Lista de tareas":
+                                    listaDeTareas++;
+                                    Log.i("tipoLista", "listaDeTareas");
+                                    break;
+                                case "Receta":
+                                    receta++;
+                                    Log.i("tipoLista", "receta");
+                                    break;
+                                case "Otro":
+                                    otro++;
+                                    Log.i("tipoLista", "otro");
+                                    break;
+                            }
+                        }
+                    }
+
+
+                    // Aquí puedes actualizar la interfaz de usuario con los contadores actualizados
+
+                    cantidadesTiposDeListas = new int[5];
+                    cantidadesTiposDeListas[0] = listaCompra;
+                    cantidadesTiposDeListas[1] = listaDeseos;
+                    cantidadesTiposDeListas[2] = listaDeTareas;
+                    cantidadesTiposDeListas[3] = receta;
+                    cantidadesTiposDeListas[4] = otro;
+
+                    createChart();
+                    setTextTotalListas();
+
+                    // Oculta el ProgressDialog
+                    progressDialog.dismiss();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Manejar error
+                    Log.e("tipoLista", "cancela");
+                    // Oculta el ProgressDialog
+                    progressDialog.dismiss();
+                }
+            });
+        }
     }
 
     // Método para configurar el gráfico
@@ -183,4 +276,6 @@ public class graficoActivity extends AppCompatActivity {
         }
     }
 
+    // Aquí va el resto del código de graficoActivity, pero asegúrate de cambiar cualquier referencia a 'this' o 'getActivity()' a 'getContext()'
+    // ...
 }

@@ -1,7 +1,10 @@
 package com.david.superlist.NavigationDrawer;
 
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +22,11 @@ import com.david.superlist.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 // Esta clase representa la actividad principal de la aplicación
 public class MainActivity extends AppCompatActivity {
@@ -57,6 +65,33 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        String userId = currentUser.getUid();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("SuperList").child(userId);
+
+        MenuItem navGrafico = navigationView.getMenu().findItem(R.id.nav_grafico);
+        userRef.child("rol").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                int rol = dataSnapshot.getValue(Integer.class);
+                if (rol == 1) {
+                    // El usuario es administrador
+                    navGrafico.setVisible(true);
+                } else {
+                    // El usuario es normal
+                    navGrafico.setVisible(false);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Error al obtener el rol
+                Log.e("OnCanceledError", "onCancelled: MainActivity");
+            }
+        });
+
+
         // Extracción del nombre de usuario del correo electrónico
         String userEmail = currentUser.getEmail();
         TextView nombreUsuarioHeader = headerView.findViewById(R.id.TextViewNombreUsuarioHeader);
@@ -66,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configuración de la AppBar
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_MenuListas, R.id.nav_Logout)
+                R.id.nav_home, R.id.nav_MenuListas, R.id.nav_grafico, R.id.nav_Logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this,
@@ -81,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
             if (item.getItemId() == R.id.nav_Logout) {
                 return logOut();
             }
+
 
             drawer.closeDrawers();
 
