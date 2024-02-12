@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Activities.AddItemsListaActivity;
 import com.david.superlist.Activities.AniadirListaActivity;
-import com.david.superlist.Activities.activity_mostrarInfo_Lista;
+import com.david.superlist.Activities.mostrarInfoListaActivity;
 import com.david.superlist.Adaptadores.AdaptadorLista;
 import com.david.superlist.Interfaces.RecyclerViewInterface;
 import com.david.superlist.R;
@@ -182,7 +182,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     public void mostrarInformacionlista(int numLista) {
         Lista pickedList = lists.get(numLista);
 
-        Intent intent = new Intent(getActivity(), activity_mostrarInfo_Lista.class);
+        Intent intent = new Intent(getActivity(), mostrarInfoListaActivity.class);
         intent.putExtra("listaSeleccionada", pickedList);
         startActivity(intent);
     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#242525"
-    tools:context=".Activities.activity_mostrarInfo_Lista">
+    tools:context=".Activities.mostrarInfoListaActivity">
 
     <LinearLayout
         android:id="@+id/CabeceraLinearLayout"

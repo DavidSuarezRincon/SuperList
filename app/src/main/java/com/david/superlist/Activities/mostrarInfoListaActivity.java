@@ -10,7 +10,7 @@ import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 
 // Esta actividad muestra la información detallada de una lista seleccionada
-public class activity_mostrarInfo_Lista extends AppCompatActivity {
+public class mostrarInfoListaActivity extends AppCompatActivity {
 
     // Declaración de variables de instancia
     private Lista list; // La lista seleccionada
