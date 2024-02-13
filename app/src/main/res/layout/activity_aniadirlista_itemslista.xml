@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -18,7 +19,7 @@
 
         <ImageButton
             android:id="@+id/BotonVolverMainInfo"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="75dp"
             android:layout_weight="1"
             android:background="@color/black"
@@ -36,13 +37,24 @@
             android:textColor="#FFFFFF"
             android:textSize="34dp" />
 
+        <ImageButton
+            android:id="@+id/download_pdf_button"
+            android:layout_width="71dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:contentDescription="downloadButton"
+            app:srcCompat="@android:drawable/ic_menu_save" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTareas"
         android:layout_width="0dp"
-        android:layout_height="491dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/botonTerminarLista"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/botonAñadirItem" />
 

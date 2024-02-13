@@ -1,7 +1,6 @@
 package com.david.superlist.Adaptadores;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
@@ -47,17 +46,21 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TareaLista newTarea = listaTareas.get(position);
-        Log.i("posicion", position+"");
+        Log.i("posicion", position + "");
+
+        // Elimina el listener antes de configurar el estado del CheckBox
+        holder.tarea.setOnCheckedChangeListener(null);
 
         holder.tarea.setText(newTarea.getTask());
         holder.tarea.setChecked(newTarea.isChecked()); // Usa el nuevo campo
 
         Log.i("estaChekeado", newTarea.isChecked() + "");
 
-        if (newTarea.isChecked()){
+        if (newTarea.isChecked()) {
             holder.tarea.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         }
 
+        // Añade el listener después de configurar el estado del CheckBox
         holder.tarea.setOnCheckedChangeListener((buttonView, isChecked) -> {
             newTarea.setChecked(isChecked); // Actualiza el estado de la tarea
 
@@ -114,6 +117,16 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
 
             // Establecimiento del listener de clic largo
             itemView.setOnLongClickListener(v -> {
+                if (rvi != null) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        rvi.onItemLongClick(pos);
+                    }
+                }
+                return true;
+            });
+
+            tarea.setOnLongClickListener(v -> {
                 if (rvi != null) {
                     int pos = getAdapterPosition();
                     if (pos != RecyclerView.NO_POSITION) {
