@@ -18,7 +18,7 @@ import com.david.superlist.placeholder.PlaceholderContent;
 /**
  * A fragment representing a list of Items.
  */
-public class ManageUsuariosFragment extends Fragment {
+public class  ManageUsuariosFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";

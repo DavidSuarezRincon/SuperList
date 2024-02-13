@@ -14,6 +14,9 @@ public class Usuario implements Parcelable {
     // rol: 0 para usuario, 1 para administrador
     private int rol;
     private ArrayList<Lista> userLists = new ArrayList<>();
+    private String nombre;
+    private String email;
+
 
     // Constructor vacío
     public Usuario() {
@@ -21,9 +24,11 @@ public class Usuario implements Parcelable {
     }
 
     // Constructor con los atributos rol y listas
-    public Usuario(int rol, ArrayList<Lista> listas) {
+    public Usuario(int rol, ArrayList<Lista> listas, String nombre, String email) {
         this.rol = rol;
         this.userLists = listas;
+        this.nombre = nombre;
+        this.email = email;
     }
 
     // Constructor para crear un Usuario a partir de un Parcel
@@ -54,8 +59,24 @@ public class Usuario implements Parcelable {
         this.userLists = userLists;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getRol() {
         return rol;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setRol(int rol) {

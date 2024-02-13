@@ -164,7 +164,7 @@ public class RegisterActivity extends AppCompatActivity {
                             ArrayList<Lista> listas = new ArrayList<>();
                             listas.add(Lista.nuevaListaDefault());
 
-                            Usuario nuevoUsuario = new Usuario(0, listas); // 0 para rol de usuario, ArrayList vacío para las listas
+                            Usuario nuevoUsuario = new Usuario(0, listas, email.split("@")[0], email); // 0 para rol de usuario, ArrayList vacío para las listas
                             database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);
 
                             updateUI(user);

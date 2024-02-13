@@ -1,13 +1,14 @@
 package com.david.superlist.NavigationDrawer.ManageUsuarios;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.david.superlist.placeholder.PlaceholderContent.PlaceholderItem;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.david.superlist.databinding.FragmentManageUsuariosBinding;
+import com.david.superlist.placeholder.PlaceholderContent.PlaceholderItem;
+import com.david.superlist.pojos.Usuario;
 
 import java.util.List;
 
@@ -17,24 +18,22 @@ import java.util.List;
  */
 public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<ManageUsuariosRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Usuario> mValues;
 
-    public ManageUsuariosRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public ManageUsuariosRecyclerViewAdapter(List<Usuario> items) {
         mValues = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         return new ViewHolder(FragmentManageUsuariosBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        Usuario usuario = mValues.get(position);
+        holder.mIdView.setText(usuario.getNombre()); // Asume que Usuario tiene un método getNombre
+        holder.mContentView.setText(usuario.getEmail()); // Asume que Usuario tiene un método getEmail
     }
 
     @Override
@@ -49,8 +48,8 @@ public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<Mana
 
         public ViewHolder(FragmentManageUsuariosBinding binding) {
             super(binding.getRoot());
-            mIdView = binding.itemNumber;
-            mContentView = binding.content;
+            mIdView = binding.emailUsuario;
+            mContentView = binding.nombreUsuario;
         }
 
         @Override
