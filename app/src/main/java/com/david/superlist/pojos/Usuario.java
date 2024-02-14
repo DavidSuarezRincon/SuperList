@@ -14,7 +14,7 @@ public class Usuario implements Parcelable {
     // Declaración de variables de instancia
     // rol: 0 para usuario, 1 para administrador
     private String id;
-    private int rol;
+    private int role;
     private ArrayList<Lista> userLists = new ArrayList<>();
     private String nombre;
     private String email;
@@ -25,9 +25,9 @@ public class Usuario implements Parcelable {
     }
 
     // Constructor con los atributos rol y listas
-    public Usuario(String id, int rol, ArrayList<Lista> listas, String nombre, String email, boolean baned) {
+    public Usuario(String id, int role, ArrayList<Lista> listas, String nombre, String email, boolean baned) {
         this.id = id;
-        this.rol = rol;
+        this.role = role;
         this.userLists = listas;
         this.nombre = nombre;
         this.email = email;
@@ -37,7 +37,7 @@ public class Usuario implements Parcelable {
     // Constructor para crear un Usuario a partir de un Parcel
     protected Usuario(Parcel in) {
         id = in.readString();
-        rol = in.readInt();
+        role = in.readInt();
         userLists = in.createTypedArrayList(Lista.CREATOR);
         nombre = in.readString();
         email = in.readString();
@@ -76,8 +76,8 @@ public class Usuario implements Parcelable {
         this.email = email;
     }
 
-    public void setRol(int rol) {
-        this.rol = rol;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public void setBaned(boolean baned) {
@@ -98,8 +98,8 @@ public class Usuario implements Parcelable {
         return nombre;
     }
 
-    public int getRol() {
-        return rol;
+    public int getRole() {
+        return role;
     }
 
     public String getEmail() {
@@ -119,7 +119,7 @@ public class Usuario implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeInt(rol);
+        dest.writeInt(role);
         dest.writeTypedList(userLists);
         dest.writeString(nombre);
         dest.writeString(email);

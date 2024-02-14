@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                         // isBaned es true
                         Toast.makeText(MainActivity.this, "Has sido baneado, no puedes iniciar sesión", Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut();
+
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();

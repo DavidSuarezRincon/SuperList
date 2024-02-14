@@ -1,4 +1,4 @@
-package com.david.superlist.NavigationDrawer.ManageUsuarios;
+package com.david.superlist.Adaptadores;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
