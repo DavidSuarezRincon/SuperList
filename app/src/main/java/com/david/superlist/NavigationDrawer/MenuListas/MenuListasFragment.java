@@ -109,7 +109,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
                 recView = view.findViewById(R.id.rvLista);
                 recView.setAdapter(adapter);
                 recView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                adapter.notifyDataSetChanged(); // Notifica al adaptador que los datos han cambiado
+                adapter.notifyDataSetChanged();
                 progressDialog.dismiss();
             }
 

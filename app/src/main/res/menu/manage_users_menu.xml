@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_send_password_reset_email"
+        android:title="Enviar correo cambiar contraseña" />
+    <item
+        android:id="@+id/action_ban_user"
+        android:title="Banear usuario" />
+    <item
+        android:id="@+id/action_make_admin"
+        android:title="Hacer admin a usuario" />
+    <item
+        android:id="@+id/action_send_message"
+        android:title="Enviar mensaje a usuario" />
+</menu>

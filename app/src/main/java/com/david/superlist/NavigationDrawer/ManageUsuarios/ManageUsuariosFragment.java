@@ -2,38 +2,26 @@ package com.david.superlist.NavigationDrawer.ManageUsuarios;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.david.superlist.R;
-import com.david.superlist.placeholder.PlaceholderContent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A fragment representing a list of Items.
- */
-public class  ManageUsuariosFragment extends Fragment {
+public class ManageUsuariosFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ManageUsuariosFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static ManageUsuariosFragment newInstance(int columnCount) {
         ManageUsuariosFragment fragment = new ManageUsuariosFragment();
         Bundle args = new Bundle();
@@ -45,7 +33,6 @@ public class  ManageUsuariosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
@@ -56,16 +43,16 @@ public class  ManageUsuariosFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_manage_usuarios_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new ManageUsuariosRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+            // Obtén el usuario actual de Firebase
+            FirebaseUser usuarioActual = FirebaseAuth.getInstance().getCurrentUser();
+
+            // Configura el adaptador con el usuario actual de Firebase
+            recyclerView.setAdapter(new ManageUsuariosRecyclerViewAdapter(usuarioActual));
         }
         return view;
     }

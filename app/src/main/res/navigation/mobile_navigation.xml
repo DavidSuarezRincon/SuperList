@@ -18,6 +18,12 @@
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
+        android:id="@+id/nav_administrar_usuarios"
+        android:name="com.david.superlist.NavigationDrawer.ManageUsuarios.ManageUsuariosFragment"
+        android:label="Administrar usuarios de la app"
+        tools:layout="@layout/fragment_manage_usuarios_list" />
+
+    <fragment
         android:id="@+id/nav_grafico"
         android:name="com.david.superlist.NavigationDrawer.grafico.GraficoFragment"
         android:label="Gráfico de listas"

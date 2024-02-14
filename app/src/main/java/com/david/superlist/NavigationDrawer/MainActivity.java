@@ -19,6 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.david.superlist.Login.LoginActivity;
 import com.david.superlist.R;
 import com.david.superlist.databinding.ActivityMainBinding;
+import com.david.superlist.pojos.Usuario;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -70,7 +71,36 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("SuperList").child(userId);
 
+        userRef.addValueEventListener(new ValueEventListener() {
+
+            //Checkeo si es usuario esta baneado. Si lo está lo redirige al login.
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                if (usuario != null) {
+
+                    boolean isBaned = usuario.isBaned();
+                    if (isBaned) {
+                        // isBaned es true
+                        Toast.makeText(MainActivity.this, "Has sido baneado, no puedes iniciar sesión", Toast.LENGTH_LONG).show();
+                        FirebaseAuth.getInstance().signOut();
+                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Error al obtener el valor de isChecked
+                Log.e("OnCanceledError", "onCancelled: MainActivity");
+            }
+        });
+
+
         MenuItem navGrafico = navigationView.getMenu().findItem(R.id.nav_grafico);
+        MenuItem navAdminUsuarios = navigationView.getMenu().findItem(R.id.nav_administrar_usuarios);
         userRef.child("rol").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -78,9 +108,11 @@ public class MainActivity extends AppCompatActivity {
                 if (rol == 1) {
                     // El usuario es administrador
                     navGrafico.setVisible(true);
+                    navAdminUsuarios.setVisible(true);
                 } else {
                     // El usuario es normal
                     navGrafico.setVisible(false);
+                    navAdminUsuarios.setVisible(false);
                 }
             }
 
@@ -101,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Configuración de la AppBar
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_MenuListas, R.id.nav_grafico, R.id.nav_Logout)
+                R.id.nav_home, R.id.nav_MenuListas, R.id.nav_administrar_usuarios, R.id.nav_grafico, R.id.nav_Logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this,

@@ -16,11 +16,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
+import com.david.superlist.pojos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,41 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
         // Inicializa Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-//        SharedPreferences datosCompartidos = getSharedPreferences("PreferenciasUsuario", Context.MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        boolean esPrimeraVez = datosCompartidos.getBoolean("esPrimeraVez", true);
-
-//        if (userAlreadyLoggedIn()) {
-//            redirectToHomeActivity();
-//            finish();
-//            return;
-//        }
-
-//        if (esPrimeraVez) {
-//            // Se ejecuta solo la primera vez
-//            UsuariosRegistrados.addAdminlUser("root", "root");
-//
-//            // Establece la bandera a falso para las próximas veces
-//            SharedPreferences.Editor editor = datosCompartidos.edit();
-//            editor.putBoolean("esPrimeraVez", false);
-//            editor.apply();
-//
-//            Log.d("LoginActivity", "Se ha ejecutado la lógica de la primera vez");
-//        } else {
-//            // No es la primera vez, carga los usuarios guardados
-//            String usuariosJson = datosCompartidos.getString("usuariosRegistrados", null);
-//            Type type = new TypeToken<ArrayList<Usuario>>() {
-//            }.getType();
-//
-//            ArrayList<Usuario> usuariosGuardados = gson.fromJson(usuariosJson, type);
-//
-//            if (usuariosGuardados != null) {
-//                UsuariosRegistrados.setUsers(usuariosGuardados);
-//            }
-//
-//            Log.d("LoginActivity", "No es la primera vez");
-//        }
 
         // Referencias a los elementos de la interfaz de usuario
         forgotPassword = findViewById(R.id.loginForgotPassword);
@@ -158,12 +129,47 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent claseMain = new Intent(this, MainActivity.class);
-            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
-            startActivity(claseMain);
-            finish();
+            String userId = user.getUid();
+
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userRef = database.getReference("SuperList").child(userId);
+            userRef.addValueEventListener(new ValueEventListener() {
+
+                //Checkeo si es usuario esta baneado. Si lo está lo redirige al login.
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                    if (usuario != null) {
+
+                        boolean isBaned = usuario.isBaned();
+                        if (isBaned) {
+                            // isBaned es true
+                            Log.i("EntroBaneado", "El usuario esta baneado " + isBaned);
+                            Toast.makeText(LoginActivity.this, "Has sido baneado, no puedes iniciar sesión", Toast.LENGTH_LONG).show();
+                            FirebaseAuth.getInstance().signOut();
+
+                        } else {
+                            // isBaned es false or null
+
+                            Intent claseMain = new Intent(LoginActivity.this, MainActivity.class);
+                            overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
+                            startActivity(claseMain);
+                            finish();
+
+                            Log.i("EntroBaneado", "El no esta baneado " + isBaned);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Error al obtener el valor de isChecked
+                    Log.e("OnCanceledError", "onCancelled: MainActivity");
+                }
+            });
         } else {
-            Toast.makeText(this, "El usuario no existe.", Toast.LENGTH_SHORT).show();
+            // Handle the case when user is null
+            // For example, navigate back to login screen
         }
     }
 
