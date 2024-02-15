@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     // Declaración de variables de instancia
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     // Método onCreate que se llama al crear la actividad
     @Override
@@ -102,9 +105,9 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem navGrafico = navigationView.getMenu().findItem(R.id.nav_grafico);
         MenuItem navAdminUsuarios = navigationView.getMenu().findItem(R.id.nav_administrar_usuarios);
-        userRef.child("rol").addListenerForSingleValueEvent(new ValueEventListener() {
+        userRef.child("role").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int rol = dataSnapshot.getValue(Integer.class);
                 if (rol == 1) {
                     // El usuario es administrador

@@ -93,6 +93,15 @@
     <string name="mensajeLogoutExitoso">Ha cerrado sesión correctamente.</string>
     <string name="mensajeTareaAñadidaExito">Tarea añadida correctamente.</string>
     <string name="mensajeTareaAñadidaError">Introduzca el texto de la tarea.</string>
+    <string name="textoDegradarUsuario">¿Estás seguro de que quieres degradar a este usuario?</string>
+    <string name="textoHacerAdminUsuario">¿Estás seguro de que quieres hacer administrador a este usuario?</string>
+    <string name="textoTituloAlertasAdministrarUsuarios">Confirmación</string>
+    <string name="textoDesbanearUsuario">¿Estás seguro de que quieres desbanear a este usuario?</string>
+    <string name="textoBanearUsuario">¿Estás seguro de que quieres banear a este usuario?</string>
+    <string name="textoPopupDegradarUsuario">Degradar usuario</string>
+    <string name="textoPopupHacerAdminUsuario">Hacer administrador</string>
+    <string name="textoPopupDesbanearUsuario">Levantar prohibición</string>
+    <string name="textoPopupBanearUsuario">Prohibir al usuario</string>
 
 
 </resources>

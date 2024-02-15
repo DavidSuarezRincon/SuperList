@@ -1,14 +1,13 @@
 package com.david.superlist.NavigationDrawer.grafico;
 
-import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.david.superlist.R;
@@ -24,8 +23,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +41,13 @@ public class GraficoFragment extends Fragment {
     int naranja = Color.parseColor("#FFA500");
     private int[] coloresTiposDeListas = {Color.RED, naranja, Color.BLUE, Color.GREEN, Color.MAGENTA};
 
+    // Variables de instancia
+    private int listaCompra = 0;
+    private int listaDeseos = 0;
+    private int listaDeTareas = 0;
+    private int receta = 0;
+    private int otro = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_grafico, container, false);
@@ -58,83 +62,51 @@ public class GraficoFragment extends Fragment {
     }
 
     private void inicializarCantidadListas() {
-
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("SuperList").child(userId).child("userLists");
-
-            // Crea y muestra el ProgressDialog
-            ProgressDialog progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Cargando datos...");
-            progressDialog.show();
-
-            ref.addValueEventListener(new ValueEventListener() {
-
-                int listaCompra = 0;
-                int listaDeseos = 0;
-                int listaDeTareas = 0;
-                int receta = 0;
-                int otro = 0;
-
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Lista lista = snapshot.getValue(Lista.class);
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("SuperList");
+        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot listSnapshot : userSnapshot.child("userLists").getChildren()) {
+                        Lista lista = listSnapshot.getValue(Lista.class);
                         if (lista != null) {
-                            Log.i("tipoLista", "entro");
                             String tipo = lista.getType();
                             switch (tipo) {
                                 case "Lista de la compra":
                                     listaCompra++;
-                                    Log.i("tipoLista", "listaCompra");
                                     break;
                                 case "Lista de deseos":
                                     listaDeseos++;
-                                    Log.i("tipoLista", "listaDeseos");
                                     break;
                                 case "Lista de tareas":
                                     listaDeTareas++;
-                                    Log.i("tipoLista", "listaDeTareas");
                                     break;
                                 case "Receta":
                                     receta++;
-                                    Log.i("tipoLista", "receta");
                                     break;
                                 case "Otro":
                                     otro++;
-                                    Log.i("tipoLista", "otro");
                                     break;
                             }
                         }
                     }
-
-
-                    // Aquí puedes actualizar la interfaz de usuario con los contadores actualizados
-
-                    cantidadesTiposDeListas = new int[5];
-                    cantidadesTiposDeListas[0] = listaCompra;
-                    cantidadesTiposDeListas[1] = listaDeseos;
-                    cantidadesTiposDeListas[2] = listaDeTareas;
-                    cantidadesTiposDeListas[3] = receta;
-                    cantidadesTiposDeListas[4] = otro;
-
-                    createChart();
-                    setTextTotalListas();
-
-                    // Oculta el ProgressDialog
-                    progressDialog.dismiss();
                 }
+                cantidadesTiposDeListas = new int[5];
+                cantidadesTiposDeListas[0] = listaCompra;
+                cantidadesTiposDeListas[1] = listaDeseos;
+                cantidadesTiposDeListas[2] = listaDeTareas;
+                cantidadesTiposDeListas[3] = receta;
+                cantidadesTiposDeListas[4] = otro;
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Manejar error
-                    Log.e("tipoLista", "cancela");
-                    // Oculta el ProgressDialog
-                    progressDialog.dismiss();
-                }
-            });
-        }
+                createChart();
+                setTextTotalListas();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Manejar error
+            }
+        });
     }
 
     // Método para configurar el gráfico
@@ -275,7 +247,4 @@ public class GraficoFragment extends Fragment {
             textoNoHayListas.setVisibility(View.VISIBLE);
         }
     }
-
-    // Aquí va el resto del código de graficoActivity, pero asegúrate de cambiar cualquier referencia a 'this' o 'getActivity()' a 'getContext()'
-    // ...
 }

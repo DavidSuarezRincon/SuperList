@@ -2,6 +2,7 @@ package com.david.superlist.Adaptadores;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,20 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
 
     // Constructor de la clase
 
-    public AdaptadorLista(){
+    public AdaptadorLista() {
 
     }
+
     public AdaptadorLista(ArrayList<Lista> datos, Context contexto, RecyclerViewInterface rvi) {
-        this.inflater = LayoutInflater.from(contexto);
-        this.datos = datos;
-        this.recyclerViewInterface = rvi;
+        try {
+
+            this.inflater = LayoutInflater.from(contexto);
+            this.datos = datos;
+            this.recyclerViewInterface = rvi;
+
+        } catch (NullPointerException npe) {
+            Log.e("NullPointerException", "AdaptadorLista: NullPointerException AdaptadorLista Constructor");
+        }
     }
 
     // Método para crear el ViewHolder

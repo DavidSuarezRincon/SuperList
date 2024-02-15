@@ -105,6 +105,9 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
                     Lista l = children.getValue(Lista.class);
                     lists.add(l);
                 }
+
+
+
                 adapter = new AdaptadorLista(lists, getActivity(), MenuListasFragment.this);
                 recView = view.findViewById(R.id.rvLista);
                 recView.setAdapter(adapter);

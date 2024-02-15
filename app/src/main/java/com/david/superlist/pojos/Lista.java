@@ -149,6 +149,11 @@ public class Lista implements Parcelable {
     }
 
     public ArrayList<TareaLista> getTasksList() {
+
+        if (tasksList == null){
+            ArrayList<TareaLista> aux = new ArrayList<>();
+            return aux;
+        }
         return tasksList;
     }
 

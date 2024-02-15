@@ -79,4 +79,13 @@
     <string name="mensajeLogoutExitoso">You\'ve successfully logged out.</string>
     <string name="mensajeTareaAñadidaExito">Task added successfully.</string>
     <string name="mensajeTareaAñadidaError">Introduce the text of the task.</string>
+    <string name="textoDegradarUsuario">Are you sure you want to demote this user?</string>
+    <string name="textoHacerAdminUsuario">Are you sure you want to make this user an administrator?</string>
+    <string name="textoTituloAlertasAdministrarUsuarios">Confirmation</string>
+    <string name="textoDesbanearUsuario">Are you sure you want to unban this user?</string>
+    <string name="textoBanearUsuario">Are you sure you want to ban this user?</string>
+    <string name="textoPopupDegradarUsuario">Demote user</string>
+    <string name="textoPopupHacerAdminUsuario">Make administrator</string>
+    <string name="textoPopupDesbanearUsuario">Unban user</string>
+    <string name="textoPopupBanearUsuario">Ban user</string>
 </resources>

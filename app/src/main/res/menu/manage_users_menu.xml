@@ -9,7 +9,4 @@
     <item
         android:id="@+id/action_make_admin"
         android:title="Hacer admin a usuario" />
-    <item
-        android:id="@+id/action_send_message"
-        android:title="Enviar mensaje a usuario" />
 </menu>

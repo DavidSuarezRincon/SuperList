@@ -2,6 +2,7 @@ package com.david.superlist.NavigationDrawer.ManageUsuarios;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,8 @@ public class ManageUsuariosFragment extends Fragment {
             FirebaseUser usuarioActual = FirebaseAuth.getInstance().getCurrentUser();
 
             // Configura el adaptador con el usuario actual de Firebase
-            recyclerView.setAdapter(new ManageUsuariosRecyclerViewAdapter(usuarioActual));
+
+            recyclerView.setAdapter(new ManageUsuariosRecyclerViewAdapter(usuarioActual, this.getContext()));
         }
         return view;
     }

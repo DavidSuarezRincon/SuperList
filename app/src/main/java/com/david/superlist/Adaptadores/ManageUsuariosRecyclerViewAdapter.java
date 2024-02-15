@@ -1,7 +1,10 @@
 package com.david.superlist.Adaptadores;
 
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,11 +36,13 @@ public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<Mana
     // Lista de usuarios y usuario actual
     private final List<Usuario> listaUsuarios = new ArrayList<>();
     private final FirebaseUser usuarioActual;
+    private final Context context;
 
     // Constructor que toma el usuario actual como argumento
-    public ManageUsuariosRecyclerViewAdapter(FirebaseUser usuario) {
+    public ManageUsuariosRecyclerViewAdapter(FirebaseUser usuario, Context context) {
         usuarioActual = usuario;
         cargarUsuariosDesdeFirebase(); // Carga los usuarios desde Firebase
+        this.context = context;
     }
 
     // Método para cargar los usuarios desde Firebase
@@ -95,6 +100,50 @@ public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<Mana
                 MenuInflater inflador = popup.getMenuInflater();
                 inflador.inflate(R.menu.manage_users_menu, popup.getMenu());
 
+                // Obtén una referencia a los elementos de menú
+                MenuItem banItem = popup.getMenu().findItem(R.id.action_ban_user);
+                MenuItem adminItem = popup.getMenu().findItem(R.id.action_make_admin);
+
+                // Actualiza el título del elemento de menú "Banear usuario"
+                DatabaseReference banRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("baned");
+                banRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Boolean currentBanStatus = dataSnapshot.getValue(Boolean.class);
+                        if (currentBanStatus != null) {
+                            String menuItemTitle = currentBanStatus ? context.getResources().getString(R.string.textoPopupDesbanearUsuario) : context.getResources().getString(R.string.textoPopupBanearUsuario);
+
+                            banItem.setTitle(menuItemTitle);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Manejar error aquí
+                        Log.e("onCancelled error", "onCancelled: ifIsBan");
+                    }
+                });
+
+                // Actualiza el título del elemento de menú "Hacer administrador"
+                DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("rol");
+                adminRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Integer currentRole = dataSnapshot.getValue(Integer.class);
+                        if (currentRole != null) {
+                            String menuItemTitle = currentRole == 1 ? context.getResources().getString(R.string.textoPopupDegradarUsuario) : context.getResources().getString(R.string.textoPopupHacerAdminUsuario);
+
+                            adminItem.setTitle(menuItemTitle);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Manejar error aquí
+                        Log.e("onCancelled error", "onCancelled: ifIsAdmin");
+                    }
+                });
+
                 // Establecer un listener de clic en el menú
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -105,42 +154,65 @@ public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<Mana
                             // Enviar correo electrónico de recuperación de contraseña
                             FirebaseAuth.getInstance().sendPasswordResetEmail(contenedor.usuario.getEmail());
                             return true;
-                        } else if (itemId == R.id.action_ban_user || itemId == R.id.action_make_admin) {
-                            // Banear usuario o hacer admin a usuario
-                            referencia = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId());
-                            if (itemId == R.id.action_ban_user) {
-                                DatabaseReference finalReferencia1 = referencia;
-                                new AlertDialog.Builder(v.getContext())
-                                        .setTitle("Confirmación")
-                                        .setMessage("¿Estás seguro de que quieres banear a este usuario?")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                finalReferencia1.child("baned").setValue(true);
-                                                contenedor.usuario.setBaned(true);
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, null)
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            } else {
-                                DatabaseReference finalReferencia = referencia;
-                                new AlertDialog.Builder(v.getContext())
-                                        .setTitle("Confirmación")
-                                        .setMessage("¿Estás seguro de que quieres hacer administrador a este usuario?")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                finalReferencia.child("rol").setValue(1);
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, null)
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .show();
-                            }
+                        } else if (itemId == R.id.action_ban_user) {
+                            DatabaseReference banRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("baned");
+                            banRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Boolean currentBanStatus = dataSnapshot.getValue(Boolean.class);
+                                    if (currentBanStatus != null) {
+                                        String alertMessage = currentBanStatus ? context.getResources().getString(R.string.textoDesbanearUsuario) : context.getResources().getString(R.string.textoBanearUsuario);
+                                        new AlertDialog.Builder(v.getContext())
+                                                .setTitle(context.getResources().getString(R.string.textoTituloAlertasAdministrarUsuarios))
+                                                .setMessage(alertMessage)
+                                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        banRef.setValue(!currentBanStatus);
+                                                        contenedor.usuario.setBaned(!currentBanStatus);
+                                                    }
+                                                })
+                                                .setNegativeButton(android.R.string.no, null)
+                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Manejar error aquí
+                                    Log.e("onCancelled error", "onCancelled: ifIsBan");
+                                }
+                            });
                             return true;
-                        } else if (itemId == R.id.action_send_message) {
-                            // Enviar mensaje a usuario
-                            // Aquí necesitarás implementar tu propio método para enviar un mensaje a un usuario
-                            // enviarMensajeAUsuario(contenedor.usuario.getEmail());
+                        } else if (itemId == R.id.action_make_admin) {
+                            DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("role");
+                            adminRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    Integer currentRole = dataSnapshot.getValue(Integer.class);
+                                    if (currentRole != null) {
+                                        String alertMessage = currentRole == 1 ? context.getResources().getString(R.string.textoDegradarUsuario) : context.getResources().getString(R.string.textoHacerAdminUsuario);
+                                        new AlertDialog.Builder(v.getContext())
+                                                .setTitle(context.getResources().getString(R.string.textoTituloAlertasAdministrarUsuarios))
+                                                .setMessage(alertMessage)
+                                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        adminRef.setValue(currentRole == 1 ? 0 : 1);
+                                                        contenedor.usuario.setRole(currentRole == 1 ? 0 : 1);
+                                                    }
+                                                })
+                                                .setNegativeButton(android.R.string.no, null)
+                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                .show();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Manejar error aquí
+                                    Log.e("onCancelled error", "onCancelled: ifIsAdmin");
+                                }
+                            });
                             return true;
                         } else {
                             return false;
