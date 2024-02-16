@@ -1,10 +1,13 @@
 package com.david.superlist.pojos;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+
+import com.david.superlist.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -42,7 +45,7 @@ public class Lista implements Parcelable {
     }
 
     // Método para crear una lista por defecto
-    public static Lista nuevaListaDefault() {
+    public static Lista nuevaListaDefault(Context context) {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDate fechaActual = LocalDate.now();
@@ -52,7 +55,7 @@ public class Lista implements Parcelable {
             listaTareasDefault.add(TareaLista.nuevaTareaDefault());
             Lista lista = new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
                     fechaActual.plusDays(1).format(formatter),
-                    "Lista de la Compra", fechaActual.format(formatter), listaTareasDefault);
+                    context.getString(R.string.textoOtraLista), fechaActual.format(formatter), listaTareasDefault);
             return lista;
         }
 

@@ -2,6 +2,7 @@ package com.david.superlist.Login;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -39,11 +40,14 @@ public class RegisterActivity extends AppCompatActivity {
     Button buttonRegister;
     ConstraintLayout parentLayout;
     FirebaseAuth registermAuth;
+    Context contexto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        this.contexto = this.getApplicationContext();
 
         // Inicialización de FirebaseAuth
         registermAuth = LoginActivity.mAuth;
@@ -162,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                             // Crear un nuevo registro en la base de datos
                             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
                             ArrayList<Lista> listas = new ArrayList<>();
-                            listas.add(Lista.nuevaListaDefault());
+                            listas.add(Lista.nuevaListaDefault(contexto));
 
                             Usuario nuevoUsuario = new Usuario(user.getUid(), 0, listas, email.split("@")[0], email, false); // 0 para rol de usuario, ArrayList vacío para las listas
                             database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);

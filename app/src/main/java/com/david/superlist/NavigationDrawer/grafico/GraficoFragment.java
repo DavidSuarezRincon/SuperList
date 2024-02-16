@@ -91,7 +91,6 @@ public class GraficoFragment extends Fragment {
                         if (lista != null) {
                             String tipo = lista.getType();
                             if (tipo.equals(tiposDeListas[0])) {
-
                                 listaCompra++;
                             }
                             if (tipo.equals(tiposDeListas[1])) {
@@ -167,7 +166,12 @@ public class GraficoFragment extends Fragment {
             // Establece el color y la etiqueta de cada entrada
             entry.formColor = coloresTiposDeListas[i];
             // Calcula el porcentaje que cada cantidad representa del total
-            float percentage = (float) cantidadesTiposDeListas[i] / total * 100;
+            float percentage = 0;
+
+            if (total != 0){
+                 percentage = (float) cantidadesTiposDeListas[i] / total * 100;
+            }
+
             // Añade la cantidad y el porcentaje al lado del nombre
             entry.label = tiposDeListas[i] + " (" + cantidadesTiposDeListas[i] + " | " + String.format("%.1f", percentage) + "%)";
 
