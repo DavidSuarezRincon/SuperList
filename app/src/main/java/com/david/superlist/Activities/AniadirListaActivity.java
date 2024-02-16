@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -81,6 +82,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         description = txtDescription.getText().toString();
         endDate = ShowDateTextView.getText().toString();
         listType = (String) typeListSpinner.getSelectedItem();
+        Log.i("textoSeleccionadoSpinner", listType);
         System.out.println(endDate);
         System.out.println(listType);
 

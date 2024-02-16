@@ -102,6 +102,11 @@
     <string name="textoPopupHacerAdminUsuario">Hacer administrador</string>
     <string name="textoPopupDesbanearUsuario">Levantar prohibición</string>
     <string name="textoPopupBanearUsuario">Prohibir al usuario</string>
+    <string name="textoListaCompra">Lista de la compra</string>
+    <string name="textoListaDeseos">Lista de deseos</string>
+    <string name="textoListaTareas">Lista de tareas</string>
+    <string name="textoReceta">Receta</string>
+    <string name="textoOtraLista">Otro</string>
 
 
 </resources>

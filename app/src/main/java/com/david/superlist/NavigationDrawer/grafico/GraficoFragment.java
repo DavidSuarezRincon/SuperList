@@ -1,5 +1,6 @@
 package com.david.superlist.NavigationDrawer.grafico;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,10 +37,10 @@ public class GraficoFragment extends Fragment {
     private PieChart pieChart;
     private TextView textViewTotal;
     private TextView textoNoHayListas;
-    private String[] tiposDeListas = {"Lista de la compra", "Lista de deseos", "Lista de tareas", "Receta", "Otro"};
+    private String[] tiposDeListas;
     private int[] cantidadesTiposDeListas;
     int naranja = Color.parseColor("#FFA500");
-    private int[] coloresTiposDeListas = {Color.RED, naranja, Color.BLUE, Color.GREEN, Color.MAGENTA};
+    private final int[] coloresTiposDeListas = {Color.RED, naranja, Color.BLUE, Color.GREEN, Color.MAGENTA};
 
     // Variables de instancia
     private int listaCompra = 0;
@@ -47,6 +48,7 @@ public class GraficoFragment extends Fragment {
     private int listaDeTareas = 0;
     private int receta = 0;
     private int otro = 0;
+    private Context contextoStrings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,11 +60,28 @@ public class GraficoFragment extends Fragment {
         textoNoHayListas = view.findViewById(R.id.textoNoHayListas);
         inicializarCantidadListas();
 
+        contextoStrings = this.getContext();
+
+        String textoListaCompra = contextoStrings.getString(R.string.textoListaCompra);
+        String textoListaDeseos = contextoStrings.getString(R.string.textoListaDeseos);
+        String textoListaTareas = contextoStrings.getString(R.string.textoListaTareas);
+        String textoReceta = contextoStrings.getString(R.string.textoReceta);
+        String textoOtraLista = contextoStrings.getString(R.string.textoOtraLista);
+
+        tiposDeListas = new String[5];
+
+        tiposDeListas[0] = textoListaCompra;
+        tiposDeListas[1] = textoListaDeseos;
+        tiposDeListas[2] = textoListaTareas;
+        tiposDeListas[3] = textoReceta;
+        tiposDeListas[4] = textoOtraLista;
+
         return view;
     }
 
     private void inicializarCantidadListas() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("SuperList");
+
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -71,22 +90,21 @@ public class GraficoFragment extends Fragment {
                         Lista lista = listSnapshot.getValue(Lista.class);
                         if (lista != null) {
                             String tipo = lista.getType();
-                            switch (tipo) {
-                                case "Lista de la compra":
-                                    listaCompra++;
-                                    break;
-                                case "Lista de deseos":
-                                    listaDeseos++;
-                                    break;
-                                case "Lista de tareas":
-                                    listaDeTareas++;
-                                    break;
-                                case "Receta":
-                                    receta++;
-                                    break;
-                                case "Otro":
-                                    otro++;
-                                    break;
+                            if (tipo.equals(tiposDeListas[0])) {
+
+                                listaCompra++;
+                            }
+                            if (tipo.equals(tiposDeListas[1])) {
+                                listaDeseos++;
+                            }
+                            if (tipo.equals(tiposDeListas[2])) {
+                                listaDeTareas++;
+                            }
+                            if (tipo.equals(tiposDeListas[3])) {
+                                receta++;
+                            }
+                            if (tipo.equals(tiposDeListas[4])) {
+                                otro++;
                             }
                         }
                     }
@@ -110,7 +128,7 @@ public class GraficoFragment extends Fragment {
     }
 
     // Método para configurar el gráfico
-    private Chart getSameChart(Chart chart, int textColor, int background, int animateY) {
+    private Chart getSameChart(Chart chart, int background, int animateY) {
         // Deshabilita la descripción del gráfico (elimina el título)
         chart.getDescription().setEnabled(false);
         // Establece el color de fondo del gráfico
@@ -185,7 +203,7 @@ public class GraficoFragment extends Fragment {
     // Método para crear el gráfico
     public void createChart() {
         // Configura el gráfico
-        pieChart = (PieChart) getSameChart(pieChart, Color.BLACK, Color.TRANSPARENT, 2000);
+        pieChart = (PieChart) getSameChart(pieChart, Color.TRANSPARENT, 2000);
         // Establece el radio del agujero en el centro del gráfico
         pieChart.setHoleRadius(10);
         // Establece el radio del círculo transparente alrededor del agujero
@@ -201,7 +219,7 @@ public class GraficoFragment extends Fragment {
         // Establece los colores de las porciones del gráfico de pastel
         dataSet.setColors(coloresTiposDeListas);
         // Establece el tamaño del texto de los valores
-        dataSet.setValueTextSize(Color.WHITE);
+        dataSet.setValueTextColor(Color.WHITE);
         dataSet.setValueTextSize(20);
         return dataSet;
     }
@@ -241,7 +259,7 @@ public class GraficoFragment extends Fragment {
 
         }
 
-        textViewTotal.setText("Total: " + total + " listas.");
+        textViewTotal.setText("Total: " + total);
 
         if (total == 0) {
             textoNoHayListas.setVisibility(View.VISIBLE);

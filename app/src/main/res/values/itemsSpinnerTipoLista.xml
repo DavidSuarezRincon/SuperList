@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="itemsSpinnerTipoLista">
-        <item>Lista de la compra</item>
-        <item>Lista de deseos</item>
-        <item>Lista de tareas</item>
-        <item>Receta</item>
-        <item>Otro</item>
+        <item>@string/textoListaCompra</item>
+        <item>@string/textoListaDeseos</item>
+        <item>@string/textoListaTareas</item>
+        <item>@string/textoReceta</item>
+        <item>@string/textoOtraLista</item>
     </string-array>
 </resources>

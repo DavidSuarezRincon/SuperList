@@ -25,6 +25,8 @@ public class Lista implements Parcelable {
     // Constructor vacío
     public Lista() {
 
+        tasksList = new ArrayList<>();
+
     }
 
     // Constructor con todos los atributos
@@ -150,7 +152,7 @@ public class Lista implements Parcelable {
 
     public ArrayList<TareaLista> getTasksList() {
 
-        if (tasksList == null){
+        if (tasksList == null) {
             ArrayList<TareaLista> aux = new ArrayList<>();
             return aux;
         }

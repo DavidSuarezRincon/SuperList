@@ -125,7 +125,7 @@ public class ManageUsuariosRecyclerViewAdapter extends RecyclerView.Adapter<Mana
                 });
 
                 // Actualiza el título del elemento de menú "Hacer administrador"
-                DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("rol");
+                DatabaseReference adminRef = FirebaseDatabase.getInstance().getReference("SuperList").child(contenedor.usuario.getId()).child("role");
                 adminRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

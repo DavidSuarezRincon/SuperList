@@ -22,6 +22,7 @@ public class Usuario implements Parcelable {
 
     // Constructor vacío
     public Usuario() {
+        userLists = new ArrayList<>();
     }
 
     // Constructor con los atributos rol y listas
