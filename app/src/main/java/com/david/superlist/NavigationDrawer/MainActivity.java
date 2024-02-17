@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
 
-    private FirebaseAuth.AuthStateListener authStateListener;
 
     // Método onCreate que se llama al crear la actividad
     @Override
@@ -78,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
 
             //Checkeo si es usuario esta baneado. Si lo está lo redirige al login.
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Usuario usuario = dataSnapshot.getValue(Usuario.class);
                 if (usuario != null) {
 
                     boolean isBaned = usuario.isBaned();
                     if (isBaned) {
                         // isBaned es true
-                        Toast.makeText(MainActivity.this, "Has sido baneado, no puedes iniciar sesión", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, getResources().getString(R.string.textoHaSidoBaneado), Toast.LENGTH_LONG).show();
                         FirebaseAuth.getInstance().signOut();
 
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Error al obtener el valor de isChecked
                 Log.e("OnCanceledError", "onCancelled: MainActivity");
             }
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Error al obtener el rol
                 Log.e("OnCanceledError", "onCancelled: MainActivity");
             }
@@ -131,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         // Extracción del nombre de usuario del correo electrónico
         String userEmail = currentUser.getEmail();
         TextView nombreUsuarioHeader = headerView.findViewById(R.id.TextViewNombreUsuarioHeader);
+        assert userEmail != null;
         nombreUsuarioHeader.setText(userEmail.split("@")[0]);
         TextView emailUsuarioheader = headerView.findViewById(R.id.TextViewEmailUsuarioHeader);
         emailUsuarioheader.setText(userEmail);

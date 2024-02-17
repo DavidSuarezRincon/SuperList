@@ -11,6 +11,7 @@ import com.david.superlist.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,12 +32,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnEnviarCorreo.setOnClickListener(view -> {
             // Enviar correo de recuperación de contraseña
 
-            if (!checkEmail(email.getText().toString())) {
+            if (!checkEmail(Objects.requireNonNull(email.getText()).toString())) {
                 setError("El formato del email no es el correcto.", email);
                 return;
             }
 
-            if (!email.getText().toString().equals(secondEmail.getText().toString())) {
+            if (!email.getText().toString().equals(Objects.requireNonNull(secondEmail.getText()).toString())) {
                 setError("Los emails no coinciden.", secondEmail);
                 return;
             }
@@ -49,11 +50,11 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             // El correo electrónico se envió correctamente
-                            Toast.makeText(this, "El correo electrónico se envió correctamente.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getResources().getString(R.string.textoRecuperarContraseñaEnvioCorrecto), Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             // Hubo un error al enviar el correo electrónico
-                            Toast.makeText(this, "Hubo un error enviando el correo electronico.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, getResources().getString(R.string.textoRecuperarContraseñaEnvioIncorrecto), Toast.LENGTH_SHORT).show();
                         }
                     });
         });

@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -20,16 +19,14 @@ import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Lista;
 import com.david.superlist.pojos.Usuario;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 // Esta actividad permite al usuario registrarse en la aplicación
 public class RegisterActivity extends AppCompatActivity {
@@ -62,9 +59,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Establecimiento de los listeners de los clics
         buttonRegister.setOnClickListener(v -> {
-            String email = registerEmailEditText.getText().toString();
-            String firstPasswordInput = firstPasswordEditText.getText().toString();
-            String secondPasswordInput = secondPasswordEditText.getText().toString();
+            String email = Objects.requireNonNull(registerEmailEditText.getText()).toString();
+            String firstPasswordInput = Objects.requireNonNull(firstPasswordEditText.getText()).toString();
+            String secondPasswordInput = Objects.requireNonNull(secondPasswordEditText.getText()).toString();
 
             // Verificación de los errores de registro
             if (!checkRegisterErrors(email, firstPasswordInput, secondPasswordInput)) {
@@ -144,41 +141,33 @@ public class RegisterActivity extends AppCompatActivity {
         et.setError(notMatchingPasswordsErrorMessage);
     }
 
-    // Método para mostrar un error cuando el usuario ya existe
-    private void setUserAlreadyExistsError(EditText et) {
-        String userAlreadyExistsError = getResources().getString(R.string.textoErrorUsuarioExistente);
-        et.setError(userAlreadyExistsError);
-    }
-
     // Método para crear un usuario en Firebase
     private void crearUsuarioFirebase(String email, String password) {
         registermAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Si el registro es exitoso, actualiza la interfaz de usuario con la información del usuario
-                            Log.d(TAG, "createUserWithEmail:success");
-                            Toast.makeText(RegisterActivity.this, "Se registró correctamente..",
-                                    Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = registermAuth.getCurrentUser();
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Si el registro es exitoso, actualiza la interfaz de usuario con la información del usuario
+                        Log.d(TAG, "createUserWithEmail:success");
+                        Toast.makeText(RegisterActivity.this, getResources().getString(R.string.textoSeRegistroCorrectamente),
+                                Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = registermAuth.getCurrentUser();
 
-                            // Crear un nuevo registro en la base de datos
-                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                            ArrayList<Lista> listas = new ArrayList<>();
-                            listas.add(Lista.nuevaListaDefault(contexto));
+                        // Crear un nuevo registro en la base de datos
+                        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                        ArrayList<Lista> listas = new ArrayList<>();
+                        listas.add(Lista.nuevaListaDefault(contexto));
 
-                            Usuario nuevoUsuario = new Usuario(user.getUid(), 0, listas, email.split("@")[0], email, false); // 0 para rol de usuario, ArrayList vacío para las listas
-                            database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);
+                        assert user != null;
+                        Usuario nuevoUsuario = new Usuario(user.getUid(), 0, listas, email.split("@")[0], email, false); // 0 para rol de usuario, ArrayList vacío para las listas
+                        database.child("SuperList").child(user.getUid()).setValue(nuevoUsuario);
 
-                            updateUI(user);
-                        } else {
-                            // Si el registro falla, muestra un mensaje al usuario
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_LONG).show();
-                            updateUI(null);
-                        }
+                        updateUI(user);
+                    } else {
+                        // Si el registro falla, muestra un mensaje al usuario
+                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                        Toast.makeText(RegisterActivity.this, Objects.requireNonNull(task.getException()).getMessage(),
+                                Toast.LENGTH_LONG).show();
+                        updateUI(null);
                     }
                 });
     }

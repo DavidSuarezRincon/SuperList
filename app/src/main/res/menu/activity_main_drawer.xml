@@ -17,11 +17,11 @@
         <item
             android:id="@+id/nav_administrar_usuarios"
             android:icon="@drawable/manage_users_icon"
-            android:title="Administrar Usuarios" />
+            android:title="@string/textoDrawerAdminUsuarios" />
         <item
             android:id="@+id/nav_grafico"
             android:icon="@drawable/graphic_icon"
-            android:title="Gráfico de listas" />
+            android:title="@string/textoGraficoListas" />
 
         <item
             android:id="@+id/nav_Logout"

@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Random;
 
 // Esta clase representa el fragmento del menú de listas en la aplicación
@@ -107,8 +108,11 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
                 }
 
 
-
-                adapter = new AdaptadorLista(lists, getActivity(), MenuListasFragment.this);
+                if (lists != null) {
+                    adapter = new AdaptadorLista(lists, getContext(), MenuListasFragment.this);
+                } else {
+                    adapter = new AdaptadorLista(new ArrayList<>(), getContext(), MenuListasFragment.this);
+                }
                 recView = view.findViewById(R.id.rvLista);
                 recView.setAdapter(adapter);
                 recView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -119,7 +123,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.e("onCancelledError", "Error!", error.toException());
-                Toast.makeText(getActivity(), "Error al cargar los datos", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), getResources().getString(R.string.textoErrorCargandoDatos), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             }
         };
@@ -176,6 +180,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
         Bundle bundle = new Bundle();
         bundle.putSerializable("listaDeTareas", listaDetareas);
         bundle.putInt("posLista", numLista);
+        bundle.putString("nombreLista", listaAbrir.getName());
         intent.putExtras(bundle);
 
         startActivity(intent);
@@ -213,7 +218,7 @@ public class MenuListasFragment extends Fragment implements Serializable, Recycl
     // Método para inicializar el listener del menú emergente
     private void initializeOnClickListenerPopUp(int position, PopupMenu popup) {
         popup.setOnMenuItemClickListener(item -> {
-            String optionClicked = item.getTitle().toString();
+            String optionClicked = Objects.requireNonNull(item.getTitle()).toString();
             String openText = getResources().getString(R.string.textoMenuListaAbrir);
             String infoText = getResources().getString(R.string.textDesplegableBotonInfo);
             String deleteText = getResources().getString(R.string.textoMenuListaBorrar);

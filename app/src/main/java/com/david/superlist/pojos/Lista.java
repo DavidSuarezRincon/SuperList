@@ -52,11 +52,10 @@ public class Lista implements Parcelable {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
 
             ArrayList<TareaLista> listaTareasDefault = new ArrayList<>();
-            listaTareasDefault.add(TareaLista.nuevaTareaDefault());
-            Lista lista = new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
+            listaTareasDefault.add(TareaLista.nuevaTareaDefault(context));
+            return new Lista(0, generarColor(), "Lista de prueba", "Esta es tu primera lista",
                     fechaActual.plusDays(1).format(formatter),
                     context.getString(R.string.textoOtraLista), fechaActual.format(formatter), listaTareasDefault);
-            return lista;
         }
 
         return null;
@@ -156,8 +155,7 @@ public class Lista implements Parcelable {
     public ArrayList<TareaLista> getTasksList() {
 
         if (tasksList == null) {
-            ArrayList<TareaLista> aux = new ArrayList<>();
-            return aux;
+            return new ArrayList<>();
         }
         return tasksList;
     }

@@ -93,4 +93,19 @@
     <string name="textoListaTareas">Tasklist</string>
     <string name="textoReceta">Recipe</string>
     <string name="textoOtraLista">Other</string>
+    <string name="textoNoHayUsuarios">You are the only user.</string>
+    <string name="textoPrioridadAlta">High</string>
+    <string name="textoPrioridadMedia">Medium</string>
+    <string name="textoPrioridadBaja">Lower</string>
+    <string name="textoDrawerAdminUsuarios">Manage users</string>
+    <string name="textoGraficoListas">List graph</string>
+    <string name="enviarCorreoRecuperacionTexto">Send password recovery email</string>
+    <string name="textoTarea">Task</string>
+    <string name="textoAñadirTareaBoton">ADD</string>
+    <string name="textoRecuperarContraseñaEnvioCorrecto">The email was sent correctly.</string>
+    <string name="textoRecuperarContraseñaEnvioIncorrecto">There was an error by sending the email.</string>
+    <string name="textoAutenticacionFallida">Authentication failed.</string>
+    <string name="textoHaSidoBaneado">You have been banned, you can\'t log in.</string>
+    <string name="textoSeRegistroCorrectamente">You have registered correctly.</string>
+    <string name="textoErrorCargandoDatos">Error loading the data.</string>
 </resources>

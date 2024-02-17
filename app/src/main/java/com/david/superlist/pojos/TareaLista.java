@@ -1,10 +1,12 @@
 package com.david.superlist.pojos;
 
-import android.os.Build;
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+
+import com.david.superlist.R;
 
 import java.util.Objects;
 
@@ -38,8 +40,8 @@ public class TareaLista implements Parcelable {
     }
 
     // Método para crear una TareaLista por defecto
-    public static TareaLista nuevaTareaDefault() {
-        return new TareaLista("Es una tarea de prueba.", "Alta");
+    public static TareaLista nuevaTareaDefault(Context context) {
+        return new TareaLista("Es una tarea de prueba.", context.getResources().getString(R.string.textoPrioridadAlta));
     }
 
     // Getters y setters

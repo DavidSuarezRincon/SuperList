@@ -42,9 +42,7 @@ public class AniadirListaActivity extends AppCompatActivity {
 
         // Inicialización de las vistas
         buttonGoBack = findViewById(R.id.BotonVolverMainInfo);
-        buttonGoBack.setOnClickListener(v -> {
-            finish();
-        });
+        buttonGoBack.setOnClickListener(v -> finish());
 
         txtName = findViewById(R.id.NombreEditText);
         txtDescription = findViewById(R.id.DescripcionEditText);
@@ -54,14 +52,10 @@ public class AniadirListaActivity extends AppCompatActivity {
         datePickerButton = findViewById(R.id.botonAniadirFecha);
         ShowDateTextView = findViewById(R.id.SelectedDaytextView);
         startDatePicker();
-        datePickerButton.setOnClickListener(v -> {
-            datePickerDialog.show();
-        });
+        datePickerButton.setOnClickListener(v -> datePickerDialog.show());
 
         addButton = findViewById(R.id.botonAniadirListaActivity);
-        addButton.setOnClickListener(View -> {
-            checkAndContinueLista();
-        });
+        addButton.setOnClickListener(View -> checkAndContinueLista());
     }
 
     // Método que se llama cuando se devuelve un resultado de una actividad
@@ -110,6 +104,7 @@ public class AniadirListaActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddItemsListaActivity.class);
         Lista newLista = MenuListasFragment.createLista(name, description, endDate, listType, null);
         intent.putExtra("newList", newLista);
+        intent.putExtra("nombreLista", newLista.getName());
         startActivityForResult(intent, 2);
     }
 
@@ -119,7 +114,6 @@ public class AniadirListaActivity extends AppCompatActivity {
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
                 selectedDate = dayOfMonth + "/" + (month + 1) + "/" + year;
                 ShowDateTextView.setText(selectedDate);
             }

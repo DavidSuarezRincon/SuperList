@@ -33,6 +33,7 @@ public class HomeFragment extends Fragment {
         if (currentUser != null) {
             // Extracción del nombre de usuario del correo electrónico
             String username = currentUser.getEmail();
+            assert username != null;
             homeViewModel.setTextUserName(username.split("@")[0]);
         }
 

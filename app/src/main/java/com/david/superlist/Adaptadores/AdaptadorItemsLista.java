@@ -23,8 +23,8 @@ import java.util.ArrayList;
 public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsLista.MyViewHolder> {
 
     // Declaración de variables de instancia
-    private Context context;
-    private ArrayList<TareaLista> listaTareas;
+    private final Context context;
+    private final ArrayList<TareaLista> listaTareas;
     private final RecyclerViewInterface recyclerViewInterface;
 
     // Constructor de la clase
@@ -46,7 +46,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         TareaLista newTarea = listaTareas.get(position);
-        Log.i("posicion", position + "");
+        Log.i("posicion", String.valueOf(position));
 
         // Elimina el listener antes de configurar el estado del CheckBox
         holder.tarea.setOnCheckedChangeListener(null);
@@ -54,7 +54,7 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
         holder.tarea.setText(newTarea.getTask());
         holder.tarea.setChecked(newTarea.isChecked()); // Usa el nuevo campo
 
-        Log.i("estaChekeado", newTarea.isChecked() + "");
+        Log.i("estaChekeado", String.valueOf(newTarea.isChecked()));
 
         if (newTarea.isChecked()) {
             holder.tarea.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
@@ -84,16 +84,21 @@ public class AdaptadorItemsLista extends RecyclerView.Adapter<AdaptadorItemsList
     private int getColorInt(TareaLista tarea) {
         String prioridad = tarea.getPriority().toLowerCase();
 
-        switch (prioridad) {
-            case "baja":
-                return Color.rgb(0, 255, 0); // Verde
-            case "media":
-                return Color.rgb(255, 255, 0); // Amarillo
-            case "alta":
-                return Color.rgb(255, 0, 0); // Rojo
-            default:
-                return Color.WHITE;
+        String prioridadAltaTexto = context.getResources().getString(R.string.textoPrioridadAlta).toLowerCase();
+        String prioridadMediaTexto = context.getResources().getString(R.string.textoPrioridadMedia).toLowerCase();
+        String prioridadBajaTexto = context.getResources().getString(R.string.textoPrioridadBaja).toLowerCase();
+
+        if (prioridad.equals(prioridadAltaTexto)) {
+            return Color.rgb(255, 0, 0); // Rojo
         }
+        if (prioridad.equals(prioridadMediaTexto)) {
+            return Color.rgb(255, 255, 0); // Amarillo
+        }
+        if (prioridad.equals(prioridadBajaTexto)) {
+            return Color.rgb(0, 255, 0); // Verde
+        }
+
+        return Color.WHITE;
     }
 
     // Método para obtener el número de elementos en la lista de tareas

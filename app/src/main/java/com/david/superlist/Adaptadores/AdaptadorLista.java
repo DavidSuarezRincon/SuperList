@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.david.superlist.Interfaces.RecyclerViewInterface;
@@ -26,26 +27,31 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
     private RecyclerViewInterface recyclerViewInterface; // Interfaz para gestionar los clicks en los items del RecyclerView
 
     // Constructor de la clase
-
     public AdaptadorLista() {
 
     }
 
     public AdaptadorLista(ArrayList<Lista> datos, Context contexto, RecyclerViewInterface rvi) {
         try {
-
             this.inflater = LayoutInflater.from(contexto);
             this.datos = datos;
             this.recyclerViewInterface = rvi;
 
         } catch (NullPointerException npe) {
-            Log.e("NullPointerException", "AdaptadorLista: NullPointerException AdaptadorLista Constructor");
+            Log.e("NullPointerException", "AdaptadorLista: " + npe);
+        }
+        catch (Exception e){
+            Log.e("Exception", "AdaptadorLista: " + e);
+        }
+        catch (Error e){
+            Log.e("Error", "AdaptadorLista: " + e);
         }
     }
 
     // Método para crear el ViewHolder
+    @NonNull
     @Override
-    public ListaViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public ListaViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         View itemView = inflater.inflate(R.layout.activity_lista, null);
         return new ListaViewHolder(itemView, recyclerViewInterface);
     }
@@ -96,32 +102,26 @@ public class AdaptadorLista extends RecyclerView.Adapter<AdaptadorLista.ListaVie
             txtDescripcion = itemView.findViewById(R.id.TxtVTipoLista);
             txtFecha = itemView.findViewById(R.id.TxtVFecha);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (rvi != null) {
+            itemView.setOnClickListener(v -> {
+                if (rvi != null) {
 
-                        int pos = getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            rvi.onItemClick(pos);
-                        }
-
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        rvi.onItemClick(pos);
                     }
+
                 }
             });
 
             // Establecimiento del listener de click largo
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (rvi != null) {
-                        int pos = getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            rvi.onItemLongClick(pos);
-                        }
+            itemView.setOnLongClickListener(v -> {
+                if (rvi != null) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION) {
+                        rvi.onItemLongClick(pos);
                     }
-                    return true;
                 }
+                return true;
             });
         }
 

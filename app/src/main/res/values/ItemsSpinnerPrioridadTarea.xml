@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="itemsSpinnerPrioridadTarea">
-        <item>Alta</item>
-        <item>Media</item>
-        <item>Baja</item>
+        <item>@string/textoPrioridadAlta</item>
+        <item>@string/textoPrioridadMedia</item>
+        <item>@string/textoPrioridadBaja</item>
     </string-array>
 </resources>

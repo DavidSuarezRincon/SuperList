@@ -48,7 +48,6 @@ public class GraficoFragment extends Fragment {
     private int listaDeTareas = 0;
     private int receta = 0;
     private int otro = 0;
-    private Context contextoStrings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,8 +59,9 @@ public class GraficoFragment extends Fragment {
         textoNoHayListas = view.findViewById(R.id.textoNoHayListas);
         inicializarCantidadListas();
 
-        contextoStrings = this.getContext();
+        Context contextoStrings = this.getContext();
 
+        assert contextoStrings != null;
         String textoListaCompra = contextoStrings.getString(R.string.textoListaCompra);
         String textoListaDeseos = contextoStrings.getString(R.string.textoListaDeseos);
         String textoListaTareas = contextoStrings.getString(R.string.textoListaTareas);
@@ -168,8 +168,8 @@ public class GraficoFragment extends Fragment {
             // Calcula el porcentaje que cada cantidad representa del total
             float percentage = 0;
 
-            if (total != 0){
-                 percentage = (float) cantidadesTiposDeListas[i] / total * 100;
+            if (total != 0) {
+                percentage = (float) cantidadesTiposDeListas[i] / total * 100;
             }
 
             // Añade la cantidad y el porcentaje al lado del nombre
@@ -194,9 +194,9 @@ public class GraficoFragment extends Fragment {
         }
 
         // Calcula los porcentajes y crea las entradas del gráfico de pastel
-        for (int i = 0; i < cantidadesTiposDeListas.length; i++) {
+        for (int cantidadesTiposDeLista : cantidadesTiposDeListas) {
             // Calcula el porcentaje que cada cantidad representa del total
-            float percentage = (float) cantidadesTiposDeListas[i] / total * 100;
+            float percentage = (float) cantidadesTiposDeLista / total * 100;
             // Crea una entrada con el porcentaje y la añade a la lista
             entries.add(new PieEntry(percentage));
         }

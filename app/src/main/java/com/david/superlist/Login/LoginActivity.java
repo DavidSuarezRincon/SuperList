@@ -17,9 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.david.superlist.NavigationDrawer.MainActivity;
 import com.david.superlist.R;
 import com.david.superlist.pojos.Usuario;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -108,21 +105,18 @@ public class LoginActivity extends AppCompatActivity {
     private void logUser(String email, String password) {
 
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(TAG, "signInWithEmail:success");
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        updateUI(user);
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        Toast.makeText(LoginActivity.this, getResources().getString(R.string.textoAutenticacionFallida),
+                                Toast.LENGTH_SHORT).show();
+                        updateUI(null);
                     }
                 });
     }
@@ -137,15 +131,14 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Checkeo si es usuario esta baneado. Si lo está lo redirige al login.
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Usuario usuario = dataSnapshot.getValue(Usuario.class);
                     if (usuario != null) {
 
                         boolean isBaned = usuario.isBaned();
                         if (isBaned) {
                             // isBaned es true
-                            Log.i("EntroBaneado", "El usuario esta baneado " + isBaned);
-                            Toast.makeText(LoginActivity.this, "Has sido baneado, no puedes iniciar sesión", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.textoHaSidoBaneado), Toast.LENGTH_LONG).show();
                             FirebaseAuth.getInstance().signOut();
 
                         } else {
@@ -155,21 +148,16 @@ public class LoginActivity extends AppCompatActivity {
                             overridePendingTransition(R.anim.slide_in_bottom, R.anim.slide_out_top);
                             startActivity(claseMain);
                             finish();
-
-                            Log.i("EntroBaneado", "El no esta baneado " + isBaned);
                         }
                     }
                 }
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
+                public void onCancelled(@NonNull DatabaseError databaseError) {
                     // Error al obtener el valor de isChecked
                     Log.e("OnCanceledError", "onCancelled: MainActivity");
                 }
             });
-        } else {
-            // Handle the case when user is null
-            // For example, navigate back to login screen
         }
     }
 

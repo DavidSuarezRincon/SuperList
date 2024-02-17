@@ -47,6 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AddItemsListaActivity extends AppCompatActivity implements RecyclerViewInterface {
 
@@ -80,7 +81,6 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
         imageButtonGoBack = findViewById(R.id.BotonVolverMainInfo);
         recyclerViewItems = findViewById(R.id.recyclerViewTareas);
         download_pdf_button = findViewById(R.id.download_pdf_button);
-
     }
 
     // Método para establecer los listeners de los clics
@@ -110,7 +110,6 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
             //tasks será nullo cuando no hayan tareas porque firebase borra el nodo padre
             // cuando no hay nada dentro de él. Pero si llega un intent pero es nullo.
             //Por ello se pregunta si es nulo para instanciarlo.
-
             tasks = new ArrayList<>();
         }
 
@@ -122,7 +121,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     // Método para manejar la adición de la lista a la actividad principal
     private void handleAddListToMain() {
         if (getIntent().hasExtra("listaDeTareas")) {
-            int positionTask = getIntent().getExtras().getInt("posLista");
+            int positionTask = Objects.requireNonNull(getIntent().getExtras()).getInt("posLista");
             MenuListasFragment.changeTasks(positionTask, tasks);
         } else {
             addListToMain();
@@ -136,16 +135,16 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     // Método para añadir una nueva lista a MenuListasFragment
     private void addListToMain() {
         Bundle listData = getIntent().getExtras();
+        assert listData != null;
         Lista newList = listData.getParcelable("newList");
 
+        assert newList != null;
         newList.setTasksList(tasks);
         MenuListasFragment.addLista(newList);
-
     }
 
     // Método para mostrar un diálogo de advertencia
     private void showWarningDialog() {
-
         if (!getIntent().hasExtra("listaDeTareas")) {
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -189,7 +188,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
         // Establecer el listener del botón para agregar tarea
         addTaskButton.setOnClickListener(v1 -> {
             // Obtener el texto de la tarea
-            String tasktext = inputStringTask.getText().toString();
+            String tasktext = Objects.requireNonNull(inputStringTask.getText()).toString();
 
             // Verificar si el texto de la tarea está vacío
             if (TextUtils.isEmpty(tasktext)) {
@@ -219,7 +218,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
         tasks.add(newTask);
         adapter.notifyDataSetChanged();
         if (getIntent().hasExtra("listaDeTareas")) {
-            int positionTask = getIntent().getExtras().getInt("posLista");
+            int positionTask = Objects.requireNonNull(getIntent().getExtras()).getInt("posLista");
             MenuListasFragment.changeTasks(positionTask, tasks);
         }
     }
@@ -276,6 +275,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     private void createPdfFromDataList(ArrayList<TareaLista> tasks, Uri uri, String title) {
         try {
             ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "w");
+            assert pfd != null;
             FileOutputStream fos = new FileOutputStream(pfd.getFileDescriptor());
 
             // Crear un documento
@@ -343,7 +343,7 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
 
         // Configurar los datos de la tarea en la vista
         CheckBox checkBox = taskView.findViewById(R.id.checkBoxTarea);
-        StringBuffer sf = new StringBuffer(task.getTask());
+        StringBuilder sf = new StringBuilder(task.getTask());
         sf.setLength(40);
         checkBox.setText(sf.toString());
 
@@ -364,16 +364,23 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
     private int getColorInt(TareaLista tarea) {
         String prioridad = tarea.getPriority().toLowerCase();
 
-        switch (prioridad) {
-            case "baja":
-                return Color.rgb(0, 255, 0); // Verde
-            case "media":
-                return Color.rgb(255, 255, 0); // Amarillo
-            case "alta":
-                return Color.rgb(255, 0, 0); // Rojo
-            default:
-                return Color.WHITE;
+
+
+        String prioridadAltaTexto = getResources().getString(R.string.textoPrioridadAlta).toLowerCase();
+        String prioridadMediaTexto = getResources().getString(R.string.textoPrioridadMedia).toLowerCase();
+        String prioridadBajaTexto = getResources().getString(R.string.textoPrioridadBaja).toLowerCase();
+
+        if (prioridad.equals(prioridadAltaTexto)) {
+            return Color.rgb(255, 0, 0); // Rojo
         }
+        if (prioridad.equals(prioridadMediaTexto)) {
+            return Color.rgb(255, 255, 0); // Amarillo
+        }
+        if (prioridad.equals(prioridadBajaTexto)) {
+            return Color.rgb(0, 255, 0); // Verde
+        }
+
+        return Color.WHITE;
     }
 
     @Override
@@ -382,7 +389,16 @@ public class AddItemsListaActivity extends AppCompatActivity implements Recycler
         if (requestCode == WRITE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (resultData != null) {
                 Uri uri = resultData.getData();
-                createPdfFromDataList(tasks, uri, "Mi titulo");
+
+                Intent intent = getIntent();
+                Bundle bundle = intent.getExtras();
+
+                String nombreLista = "";
+                if (bundle != null) {
+                    nombreLista = bundle.getString("nombreLista");
+                }
+
+                createPdfFromDataList(tasks, uri, nombreLista);
             }
         }
     }

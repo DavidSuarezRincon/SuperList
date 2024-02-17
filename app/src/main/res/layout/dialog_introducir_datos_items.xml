@@ -13,7 +13,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="12dp"
         android:backgroundTint="#161925"
-        android:text="AGREGAR"
+        android:text="@string/textoAñadirTareaBoton"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,9 +33,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputTarea"
+            android:hint="@string/textoTarea"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tarea" />
+            android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner

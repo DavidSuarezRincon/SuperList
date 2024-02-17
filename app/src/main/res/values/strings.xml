@@ -107,6 +107,21 @@
     <string name="textoListaTareas">Lista de tareas</string>
     <string name="textoReceta">Receta</string>
     <string name="textoOtraLista">Otro</string>
+    <string name="textoNoHayUsuarios">Eres el único usuario.</string>
+    <string name="textoPrioridadAlta">Alta</string>
+    <string name="textoPrioridadMedia">Media</string>
+    <string name="textoPrioridadBaja">Baja</string>
+    <string name="textoDrawerAdminUsuarios">Administrar usuarios</string>
+    <string name="textoGraficoListas">Gráfico de listas</string>
+    <string name="enviarCorreoRecuperacionTexto">Enviar correo recuperar contraseña</string>
+    <string name="textoTarea">Tarea</string>
+    <string name="textoAñadirTareaBoton">AGREGAR</string>
+    <string name="textoRecuperarContraseñaEnvioCorrecto">El correo electrónico se envió correctamente.</string>
+    <string name="textoRecuperarContraseñaEnvioIncorrecto">Hubo un error enviando el correo electrónico.</string>
+    <string name="textoAutenticacionFallida">Fallo al autenticarse.</string>
+    <string name="textoHaSidoBaneado">Has sido baneado, no puedes iniciar sesión.</string>
+    <string name="textoSeRegistroCorrectamente">Se registró correctamente.</string>
+    <string name="textoErrorCargandoDatos">Error al cargar los datos.</string>
 
 
 </resources>
