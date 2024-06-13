@@ -1,0 +1,1 @@
+This is my first app, which features an Android-based layout. It’s designed to create various types of lists, such as shopping lists, wish lists, or task lists. Each list is automatically saved to the Firebase cloud for convenience and easy access.
